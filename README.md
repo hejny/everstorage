@@ -1,13 +1,22 @@
-# XYZT
-A vector simple vector manipulation class.
+# Everstorage
+TODO: Write some usage and description
 
-## Install
 
-```bash
-npm i xyzt
+
+TODO:
 ```
 
+IStorage IObjectSt IAsyncSt IObservableStorage ISemantic storage  – a úložiště s defaultně hodnotou
 
 
+do budoucna by v téhle knihovně měl být i nějaký způsob jak se rest-api vyrobit asynchronní storedge
 
-TODO: Write some usage and description
+
+celá knihovna je jakýsi toolbox pro kombinování těchto úložišť vytváření a přetváření jednoho typu úložiště do druhého s tím že jako základní typy můžou posloužit lokal Story sessions to reach a wrapper pro používání browser history zároveň existují u tety pro vytvoření asynchronního úložiště z nějakého rest případně jiného
+
+udělat základní stránku knihovny s tím že ukážu, kdo jí dělal, kde se využívá a pobídnu k přispívání
+
+ koncept mikro knihoven
+
+
+```

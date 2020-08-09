@@ -1,6 +1,6 @@
 {
-  "name": "xyzt",
-  "version": "2.1.0",
+  "name": "everstorage",
+  "version": "0.0.0",
   "author": "Pavol Hejný <me@pavolhejny.com> (https://pavolhejny.com)",
   "description": "A vector manipulation class",
   "main": "./dist/main.js",
@@ -10,7 +10,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:hejny/vector.git"
+    "url": "git+git@github.com/hejny/everstorage"
   },
   "keywords": [],
   "license": "MIT",
