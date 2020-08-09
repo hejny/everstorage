@@ -1,3 +1,1 @@
-export interface IInstantiable {
-    new (...args: any[]): any;
-}
+export type IInstantiable = new (...args: any[]) => any;

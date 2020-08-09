@@ -1,6 +1,6 @@
 /**
  * TODO: Create
  */
-export interface IAsyncStorage{
-
+export interface IAsyncStorage {
+    todo: 'TODO';
 }

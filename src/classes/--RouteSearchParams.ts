@@ -2,33 +2,31 @@ import isEqual from 'lodash/isEqual';
 import { interval, Observable, Observer } from 'rxjs';
 import { debounce, share } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
-import { ObjectStorage } from './ObjectStorage';
+
 import { isNumeric } from '../utils/isNumeric';
-
-
+import { ObjectStorage } from './ObjectStorage';
 
 type IParams = Record<string, string | number | null | undefined>;
-
 
 /**
  * Note: We are not using array query params in the Collboard
  * TODO: This is taken from CollBoard and should be reviewed - this should be part of some storage
  *
  */
-class RouteSearchParams<TParams extends IParams> {
+export class RouteSearchParams<TParams extends IParams> {
     public values: Observable<TParams>;
     private lastParams: TParams;
     private urlsObserver: Observer<TParams>;
     private serializedStorage: ObjectStorage<TParams>;
 
     constructor(defaultParams: TParams) {
-        //------------- Creating serializedStorage
+        // ------------- Creating serializedStorage
 
         this.serializedStorage = new ObjectStorage<TParams>(localStorage);
 
-        //------------- Observing the browser state
+        // ------------- Observing the browser state
         this.values = Observable.create((observer: Observer<TParams>) => {
-            //this.valuesObserver = observer;
+            // this.valuesObserver = observer;
 
             window.addEventListener('popstate', (event) => {
                 const params = event.state as TParams /* TODO: Check and separate*/;
@@ -39,7 +37,9 @@ class RouteSearchParams<TParams extends IParams> {
             const url = new URL(window.location.toString());
             const params: Partial<TParams> = {};
             for (const key of Object.keys(defaultParams)) {
-                let value: string | number | null = url.searchParams.get(key as any);
+                let value: string | number | null = url.searchParams.get(
+                    key as any,
+                );
                 if (isNumeric(value)) {
                     value = parseFloat(value as any);
                 }
@@ -49,15 +49,21 @@ class RouteSearchParams<TParams extends IParams> {
             observer.next(params as TParams);
         }).pipe(share()); // TODO: Maybe publish or none
 
-        //------------- Pushing state to browser
-        const urls: Observable<TParams> = Observable.create((observer: Observer<TParams>) => {
-            this.urlsObserver = observer;
-        }).pipe(
-            debounce(() => interval(1000 /* TODO: Is there some better solution then debouncing with interval? */)),
+        // ------------- Pushing state to browser
+        const urls: Observable<TParams> = Observable.create(
+            (observer: Observer<TParams>) => {
+                this.urlsObserver = observer;
+            },
+        ).pipe(
+            debounce(() =>
+                interval(
+                    1000 /* TODO: Is there some better solution then debouncing with interval? */,
+                ),
+            ),
         );
 
         urls.subscribe((params) => {
-            //console.log(`params`, params, this.lastParams);
+            // console.log(`params`, params, this.lastParams);
 
             if (isEqual(params, this.lastParams)) {
                 // Preventing pushing same state twice
@@ -75,7 +81,7 @@ class RouteSearchParams<TParams extends IParams> {
             this.serializedStorage.setItem('params', params);
         });
 
-        //------------- Initial params
+        // ------------- Initial params
 
         let initialParams = this.serializedStorage.getItem('params');
 
@@ -83,7 +89,7 @@ class RouteSearchParams<TParams extends IParams> {
             initialParams = defaultParams;
         }
 
-        console.log('initialParams', initialParams);
+        // console.log('initialParams', initialParams);
 
         this.lastParams = initialParams;
         window.history.replaceState(

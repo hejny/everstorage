@@ -1,8 +1,6 @@
-
-
 /**
  * TODO: Create
  */
-export interface IObservableStorage{
-
+export interface IObservableStorage {
+    todo: 'TODO';
 }

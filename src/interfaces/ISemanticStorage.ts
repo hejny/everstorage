@@ -1,8 +1,6 @@
-
-
 /**
  * TODO: Create
  */
-export interface ISemanticStorage{
-
+export interface ISemanticStorage {
+    todo: 'TODO';
 }
