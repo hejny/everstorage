@@ -22,6 +22,7 @@ export class MemoryStorage implements IStorage {
 
     /**
      * Returns the current value associated with the given key, or null if the given key does not exist in the list associated with the object.
+     * @param key
      */
     public getItem(key: string): string | null {
         return this.storage[key] || null;
