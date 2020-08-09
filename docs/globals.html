@@ -910,45 +910,69 @@ img { max-width: 100%; }
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class=" tsd-kind-class">
-			<a href="classes/boundingbox.html" class="tsd-kind-icon">Bounding<wbr>Box</a>
+			<a href="classes/memorystorage.html" class="tsd-kind-icon">Memory<wbr>Storage</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="classes/objectstorage.html" class="tsd-kind-icon">Object<wbr>Storage</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="classes/transformation.html" class="tsd-kind-icon">Transformation</a>
+			<a href="classes/prefixstorage.html" class="tsd-kind-icon">Prefix<wbr>Storage</a>
 		</li>
-		<li class=" tsd-kind-class">
-			<a href="classes/vector.html" class="tsd-kind-icon">Vector</a>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="classes/routesearchparams.html" class="tsd-kind-icon">Route<wbr>Search<wbr>Params</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="interfaces/ivector.html" class="tsd-kind-icon">IVector</a>
+			<a href="interfaces/iasyncstorage.html" class="tsd-kind-icon">IAsync<wbr>Storage</a>
 		</li>
-		<li class=" tsd-kind-variable tsd-is-not-exported">
-			<a href="globals.html#rotate" class="tsd-kind-icon">ROTATE</a>
+		<li class=" tsd-kind-interface">
+			<a href="interfaces/iobjectstorage.html" class="tsd-kind-icon">IObject<wbr>Storage</a>
 		</li>
-		<li class=" tsd-kind-variable tsd-is-not-exported">
-			<a href="globals.html#scale" class="tsd-kind-icon">SCALE</a>
+		<li class=" tsd-kind-interface">
+			<a href="interfaces/iobservablestorage.html" class="tsd-kind-icon">IObservable<wbr>Storage</a>
 		</li>
-		<li class=" tsd-kind-variable tsd-is-not-exported">
-			<a href="globals.html#transform" class="tsd-kind-icon">TRANSFORM</a>
+		<li class=" tsd-kind-interface">
+			<a href="interfaces/isemanticstorage.html" class="tsd-kind-icon">ISemantic<wbr>Storage</a>
 		</li>
-		<li class=" tsd-kind-variable tsd-is-not-exported">
-			<a href="globals.html#translate" class="tsd-kind-icon">TRANSLATE</a>
+		<li class=" tsd-kind-interface tsd-has-type-parameter">
+			<a href="interfaces/iserializerule.html" class="tsd-kind-icon">ISerialize<wbr>Rule</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="globals.html#iinstantiable" class="tsd-kind-icon">IInstantiable</a>
+		</li>
+		<li class=" tsd-kind-type-alias tsd-is-not-exported">
+			<a href="globals.html#iparams" class="tsd-kind-icon">IParams</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="globals.html#iserialized" class="tsd-kind-icon">ISerialized</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="globals.html#istorage" class="tsd-kind-icon">IStorage</a>
 		</li>
 		<li class=" tsd-kind-function">
-			<a href="globals.html#svgtransformationdecode" class="tsd-kind-icon">svg<wbr>Transformation<wbr>Decode</a>
-		</li>
-		<li class=" tsd-kind-function">
-			<a href="globals.html#svgtransformationencode" class="tsd-kind-icon">svg<wbr>Transformation<wbr>Encode</a>
+			<a href="globals.html#isnumeric" class="tsd-kind-icon">is<wbr>Numeric</a>
 		</li>
 	</ul>
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
 		<div class="tsd-panel tsd-typography">
-			<h1 id="everstorage">everstorage</h1>
-			<p>A vector simple vector manipulation class.</p>
-			<h2 id="install">Install</h2>
-			<pre><code class="language-bash">npm i everstorage</code></pre>
+			<h1 id="everstorage">Everstorage</h1>
 			<p>TODO: Write some usage and description</p>
+			<p>TODO:</p>
+			<pre><code>
+IStorage IObjectStorage IAsyncStorage IObservableStorage ISemanticStorage  – <span class="hljs-keyword">a</span> ú<span class="hljs-keyword">lo</span>žiště s defaultně hodnotou
+
+
+<span class="hljs-keyword">do</span> budoucna by v téhle knihovně <span class="hljs-keyword">m</span>ě<span class="hljs-keyword">l</span> <span class="hljs-keyword">b</span>ýt i nějaký způsob jak <span class="hljs-keyword">se</span> rest-api vyrobit asynchronní storedge
+
+
+celá knihovna je jakýsi toolbox <span class="hljs-keyword">pro</span> kombinování těchto ú<span class="hljs-keyword">lo</span>žišť vytvář<span class="hljs-keyword">en</span>í <span class="hljs-keyword">a</span> <span class="hljs-keyword">p</span>řetvář<span class="hljs-keyword">en</span>í jednoho typu ú<span class="hljs-keyword">lo</span>žiště <span class="hljs-keyword">do</span> druhého s tí<span class="hljs-keyword">m</span> ž<span class="hljs-keyword">e</span> jako <span class="hljs-keyword">z</span>ákladní typy <span class="hljs-keyword">m</span>ůž<span class="hljs-keyword">ou</span> posloužit lokal Story sessions <span class="hljs-keyword">to</span> reach <span class="hljs-keyword">a</span> wrapper <span class="hljs-keyword">pro</span> používání browser <span class="hljs-keyword">history</span> <span class="hljs-keyword">z</span>ároveň existují <span class="hljs-keyword">u</span> tety <span class="hljs-keyword">pro</span> vytvoř<span class="hljs-keyword">en</span>í asynchronního ú<span class="hljs-keyword">lo</span>žiště <span class="hljs-keyword">z</span> nějakého rest <span class="hljs-keyword">p</span>řípadně jiného
+
+udě<span class="hljs-keyword">lat</span> <span class="hljs-keyword">z</span>ákladní stránku knihovny s tí<span class="hljs-keyword">m</span> ž<span class="hljs-keyword">e</span> ukáž<span class="hljs-keyword">u</span>, kdo <span class="hljs-keyword">j</span>í dělal, kde <span class="hljs-keyword">se</span> využívá <span class="hljs-keyword">a</span> pobídnu <span class="hljs-keyword">k</span> <span class="hljs-keyword">p</span>ř<span class="hljs-keyword">isp</span>ívání
+
+ koncept mikro knihoven
+
+</code></pre>
 		</div>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
@@ -957,75 +981,84 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Classes</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-class"><a href="classes/boundingbox.html" class="tsd-kind-icon">Bounding<wbr>Box</a></li>
-							<li class="tsd-kind-class"><a href="classes/transformation.html" class="tsd-kind-icon">Transformation</a></li>
-							<li class="tsd-kind-class"><a href="classes/vector.html" class="tsd-kind-icon">Vector</a></li>
+							<li class="tsd-kind-class"><a href="classes/memorystorage.html" class="tsd-kind-icon">Memory<wbr>Storage</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/objectstorage.html" class="tsd-kind-icon">Object<wbr>Storage</a></li>
+							<li class="tsd-kind-class"><a href="classes/prefixstorage.html" class="tsd-kind-icon">Prefix<wbr>Storage</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/routesearchparams.html" class="tsd-kind-icon">Route<wbr>Search<wbr>Params</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Interfaces</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-interface"><a href="interfaces/ivector.html" class="tsd-kind-icon">IVector</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/iasyncstorage.html" class="tsd-kind-icon">IAsync<wbr>Storage</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/iobjectstorage.html" class="tsd-kind-icon">IObject<wbr>Storage</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/iobservablestorage.html" class="tsd-kind-icon">IObservable<wbr>Storage</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/isemanticstorage.html" class="tsd-kind-icon">ISemantic<wbr>Storage</a></li>
+							<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/iserializerule.html" class="tsd-kind-icon">ISerialize<wbr>Rule</a></li>
 						</ul>
 					</section>
-					<section class="tsd-index-section tsd-is-not-exported">
-						<h3>Variables</h3>
+					<section class="tsd-index-section ">
+						<h3>Type aliases</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#rotate" class="tsd-kind-icon">ROTATE</a></li>
-							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#scale" class="tsd-kind-icon">SCALE</a></li>
-							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#transform" class="tsd-kind-icon">TRANSFORM</a></li>
-							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#translate" class="tsd-kind-icon">TRANSLATE</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#iinstantiable" class="tsd-kind-icon">IInstantiable</a></li>
+							<li class="tsd-kind-type-alias tsd-is-not-exported"><a href="globals.html#iparams" class="tsd-kind-icon">IParams</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#iserialized" class="tsd-kind-icon">ISerialized</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#istorage" class="tsd-kind-icon">IStorage</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Functions</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-function"><a href="globals.html#svgtransformationdecode" class="tsd-kind-icon">svg<wbr>Transformation<wbr>Decode</a></li>
-							<li class="tsd-kind-function"><a href="globals.html#svgtransformationencode" class="tsd-kind-icon">svg<wbr>Transformation<wbr>Encode</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#isnumeric" class="tsd-kind-icon">is<wbr>Numeric</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
-		<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-			<h2>Variables</h2>
-			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
-				<a name="rotate" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagConst">Const</span> ROTATE</h3>
-				<div class="tsd-signature tsd-kind-icon">ROTATE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^rotate\(\s*(\-?\d*\.?\d+(e\-?\d*\.?\d+)?)\s*,?\s*(\-?\d*\.?\d+(e\-?\d*\.?\d+)?)\s*,?\s*(\-?\d*\.?\d+(e\-?\d*\.?\d+)?)\s*\)$/g</span></div>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Type aliases</h2>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="iinstantiable" class="tsd-anchor"></a>
+				<h3>IInstantiable</h3>
+				<div class="tsd-signature tsd-kind-icon">IInstantiable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/c6f5f12/src/utils/svgTools.ts#L6">utils/svgTools.ts:6</a></li>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b161648/src/interfaces/IInstantiable.ts#L1">interfaces/IInstantiable.ts:1</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-is-not-exported">
+				<a name="iparams" class="tsd-anchor"></a>
+				<h3>IParams</h3>
+				<div class="tsd-signature tsd-kind-icon">IParams<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b161648/src/classes/--RouteSearchParams.ts#L9">classes/--RouteSearchParams.ts:9</a></li>
 					</ul>
 				</aside>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
-				<a name="scale" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagConst">Const</span> SCALE</h3>
-				<div class="tsd-signature tsd-kind-icon">SCALE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^scale\(\s*(\-?\d*\.?\d+(e\-?\d*\.?\d+)?)\s*,?\s*(\-?\d*\.?\d+(e\-?\d*\.?\d+)?)\s*\)$/g</span></div>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="iserialized" class="tsd-anchor"></a>
+				<h3>ISerialized</h3>
+				<div class="tsd-signature tsd-kind-icon">ISerialized<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/c6f5f12/src/utils/svgTools.ts#L7">utils/svgTools.ts:7</a></li>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b161648/src/classes/Serializer.ts#L4">classes/Serializer.ts:4</a></li>
 					</ul>
 				</aside>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
-				<a name="transform" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagConst">Const</span> TRANSFORM</h3>
-				<div class="tsd-signature tsd-kind-icon">TRANSFORM<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/\w*\([^)]*\)/g</span></div>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="istorage" class="tsd-anchor"></a>
+				<h3>IStorage</h3>
+				<div class="tsd-signature tsd-kind-icon">IStorage<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Storage</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/c6f5f12/src/utils/svgTools.ts#L4">utils/svgTools.ts:4</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
-				<a name="translate" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagConst">Const</span> TRANSLATE</h3>
-				<div class="tsd-signature tsd-kind-icon">TRANSLATE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> =&nbsp;/^translate\(\s*(\-?\d*\.?\d+(e\-?\d*\.?\d+)?)\s*,?\s*(\-?\d*\.?\d+(e\-?\d*\.?\d+)?)\s*\)$/g</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/c6f5f12/src/utils/svgTools.ts#L5">utils/svgTools.ts:5</a></li>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b161648/src/interfaces/IStorage.ts#L4">interfaces/IStorage.ts:4</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1033,48 +1066,25 @@ img { max-width: 100%; }
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Functions</h2>
 			<section class="tsd-panel tsd-member tsd-kind-function">
-				<a name="svgtransformationdecode" class="tsd-anchor"></a>
-				<h3>svg<wbr>Transformation<wbr>Decode</h3>
+				<a name="isnumeric" class="tsd-anchor"></a>
+				<h3>is<wbr>Numeric</h3>
 				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">svg<wbr>Transformation<wbr>Decode<span class="tsd-signature-symbol">(</span>transform<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/transformation.html" class="tsd-signature-type">Transformation</a></li>
+					<li class="tsd-signature tsd-kind-icon">is<wbr>Numeric<span class="tsd-signature-symbol">(</span>n<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/c6f5f12/src/utils/svgTools.ts#L12">utils/svgTools.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b161648/src/utils/isNumeric.ts#L1">utils/isNumeric.ts:1</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> transform: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></h5>
+								<h5>n: <span class="tsd-signature-type">any</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="classes/transformation.html" class="tsd-signature-type">Transformation</a></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function">
-				<a name="svgtransformationencode" class="tsd-anchor"></a>
-				<h3>svg<wbr>Transformation<wbr>Encode</h3>
-				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">svg<wbr>Transformation<wbr>Encode<span class="tsd-signature-symbol">(</span>transformation<span class="tsd-signature-symbol">: </span><a href="classes/transformation.html" class="tsd-signature-type">Transformation</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/c6f5f12/src/utils/svgTools.ts#L97">utils/svgTools.ts:97</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>transformation: <a href="classes/transformation.html" class="tsd-signature-type">Transformation</a></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 					</li>
 				</ul>
 			</section>
