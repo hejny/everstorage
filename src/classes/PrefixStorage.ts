@@ -1,7 +1,9 @@
+import { IStorage } from "../interfaces/IStorage";
+
 /**
  * This class behaves like LocalStorage but separates keys by prefix
  */
-export class Substorage implements Storage {
+export class PrefixStorage implements IStorage {
     constructor(private baseStorage: Storage, private keyPrefix: string) {}
 
     /**

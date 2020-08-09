@@ -12,7 +12,8 @@ type IParams = Record<string, string | number | null | undefined>;
 
 /**
  * Note: We are not using array query params in the Collboard
- * TODO: This is taken from CollBoard and should be reviewed
+ * TODO: This is taken from CollBoard and should be reviewed - this should be part of some storage
+ *
  */
 class RouteSearchParams<TParams extends IParams> {
     public values: Observable<TParams>;

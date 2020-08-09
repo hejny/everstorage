@@ -6,7 +6,7 @@ TODO: Write some usage and description
 TODO:
 ```
 
-IStorage IObjectSt IAsyncSt IObservableStorage ISemantic storage  – a úložiště s defaultně hodnotou
+IStorage IObjectStorage IAsyncStorage IObservableStorage ISemanticStorage  – a úložiště s defaultně hodnotou
 
 
 do budoucna by v téhle knihovně měl být i nějaký způsob jak se rest-api vyrobit asynchronní storedge
