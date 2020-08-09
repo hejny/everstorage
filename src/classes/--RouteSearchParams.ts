@@ -29,9 +29,9 @@ export class RouteSearchParams<TParams extends IParams> {
             // this.valuesObserver = observer;
 
             window.addEventListener('popstate', (event) => {
-                const params = event.state as TParams /* TODO: Check and separate*/;
-                this.lastParams = params;
-                observer.next(params);
+                const paramsFromState = event.state as TParams /* TODO: Check and separate*/;
+                this.lastParams = paramsFromState;
+                observer.next(paramsFromState);
             });
 
             const url = new URL(window.location.toString());
