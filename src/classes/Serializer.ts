@@ -1,5 +1,4 @@
-import { IInstantiable } from "../interfaces/IInstantiable";
-
+import { IInstantiable } from '../interfaces/IInstantiable';
 
 // TODO: This may be generically typed with deserialized type for example ISerialized<Vector>
 export type ISerialized = Record<string, any> & {

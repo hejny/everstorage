@@ -1,5 +1,3 @@
-
-
 /**
  * Just proxy of Web Storage API interface
  */
