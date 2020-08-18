@@ -1,20 +1,3 @@
-import { IInstantiable } from '../interfaces/IInstantiable';
-
-// TODO: This may be generically typed with deserialized type for example ISerialized<Vector>
-export type ISerialized = Record<string, any> & {
-    __class?: string;
-};
-
-/**
- * TODO: This is taken from CollBoard and should be reviewed
- */
-export interface ISerializeRule<T> {
-    name: string;
-    class: IInstantiable;
-    factory?: (serialized: ISerialized) => T;
-    // TODO: Do it better with plugins migration?: (serialized: ISerialized & T) => T;
-}
-
 // TODO: Still unused - Use (create SerializedStorage<T> using ObjectStorage ) or remove
 // /**
 //  * Serializer can serialize/deserialize objects
