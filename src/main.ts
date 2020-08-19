@@ -1,6 +1,7 @@
 import { AsyncStorage } from './classes/AsyncStorage';
 import { BlackholeStorage } from './classes/BlackholeStorage';
-import { BrowserHistoryStorage } from './classes/BrowserHistoryStorage';
+import { BrowserHistoryQueryParamsStorage } from './classes/BrowserHistoryQueryParamsStorage';
+import { BrowserHistoryRouteStorage } from './classes/BrowserHistoryRouteStorage';
 import { MemoryStorage } from './classes/MemoryStorage';
 import { MultiStorage } from './classes/MultiStorage';
 import { ObjectStorage } from './classes/ObjectStorage';
@@ -9,17 +10,17 @@ import { RemoteStorage } from './classes/RemoteStorage';
 import { IAsyncStorage } from './interfaces/IAsyncStorage';
 import { IInstantiable } from './interfaces/IInstantiable';
 import { IObjectStorage } from './interfaces/IObjectStorage';
-import { IObservableStorage } from './interfaces/IObservableStorage';
+import { IObservablesStorage } from './interfaces/IObservablesStorage';
 import { ISemanticStorage } from './interfaces/ISemanticStorage';
 import { ISerialized } from './interfaces/ISerialized';
 import { ISerializeRule } from './interfaces/ISerializeRule';
 import { IStorage } from './interfaces/IStorage';
 
-// TODO: !!! Add others
 export {
     AsyncStorage,
     BlackholeStorage,
-    BrowserHistoryStorage,
+    BrowserHistoryQueryParamsStorage,
+    BrowserHistoryRouteStorage,
     MemoryStorage,
     MultiStorage,
     ObjectStorage,
@@ -28,7 +29,7 @@ export {
     IAsyncStorage,
     IInstantiable,
     IObjectStorage,
-    IObservableStorage,
+    IObservablesStorage,
     ISemanticStorage,
     ISerialized,
     ISerializeRule,

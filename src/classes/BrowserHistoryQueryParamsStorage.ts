@@ -3,17 +3,20 @@ import { interval, Observable, Observer } from 'rxjs';
 import { debounce, share } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 
+import {
+    IObservablesStorage,
+    IParams,
+} from '../interfaces/IObservablesStorage';
 import { isNumeric } from '../utils/isNumeric';
 import { ObjectStorage } from './ObjectStorage';
-
-type IParams = Record<string, string | number | null | undefined>;
 
 /**
  * Note: We are not using array query params in the Collboard
  * TODO: This is taken from CollBoard and should be reviewed - this should be part of some storage
  *
  */
-export class RouteSearchParams<TParams extends IParams> {
+export class BrowserHistoryQueryParamsStorage<TParams extends IParams>
+    implements IObservablesStorage<TParams> {
     public values: Observable<TParams>;
     private lastParams: TParams;
     private urlsObserver: Observer<TParams>;
@@ -29,7 +32,7 @@ export class RouteSearchParams<TParams extends IParams> {
             // this.valuesObserver = observer;
 
             window.addEventListener('popstate', (event) => {
-                const paramsFromState = event.state as TParams /* TODO: Check and separate*/;
+                const paramsFromState = event.state as TParams /* TODO:  !!! Check and separate*/;
                 this.lastParams = paramsFromState;
                 observer.next(paramsFromState);
             });
