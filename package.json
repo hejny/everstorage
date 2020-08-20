@@ -28,7 +28,7 @@
     "lint": "tslint -p tsconfig.json",
     "preversion": "npm test && npm run lint && npm run build && npm run prettier-commit && npm run documentation-commit",
     "postversion": "git push && git push --tags && npm publish",
-    "generate-main-exports": "ts-node ./scripts/generate-main-exportsgenerate-main-exports.ts"
+    "generate-main-exports": "ts-node ./scripts/generate-main-exports/generate-main-exports.ts"
   },
   "dependencies": {
     "rxjs": "^6.6.2"

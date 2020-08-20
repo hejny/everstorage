@@ -1,44 +1,38 @@
+// GENERATED WITH generate-main-exports
+// Warning: Do not edit by hand, all changes will be lost on next execution!
+
 import { AsyncStorage } from './classes/AsyncStorage';
 import { BlackholeStorage } from './classes/BlackholeStorage';
+import { BrowserHistoryPathStorage } from './classes/BrowserHistoryPathStorage';
 import { BrowserHistoryQueryStorage } from './classes/BrowserHistoryQueryStorage';
-import { BrowserHistoryRouteStorage } from './classes/BrowserHistoryPathStorage';
 import { MemoryStorage } from './classes/MemoryStorage';
 import { MultiStorage } from './classes/MultiStorage';
 import { ObjectStorage } from './classes/ObjectStorage';
 import { PrefixStorage } from './classes/PrefixStorage';
-import { RemoteStorage } from './classes/RemoteStorage';
+import { IParams } from './interfaces/IObservableStorage';
+import { IObservableStorage } from './interfaces/IObservableStorage';
 import { IStorage } from './interfaces/IStorage';
+import { Awaitable } from './interfaces/utils/Awaitable';
 import { Instantiable } from './interfaces/utils/Instantiable';
-import { IObjectStorage } from './interfaces/IObjectStorage';
-import { IObservablesStorage } from './interfaces/IObservableStorage';
-import { ISemanticStorage } from './interfaces/ISemanticStorage';
 import { ISerialized } from './interfaces/utils/ISerialized';
 import { ISerializeRule } from './interfaces/utils/ISerializeRule';
-import { IStorage } from './interfaces/IStorage';
+import { isNumeric } from './utils/isNumeric';
 
 export {
-    AsyncStorage,
-    BlackholeStorage,
-    BrowserHistoryQueryStorage as BrowserHistoryQueryParamsStorage,
-    BrowserHistoryRouteStorage,
-    MemoryStorage,
-    MultiStorage,
-    ObjectStorage,
-    PrefixStorage,
-    RemoteStorage,
-    IStorage as IAsyncStorage,
-    Instantiable as IInstantiable,
-    IObjectStorage,
-    IObservablesStorage,
-    ISemanticStorage,
-    ISerialized,
-    ISerializeRule,
+    IParams,
     IStorage,
+    isNumeric,
+    Awaitable,
+    ISerialized,
+    Instantiable,
+    MultiStorage,
+    AsyncStorage,
+    PrefixStorage,
+    ObjectStorage,
+    MemoryStorage,
+    ISerializeRule,
+    BlackholeStorage,
+    IObservableStorage,
+    BrowserHistoryPathStorage,
+    BrowserHistoryQueryStorage,
 };
-
-// TODO: Auto generate
-
-/**
- * TODOs:
- * Create util for storage from REST API
- */

@@ -12,6 +12,10 @@
         {
             "name": "test-watch",
             "command": "npm run test-watch"
+        },
+        {
+            "name": "generate-main-exports",
+            "command": "npm run generate-main-exports"
         }
     ]
 }

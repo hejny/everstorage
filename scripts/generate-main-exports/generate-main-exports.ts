@@ -24,7 +24,7 @@ async function main() {
 
     const exports: Array<{ path: string; name: string }> = [];
     for (const file of files) {
-        let execArray: RegExpExecArray | null;
+        let execArray: any; //RegExpExecArray | null;
         const regExp = /^export\s+[a-z]+\s+(?<name>[a-zA-Z0-9_]+)/gm;
         while ((execArray = regExp.exec(file.content))) {
             const { name } = execArray.groups!;
@@ -41,7 +41,7 @@ async function main() {
         .map(
             ({ name, path }) =>
                 `import { ${name} } from './${relative(
-                    join(__dirname, '../src/plugins'),
+                    join(__dirname, '../../src'),
                     path,
                 )
                     .split('\\')
