@@ -3,10 +3,7 @@ import { interval, Observable, Observer } from 'rxjs';
 import { debounce, share } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 
-import {
-    IObservablesStorage,
-    IParams,
-} from '../interfaces/IObservablesStorage';
+import { IObservablesStorage, IParams } from '../interfaces/IObservableStorage';
 import { isNumeric } from '../utils/isNumeric';
 import { ObjectStorage } from './ObjectStorage';
 

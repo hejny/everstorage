@@ -1,4 +1,4 @@
-// TODO: Still unused - Use (create SerializedStorage<T> using ObjectStorage ) or remove
+// TODO: Still unused - Use (create SerializedStorage<T> or SerializedInstancesStorage<T> using ObjectStorage ) or remove
 // /**
 //  * Serializer can serialize/deserialize objects
 //  */

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Sample of TouchController</title>
+        <link rel="stylesheet" type="text/css" href="./common.css" />
+    </head>
+    <body>
+        <canvas id="scene" width="500" height="500"></canvas>
+        <script
+            type="text/javascript"
+            src="../dist/main.dev.browser.js"
+        ></script>
+        <script src="./common.js"></script>
+        <script type="text/javascript">
+            const { BrowserHistoryQueryParamsStorage } = Everstorage;
+
+            const location = new BrowserHistoryQueryParamsStorage();
+        </script>
+    </body>
+</html>
