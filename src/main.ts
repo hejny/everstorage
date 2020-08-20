@@ -1,7 +1,7 @@
 import { AsyncStorage } from './classes/AsyncStorage';
 import { BlackholeStorage } from './classes/BlackholeStorage';
-import { BrowserHistoryQueryParamsStorage } from './classes/BrowserHistoryQueryParamsStorage';
-import { BrowserHistoryRouteStorage } from './classes/BrowserHistoryRouteStorage';
+import { BrowserHistoryQueryStorage } from './classes/BrowserHistoryQueryStorage';
+import { BrowserHistoryRouteStorage } from './classes/BrowserHistoryPathStorage';
 import { MemoryStorage } from './classes/MemoryStorage';
 import { MultiStorage } from './classes/MultiStorage';
 import { ObjectStorage } from './classes/ObjectStorage';
@@ -19,7 +19,7 @@ import { IStorage } from './interfaces/IStorage';
 export {
     AsyncStorage,
     BlackholeStorage,
-    BrowserHistoryQueryParamsStorage,
+    BrowserHistoryQueryStorage as BrowserHistoryQueryParamsStorage,
     BrowserHistoryRouteStorage,
     MemoryStorage,
     MultiStorage,

@@ -12,7 +12,7 @@ import { ObjectStorage } from './ObjectStorage';
  * TODO: This is taken from CollBoard and should be reviewed - this should be part of some storage
  *
  */
-export class BrowserHistoryRouteStorage<TParams extends IParams>
+export class BrowserHistoryPathStorage<TParams extends IParams>
     implements IObservablesStorage<TParams> {
     public values: Observable<TParams>;
     private lastParams: TParams;
