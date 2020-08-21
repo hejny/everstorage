@@ -10,18 +10,31 @@
         />
     </head>
     <body>
-        <canvas id="scene" width="500" height="500"></canvas>
         <script
             type="text/javascript"
             src="../dist/main.dev.browser.js"
         ></script>
-        <script src="./common.js"></script>
+
+        <input name="x" type="number" />
+        <input name="y" type="number" />
+
         <script type="text/javascript">
-            const { BrowserHistoryQueryStorage } = Everstorage;
+            const { BrowserHistoryQueryStorage, ObjectStorage } = Everstorage;
 
-            const position = new BrowserHistoryQueryStorage('x', 'y');
+            const defaultParams = { x: 10, y: 10 };
+            const position = new BrowserHistoryQueryStorage(
+                defaultParams,
+                new ObjectStorage(localStorage),
+            );
 
-            position.pushValues({ x: 10, y: 10 });
-         </script>
+            position.values.subscribe((values) => {
+                for (const [key, value] of Object.entries(values)) {
+                    console.log(`input[name="${key}"]`);
+                    document.querySelector(
+                        `input[name="${key}"]`,
+                    ).value = value;
+                }
+            });
+        </script>
     </body>
 </html>

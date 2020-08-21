@@ -4,8 +4,8 @@ import { debounce, share } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 
 import { IObservableStorage, IParams } from '../interfaces/IObservableStorage';
+import { IStorage } from '../main';
 import { isNumeric } from '../utils/isNumeric';
-import { ObjectStorage } from './ObjectStorage';
 
 /**
  * Note: We are not using array query params in the Collboard
@@ -17,13 +17,11 @@ export class BrowserHistoryQueryStorage<TParams extends IParams>
     public values: Observable<TParams>;
     private lastParams: TParams;
     private urlsObserver: Observer<TParams>;
-    private serializedStorage: ObjectStorage<TParams>;
 
-    constructor(defaultParams: TParams) {
-        // ------------- Creating serializedStorage
-
-        this.serializedStorage = new ObjectStorage<TParams>(localStorage);
-
+    constructor(
+        defaultParams: TParams,
+        private serializedStorage: IStorage<TParams>,
+    ) {
         // ------------- Observing the browser state
         this.values = Observable.create((observer: Observer<TParams>) => {
             // this.valuesObserver = observer;
@@ -34,17 +32,8 @@ export class BrowserHistoryQueryStorage<TParams extends IParams>
                 observer.next(paramsFromState);
             });
 
-            const url = new URL(window.location.toString());
-            const params: Partial<TParams> = {};
-            for (const key of Object.keys(defaultParams)) {
-                let value: string | number | null = url.searchParams.get(
-                    key as any,
-                );
-                if (isNumeric(value)) {
-                    value = parseFloat(value as any);
-                }
-                (params as any)[key] = value;
-            }
+            const params = this.getParamsFromUrl(Object.keys(defaultParams));
+
             this.lastParams = params as TParams;
             observer.next(params as TParams);
         }).pipe(share()); // TODO: Maybe publish or none
@@ -81,22 +70,7 @@ export class BrowserHistoryQueryStorage<TParams extends IParams>
             this.serializedStorage.setItem('params', params);
         });
 
-        // ------------- Initial params
-
-        let initialParams = this.serializedStorage.getItem('params');
-
-        if (!initialParams) {
-            initialParams = defaultParams;
-        }
-
-        // console.log('initialParams', initialParams);
-
-        this.lastParams = initialParams;
-        window.history.replaceState(
-            initialParams,
-            window.document.title /* TODO: Is this a good solution? */,
-            this.createUpdatedUrl(initialParams).toString(),
-        );
+        this.loadInitialParams(defaultParams);
     }
 
     public pushValues(params: TParams) {
@@ -105,6 +79,39 @@ export class BrowserHistoryQueryStorage<TParams extends IParams>
 
     public dispose() {
         /*  TODO: Implement */
+    }
+
+    private async loadInitialParams(defaultParams: TParams) {
+        // TODO: !!! Iterate through all params and pick each
+        const params =
+            (this.getParamsFromUrl(Object.keys(defaultParams)) as TParams) ||
+            (await this.serializedStorage.getItem('params')) ||
+            defaultParams;
+
+        // console.log('initialParams', initialParams);
+
+        this.lastParams = params;
+        window.history.replaceState(
+            params,
+            window.document.title /* TODO: Is this a good solution? */,
+            this.createUpdatedUrl(params).toString(),
+        );
+    }
+
+    private getParamsFromUrl(keys: Array<keyof TParams>): Partial<TParams> {
+        const url = new URL(window.location.toString());
+        const params: Partial<TParams> = {};
+        for (const key of keys) {
+            let value: string | number | null = url.searchParams.get(
+                key as any,
+            );
+            if (isNumeric(value)) {
+                value = parseFloat(value as any);
+            }
+            (params as any)[key] = value;
+        }
+
+        return params as TParams;
     }
 
     private createUpdatedUrl(params: TParams): URL {
