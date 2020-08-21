@@ -3,7 +3,7 @@ import { interval, Observable, Observer } from 'rxjs';
 import { debounce, share } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 
-import { IObservablesStorage, IParams } from '../interfaces/IObservableStorage';
+import { IObservableStorage, IParams } from '../interfaces/IObservableStorage';
 import { isNumeric } from '../utils/isNumeric';
 import { ObjectStorage } from './ObjectStorage';
 
@@ -13,7 +13,7 @@ import { ObjectStorage } from './ObjectStorage';
  *
  */
 export class BrowserHistoryPathStorage<TParams extends IParams>
-    implements IObservablesStorage<TParams> {
+    implements IObservableStorage<TParams> {
     public values: Observable<TParams>;
     private lastParams: TParams;
     private urlsObserver: Observer<TParams>;

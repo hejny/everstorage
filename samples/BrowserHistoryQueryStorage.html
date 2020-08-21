@@ -3,7 +3,11 @@
     <head>
         <meta charset="UTF-8" />
         <title>Sample of TouchController</title>
-        <link rel="stylesheet" type="text/css" href="./common.css" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="./common-assets/common.css"
+        />
     </head>
     <body>
         <canvas id="scene" width="500" height="500"></canvas>
@@ -13,9 +17,11 @@
         ></script>
         <script src="./common.js"></script>
         <script type="text/javascript">
-            const { BrowserHistoryQueryParamsStorage } = Everstorage;
+            const { BrowserHistoryQueryStorage } = Everstorage;
 
-            const location = new BrowserHistoryQueryParamsStorage();
-        </script>
+            const position = new BrowserHistoryQueryStorage('x', 'y');
+
+            position.pushValues({ x: 10, y: 10 });
+         </script>
     </body>
 </html>

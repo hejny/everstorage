@@ -1,15 +1,16 @@
 import { IStorage } from '../interfaces/IStorage';
+import { Awaitable } from '../interfaces/utils/Awaitable';
 
 /**
  * This class behaves like LocalStorage but separates keys by prefix
  */
-export class PrefixStorage implements IStorage {
-    constructor(private baseStorage: Storage, private keyPrefix: string) {}
+export class PrefixStorage<T> implements IStorage<T> {
+    constructor(private baseStorage: IStorage<T>, private keyPrefix: string) {}
 
     /**
      * Returns the number of key/value pairs currently present in the list associated with the object.
      */
-    public get length(): number {
+    public get length(): Awaitable<number> {
         return this.baseStorage.length /* TODO: Real count */;
     }
 
@@ -23,7 +24,7 @@ export class PrefixStorage implements IStorage {
     /**
      * Returns the current value associated with the given key, or null if the given key does not exist in the list associated with the object.
      */
-    public getItem(key: string): string | null {
+    public getItem(key: string): Awaitable<T | null> {
         return this.baseStorage.getItem(this.keyPrefix + key);
     }
 
@@ -45,7 +46,7 @@ export class PrefixStorage implements IStorage {
     /**
      * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
      */
-    public setItem(key: string, value: string): void {
+    public setItem(key: string, value: T): Awaitable<void> {
         this.baseStorage.setItem(this.keyPrefix + key, value);
     }
 }

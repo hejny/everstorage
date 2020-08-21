@@ -27,12 +27,15 @@ export interface IStorage<T> {
      *
      * Throws a "QuotaExceededError" DOMException exception if the new value couldn't be set. (Setting could fail if, e.g., the user has disabled storage for the site, or if the quota has been exceeded.)
      */
-    setItem(key: T, value: string): Awaitable<void>;
+    setItem(key: string, value: T): Awaitable<void>;
 }
 
+/* tslint:disable:jsdoc-format */
+/*/
 if (false) {
     // Note: Just checking if localStorage and sessionStorage are implementing IStorage<string>
     let storage: IStorage<string>;
     storage = localStorage;
     storage = sessionStorage;
 }
+/**/

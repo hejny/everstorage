@@ -1,10 +1,10 @@
+/* tslint:disable:no-conditional-assignment */
 import { readFile, writeFile } from 'fs';
 import glob from 'glob-promise';
 import { join, relative } from 'path';
 import { promisify } from 'util';
 
 // TODO: Activate TypeScript 3.8 and use top level await instead of wrapped code by main function
-/* tslint:disable:no-conditional-assignment */
 
 main();
 
