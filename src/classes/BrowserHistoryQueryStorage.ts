@@ -8,8 +8,7 @@ import { IStorage } from '../main';
 import { isNumeric } from '../utils/isNumeric';
 
 /**
- * Note: We are not using array query params in the Collboard
- * TODO: This is taken from CollBoard and should be reviewed - this should be part of some storage
+ * Note: Not suppoting array query params
  *
  */
 export class BrowserHistoryQueryStorage<TParams extends IParams>
