@@ -17,6 +17,7 @@ export class BrowserHistoryQueryStorage<TParams extends IParams>
     public values: Observable<TParams>;
     private lastParams: TParams;
     private urlsObserver: Observer<TParams>;
+    private valuesObserver: Observer<TParams>;
 
     constructor(
         defaultParams: TParams,
@@ -24,18 +25,13 @@ export class BrowserHistoryQueryStorage<TParams extends IParams>
     ) {
         // ------------- Observing the browser state
         this.values = Observable.create((observer: Observer<TParams>) => {
-            // this.valuesObserver = observer;
+            this.valuesObserver = observer;
 
             window.addEventListener('popstate', (event) => {
                 const paramsFromState = event.state as TParams /* TODO:  !!! Check and separate*/;
                 this.lastParams = paramsFromState;
                 observer.next(paramsFromState);
             });
-
-            const params = this.getParamsFromUrl(Object.keys(defaultParams));
-
-            this.lastParams = params as TParams;
-            observer.next(params as TParams);
         }).pipe(share()); // TODO: Maybe publish or none
 
         // ------------- Pushing state to browser
@@ -73,8 +69,13 @@ export class BrowserHistoryQueryStorage<TParams extends IParams>
         this.loadInitialParams(defaultParams);
     }
 
-    public pushValues(params: TParams) {
-        this.urlsObserver.next(params);
+    public pushValues(params: Partial<TParams>) {
+        // TODO: Partial is working and I do not know why? Maybe Localstorage
+        // this.urlsObserver.next(params as TParams);
+        this.urlsObserver.next({
+            ...(this.lastParams as object),
+            ...(params as object),
+        } as TParams);
     }
 
     public dispose() {
@@ -82,19 +83,31 @@ export class BrowserHistoryQueryStorage<TParams extends IParams>
     }
 
     private async loadInitialParams(defaultParams: TParams) {
-        // TODO: !!! Iterate through all params and pick each
-        const params =
-            (this.getParamsFromUrl(Object.keys(defaultParams)) as TParams) ||
-            (await this.serializedStorage.getItem('params')) ||
-            defaultParams;
+        const urlParams = this.getParamsFromUrl(
+            Object.keys(defaultParams),
+        ) as TParams;
+        const storageParams =
+            (await this.serializedStorage.getItem('params')) || {};
 
-        // console.log('initialParams', initialParams);
+        const params: Partial<TParams> = {};
+        for (const key of Object.keys(defaultParams)) {
+            (params as any)[key] =
+                urlParams[key] || storageParams[key] || defaultParams[key];
+        }
 
-        this.lastParams = params;
+        /*
+        console.log('urlParams', urlParams);
+        console.log('storageParams', storageParams);
+        console.log('defaultParams', defaultParams);
+        console.log('params', params);
+        */
+
+        this.lastParams = params as TParams;
+        this.valuesObserver.next(params as TParams);
         window.history.replaceState(
             params,
             window.document.title /* TODO: Is this a good solution? */,
-            this.createUpdatedUrl(params).toString(),
+            this.createUpdatedUrl(params as TParams).toString(),
         );
     }
 

@@ -15,24 +15,35 @@
             src="../dist/main.dev.browser.js"
         ></script>
 
-        <input name="x" type="number" />
-        <input name="y" type="number" />
+        <form id="values"></form>
 
         <script type="text/javascript">
             const { BrowserHistoryQueryStorage, ObjectStorage } = Everstorage;
 
             const defaultParams = { x: 10, y: 10 };
+            const inputElements = {};
             const position = new BrowserHistoryQueryStorage(
                 defaultParams,
                 new ObjectStorage(localStorage),
             );
 
+            const formElement = document.getElementById(`values`);
+            for (const [key, value] of Object.entries(defaultParams)) {
+                const inputElement = document.createElement('INPUT');
+                inputElement.type =
+                    typeof value === 'number' ? 'number' : 'text';
+                const pushValue = () => {
+                    position.pushValues({ [key]: inputElement.value });
+                };
+                inputElement.addEventListener('change', pushValue);
+                formElement.appendChild(inputElement);
+                inputElements[key] = inputElement;
+            }
+
             position.values.subscribe((values) => {
+                console.log(`new values`, values);
                 for (const [key, value] of Object.entries(values)) {
-                    console.log(`input[name="${key}"]`);
-                    document.querySelector(
-                        `input[name="${key}"]`,
-                    ).value = value;
+                    inputElements[key].value = value;
                 }
             });
         </script>
