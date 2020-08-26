@@ -1,5 +1,3 @@
-
-
-export class BlackholeStorage /*implements IStorage*/{
-        // TODO: Implement
+export class BlackholeStorage /*implements IStorage*/ {
+    // TODO: Implement
 }
