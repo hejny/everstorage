@@ -1,14 +1,17 @@
+import { IStorage } from '../interfaces/IStorage';
+import { Awaitable } from '../interfaces/utils/Awaitable';
+
 /**
  * This class behaves like LocalStorage but entries are objects
  * TODO: This is taken from CollBoard and should be reviewed
  */
 export class ObjectStorage<T> {
-    constructor(private baseStorage: Storage) {}
+    constructor(private baseStorage: IStorage<string>) {}
 
     /**
      * Returns the number of key/value pairs currently present in the list associated with the object.
      */
-    public get length(): number {
+    public get length(): Awaitable<number> {
         return this.baseStorage.length;
     }
 
@@ -22,8 +25,8 @@ export class ObjectStorage<T> {
     /**
      * Returns the current value associated with the given key, or null if the given key does not exist in the list associated with the object.
      */
-    public getItem(key: string): T | null {
-        const serializedString = this.baseStorage.getItem(key);
+    public async getItem(key: string): Promise<T | null> {
+        const serializedString = await this.baseStorage.getItem(key);
         if (!serializedString) {
             return null;
         }
@@ -50,7 +53,7 @@ export class ObjectStorage<T> {
     /**
      * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
      */
-    public setItem(key: string, value: T): void {
-        this.baseStorage.setItem(key, JSON.stringify(value));
+    public setItem(key: string, value: T): Awaitable<void> {
+        return this.baseStorage.setItem(key, JSON.stringify(value));
     }
 }

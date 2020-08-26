@@ -51,6 +51,9 @@ export class PrefixStorage<T> implements IStorage<T> {
      * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
      */
     public setItem(key: string, value: T): Awaitable<void> {
-        this.baseStorage.setItem(this.keyPrefix + this.separator + key, value);
+        return this.baseStorage.setItem(
+            this.keyPrefix + this.separator + key,
+            value,
+        );
     }
 }
