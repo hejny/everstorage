@@ -38,19 +38,6 @@
                 ),
             );
 
-            const storagex = new BrowserHistoryPathHashStorage(
-                (urlPath) => {
-                    const [_, x, y] = urlPath.split('/');
-                    return { x, y };
-                },
-                ({ x, y }) => `/${x}/${y}`,
-                defaultParams,
-                new PrefixStorage(
-                    new ObjectStorage(localStorage),
-                    'BrowserHistoryPathHashStorage_',
-                ),
-            );
-
             const inputElements = {};
             const formElement = document.getElementById(`values`);
             for (const [key, value] of Object.entries(defaultParams)) {

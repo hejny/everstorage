@@ -5,6 +5,8 @@ import {
 import { IStorage } from '../../main';
 import { AbstractBrowserHistoryStorage } from './AbstractBrowserHistoryStorage';
 
+// TODO: Maybe some more elegant way how to do this
+let instanced = false;
 export class BrowserHistoryPathStorage<TParams extends IParams>
     extends AbstractBrowserHistoryStorage<TParams>
     implements IObservableStorage<TParams> {
@@ -15,6 +17,15 @@ export class BrowserHistoryPathStorage<TParams extends IParams>
         serializedStorage: IStorage<TParams>,
     ) {
         super(defaultParams, serializedStorage);
+
+        if (instanced) {
+            /* tslint:disable: no-console*/
+            console.warn(
+                `BrowserHistoryPathStorage has more than one instance. This can cause malfunctioning of the app.`,
+            );
+        } else {
+            instanced = true;
+        }
     }
 
     protected decodeUrl(url: string): Partial<TParams> {
