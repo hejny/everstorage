@@ -8,6 +8,7 @@ import {
     IParams,
 } from '../../interfaces/IObservableStorage';
 import { IStorage } from '../../interfaces/IStorage';
+import { IBrowserHistoryStorageOptions } from './IBrowserHistoryStorageOptions';
 
 export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
     implements IObservableStorage<TParams> {
@@ -19,6 +20,7 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
     constructor(
         readonly defaultParams: TParams,
         private serializedStorage: IStorage<TParams>,
+        private options: IBrowserHistoryStorageOptions,
     ) {
         this.init();
     }
@@ -61,7 +63,10 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
         ).pipe(
             debounce(() =>
                 interval(
-                    1000 /* TODO: Is there some better solution then debouncing with interval? */,
+                    // TODO: Maybe when there is debounceInterval=0 there should be no pipe with debounce+interval
+                    typeof this.options.debounceInterval === 'number'
+                        ? this.options.debounceInterval
+                        : 1000 /* TODO: Is there some better solution then debouncing with interval? */,
                 ),
             ),
         );

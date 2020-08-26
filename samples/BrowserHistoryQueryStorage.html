@@ -31,6 +31,7 @@
                     new ObjectStorage(localStorage),
                     'BrowserHistoryQueryStorage_',
                 ),
+                { debounceInterval: 0 },
             );
 
             const inputElements = {};
@@ -43,6 +44,7 @@
                     storage.pushValues({ [key]: inputElement.value });
                 };
                 inputElement.addEventListener('change', pushValue);
+                inputElement.addEventListener('click', pushValue);
                 formElement.appendChild(inputElement);
                 inputElements[key] = inputElement;
             }

@@ -36,6 +36,7 @@
                     new ObjectStorage(localStorage),
                     'BrowserHistoryPathHashStorage_',
                 ),
+                { debounceInterval: 50 },
             );
 
             const inputElements = {};
@@ -48,6 +49,7 @@
                     storage.pushValues({ [key]: inputElement.value });
                 };
                 inputElement.addEventListener('change', pushValue);
+                inputElement.addEventListener('click', pushValue);
                 formElement.appendChild(inputElement);
                 inputElements[key] = inputElement;
             }

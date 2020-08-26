@@ -4,6 +4,7 @@ import {
 } from '../../interfaces/IObservableStorage';
 import { IStorage } from '../../main';
 import { AbstractBrowserHistoryStorage } from './AbstractBrowserHistoryStorage';
+import { IBrowserHistoryStorageOptions } from './IBrowserHistoryStorageOptions';
 
 // TODO: Maybe some more elegant way how to do this
 let instanced = false;
@@ -15,8 +16,9 @@ export class BrowserHistoryPathHashStorage<TParams extends IParams>
         private encodeUrlPathHash: (params: TParams) => string,
         defaultParams: TParams,
         serializedStorage: IStorage<TParams>,
+        options: IBrowserHistoryStorageOptions,
     ) {
-        super(defaultParams, serializedStorage);
+        super(defaultParams, serializedStorage, options);
 
         if (instanced) {
             /* tslint:disable: no-console*/
