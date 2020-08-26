@@ -1,3 +1,3 @@
 export interface IBrowserHistoryStorageOptions {
-    debounceInterval?: number;
+    debounceInterval: number;
 }

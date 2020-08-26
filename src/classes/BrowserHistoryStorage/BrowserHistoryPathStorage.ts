@@ -16,7 +16,7 @@ export class BrowserHistoryPathStorage<TParams extends IParams>
         private encodeUrlPath: (params: TParams) => string,
         defaultParams: TParams,
         serializedStorage: IStorage<TParams>,
-        options?: IBrowserHistoryStorageOptions,
+        options?: Partial<IBrowserHistoryStorageOptions>,
     ) {
         super(defaultParams, serializedStorage, options);
 
