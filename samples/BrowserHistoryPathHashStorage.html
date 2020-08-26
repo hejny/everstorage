@@ -19,17 +19,35 @@
 
         <script type="text/javascript">
             const {
-                BrowserHistoryQueryStorage,
+                BrowserHistoryPathHashStorage,
                 PrefixStorage,
                 ObjectStorage,
             } = Everstorage;
 
             const defaultParams = { x: 10, y: 10 };
-            const storage = new BrowserHistoryQueryStorage(
+            const storage = new BrowserHistoryPathHashStorage(
+                (urlPath) => {
+                    const [_, x, y] = urlPath.split('/');
+                    return { x, y };
+                },
+                ({ x, y }) => `/${x}/${y}`,
                 defaultParams,
                 new PrefixStorage(
                     new ObjectStorage(localStorage),
-                    'BrowserHistoryQueryStorage_',
+                    'BrowserHistoryPathHashStorage_',
+                ),
+            );
+
+            const storagex = new BrowserHistoryPathHashStorage(
+                (urlPath) => {
+                    const [_, x, y] = urlPath.split('/');
+                    return { x, y };
+                },
+                ({ x, y }) => `/${x}/${y}`,
+                defaultParams,
+                new PrefixStorage(
+                    new ObjectStorage(localStorage),
+                    'BrowserHistoryPathHashStorage_',
                 ),
             );
 

@@ -1,13 +1,15 @@
 import isEqual from 'lodash/isEqual';
 import { interval, Observable, Observer } from 'rxjs';
 import { debounce, share } from 'rxjs/operators';
-import { isNullOrUndefined } from 'util';
+import { forImmediate } from 'waitasecond';
 
-import { IObservableStorage, IParams } from '../interfaces/IObservableStorage';
-import { IStorage } from '../main';
-import { isNumeric } from '../utils/isNumeric';
+import {
+    IObservableStorage,
+    IParams,
+} from '../../interfaces/IObservableStorage';
+import { IStorage } from '../../interfaces/IStorage';
 
-export class BrowserHistoryPathStorage<TParams extends IParams>
+export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
     implements IObservableStorage<TParams> {
     public values: Observable<TParams>;
     private lastParams: TParams;
@@ -15,9 +17,29 @@ export class BrowserHistoryPathStorage<TParams extends IParams>
     private valuesObserver: Observer<TParams>;
 
     constructor(
-        defaultParams: TParams,
+        readonly defaultParams: TParams,
         private serializedStorage: IStorage<TParams>,
     ) {
+        this.init();
+    }
+
+    public pushValues(params: Partial<TParams>) {
+        // TODO: Partial is working and I do not know why? Maybe Localstorage
+        // this.urlsObserver.next(params as TParams);
+        this.urlsObserver.next({
+            ...(this.lastParams as object),
+            ...(params as object),
+        } as TParams);
+    }
+
+    public dispose() {
+        /*  TODO: Implement */
+    }
+
+    protected abstract decodeUrl(url: string): Partial<TParams>;
+    protected abstract encodeUrl(params: TParams, lastUrl: string): string;
+
+    private async init() {
         // ------------- Observing the browser state
         this.values = Observable.create((observer: Observer<TParams>) => {
             this.valuesObserver = observer;
@@ -28,6 +50,8 @@ export class BrowserHistoryPathStorage<TParams extends IParams>
                 observer.next(paramsFromState);
             });
         }).pipe(share()); // TODO: Maybe publish or none
+
+        await forImmediate();
 
         // ------------- Pushing state to browser
         const urls: Observable<TParams> = Observable.create(
@@ -55,39 +79,24 @@ export class BrowserHistoryPathStorage<TParams extends IParams>
             window.history.pushState(
                 params,
                 window.document.title /* TODO: Is this a good solution? */,
-                this.createUpdatedUrl(params).toString(),
+                this.encodeUrl(params, window.location.toString()),
             );
 
             this.serializedStorage.setItem('params', params);
         });
 
-        this.loadInitialParams(defaultParams);
+        this.loadInitialParams();
     }
 
-    public pushValues(params: Partial<TParams>) {
-        // TODO: Partial is working and I do not know why? Maybe Localstorage
-        // this.urlsObserver.next(params as TParams);
-        this.urlsObserver.next({
-            ...(this.lastParams as object),
-            ...(params as object),
-        } as TParams);
-    }
-
-    public dispose() {
-        /*  TODO: Implement */
-    }
-
-    private async loadInitialParams(defaultParams: TParams) {
-        const urlParams = this.getParamsFromUrl(
-            Object.keys(defaultParams),
-        ) as TParams;
+    private async loadInitialParams() {
+        const urlParams = this.decodeUrl(window.location.toString()) as TParams;
         const storageParams =
             (await this.serializedStorage.getItem('params')) || {};
 
         const params: Partial<TParams> = {};
-        for (const key of Object.keys(defaultParams)) {
+        for (const key of Object.keys(this.defaultParams)) {
             (params as any)[key] =
-                urlParams[key] || storageParams[key] || defaultParams[key];
+                urlParams[key] || storageParams[key] || this.defaultParams[key];
         }
 
         /*
@@ -102,42 +111,7 @@ export class BrowserHistoryPathStorage<TParams extends IParams>
         window.history.replaceState(
             params,
             window.document.title /* TODO: Is this a good solution? */,
-            this.createUpdatedUrl(params as TParams).toString(),
+            this.encodeUrl(params as TParams, window.location.toString()),
         );
-    }
-
-    private getParamsFromUrl(keys: Array<keyof TParams>): Partial<TParams> {
-        const url = new URL(window.location.toString());
-        const params: Partial<TParams> = {};
-        for (const key of keys) {
-            let value: string | number | null = url.searchParams.get(
-                key as any,
-            );
-            if (isNumeric(value)) {
-                value = parseFloat(value as any);
-            }
-            (params as any)[key] = value;
-        }
-
-        return params as TParams;
-    }
-
-    private createUpdatedUrl(params: TParams): URL {
-        const url = new URL(window.location.toString());
-
-        for (const [key, value] of Object.entries(params)) {
-            if (
-                isNullOrUndefined(
-                    /** @deprecated since v4.0.0 - use `value === null || value === undefined` instead. */
-                    value,
-                )
-            ) {
-                url.searchParams.delete(key);
-            } else {
-                url.searchParams.set(key, value.toString());
-            }
-        }
-
-        return url;
     }
 }

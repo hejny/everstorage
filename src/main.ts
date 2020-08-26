@@ -3,8 +3,9 @@
 
 import { AsyncStorage } from './classes/AsyncStorage';
 import { BlackholeStorage } from './classes/BlackholeStorage';
-import { BrowserHistoryPathStorage } from './classes/BrowserHistoryPathStorage';
-import { BrowserHistoryQueryStorage } from './classes/BrowserHistoryQueryStorage';
+import { BrowserHistoryPathHashStorage } from './classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage';
+import { BrowserHistoryPathStorage } from './classes/BrowserHistoryStorage/BrowserHistoryPathStorage';
+import { BrowserHistoryQueryStorage } from './classes/BrowserHistoryStorage/BrowserHistoryQueryStorage';
 import { MemoryStorage } from './classes/MemoryStorage';
 import { MultiStorage } from './classes/MultiStorage';
 import { ObjectStorage } from './classes/ObjectStorage';
@@ -35,4 +36,5 @@ export {
     IObservableStorage,
     BrowserHistoryPathStorage,
     BrowserHistoryQueryStorage,
+    BrowserHistoryPathHashStorage,
 };

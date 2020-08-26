@@ -32,7 +32,8 @@
     "generate-main-exports": "ts-node ./scripts/generate-main-exports/generate-main-exports.ts"
   },
   "dependencies": {
-    "rxjs": "^6.6.2"
+    "rxjs": "^6.6.2",
+    "waitasecond": "^1.0.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.7",
