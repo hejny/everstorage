@@ -20,7 +20,7 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
     constructor(
         readonly defaultParams: TParams,
         private serializedStorage: IStorage<TParams>,
-        private options: IBrowserHistoryStorageOptions,
+        private options?: IBrowserHistoryStorageOptions,
     ) {
         this.init();
     }
@@ -64,7 +64,7 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
             debounce(() =>
                 interval(
                     // TODO: Maybe when there is debounceInterval=0 there should be no pipe with debounce+interval
-                    typeof this.options.debounceInterval === 'number'
+                    typeof this.options?.debounceInterval === 'number'
                         ? this.options.debounceInterval
                         : 1000 /* TODO: Is there some better solution then debouncing with interval? */,
                 ),
