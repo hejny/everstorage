@@ -31,13 +31,17 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
         this.init();
     }
 
-    public pushValues(params: Partial<TParams>) {
+    public pushValues(paramsPartial: Partial<TParams>) {
         // TODO: Partial is working and I do not know why? Maybe Localstorage
         // this.urlsObserver.next(params as TParams);
-        this.urlsObserver.next({
+
+        const params = {
             ...(this.lastParams as object),
-            ...(params as object),
-        } as TParams);
+            ...(paramsPartial as object),
+        } as TParams;
+
+        this.urlsObserver.next(params);
+        this.valuesObserver.next(params);
     }
 
     public dispose() {
@@ -53,7 +57,7 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
             this.valuesObserver = observer;
 
             window.addEventListener('popstate', (event) => {
-                const paramsFromState = event.state as TParams /* TODO:  !!! Check and separate*/;
+                const paramsFromState = event.state as TParams /* TODO:  !!!  Scope the state - Check and separate*/;
                 this.lastParams = paramsFromState;
                 observer.next(paramsFromState);
             });
