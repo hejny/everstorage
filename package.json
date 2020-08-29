@@ -23,13 +23,14 @@
     "prettier-watch": "onchange \"{src,test,samples,scripts}/**/*.{ts,json,js,html,css}\" -- prettier --config .prettierrc --write {{changed}}",
     "prettier-commit": "git diff --exit-code && npm run prettier && git add src && git commit --allow-empty -m \"Prettier\"",
     "documentation": "typedoc --excludePrivate --hideGenerator --mode file --theme minimal --out docs --name \"Everstorage\" ./src",
-    "documentation-commit": "git diff --exit-code && npm run documentation && git add docs && git commit --allow-empty -m \"Vector\"",
+    "documentation-commit": "git diff --exit-code && npm run documentation && git add docs && git commit --allow-empty -m \"Documentation\"",
     "test": "jest --config jestconfig.json",
     "test-watch": "jest --config jestconfig.json --watchAll",
     "lint": "tslint -p tsconfig.json",
     "preversion": "npm test && npm run lint && npm run build && npm run prettier-commit && npm run documentation-commit",
-    "postversion": "git push && git push --tags && npm publish",
-    "generate-main-exports": "ts-node ./scripts/generate-main-exports/generate-main-exports.ts"
+    "postversion": "git push && git push --tags && npm publish && npm run update-in-other-repos",
+    "generate-main-exports": "ts-node ./scripts/generate-main-exports/generate-main-exports.ts",
+    "update-in-other-repos": "cd ../../HeduApp/collboard && git stash && npm update everstorage && git add package.json package-lock.json && git commit --allow-empty -m \"Update of everstorage\" && git stash pop"
   },
   "dependencies": {
     "rxjs": "^6.6.2",
