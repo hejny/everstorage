@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import { interval, Observable, Observer } from 'rxjs';
 import { debounce, share } from 'rxjs/operators';
-import { forImmediate } from 'waitasecond';
+import { forImmediate, forValueDefined } from 'waitasecond';
 
 import {
     IObservableStorage,
@@ -14,8 +14,8 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
     implements IObservableStorage<TParams> {
     public values: Observable<TParams>;
     private lastParams: TParams;
-    private urlsObserver: Observer<TParams>;
-    private valuesObserver: Observer<TParams>;
+    private urlsObserver?: Observer<TParams>;
+    private valuesObserver?: Observer<TParams>;
     private options: IBrowserHistoryStorageOptions;
 
     constructor(
@@ -24,14 +24,14 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
         partialOptions?: Partial<IBrowserHistoryStorageOptions>,
     ) {
         this.options = {
-            debounceInterval: 1000,
+            debounceInterval: 0,
             ...partialOptions,
         };
 
         this.init();
     }
 
-    public async pushValues(paramsPartial: Partial<TParams>) {
+    public async pushValues(paramsPartial: Partial<TParams>): Promise<void> {
         // TODO: Partial is working and I do not know why? Maybe Localstorage
         // this.urlsObserver.next(params as TParams);
 
@@ -40,9 +40,11 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
             ...(paramsPartial as object),
         } as TParams;
 
-        this.urlsObserver.next(params);
-        await forImmediate();
-        /* TODO: Problem !!! ??? */ this.valuesObserver.next(params);
+        const urlsObserver = await forValueDefined(()=>this.urlsObserver);
+        urlsObserver.next(params);
+        const valuesObserver = await forValueDefined(()=>this.valuesObserver);
+        // TODO: Maybe this behaviour (putting into values values pushed by user) should be in the options
+        valuesObserver.next(params);
     }
 
     public dispose() {
@@ -122,7 +124,9 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
         */
 
         this.lastParams = params as TParams;
-        this.valuesObserver.next(params as TParams);
+        const valuesObserver = await forValueDefined(()=>this.valuesObserver);
+        // TODO: Maybe this behaviour (putting into values initial values) should be in the options
+        valuesObserver.next(params as TParams);
         window.history.replaceState(
             params,
             window.document.title /* TODO: Is this a good solution? */,
