@@ -110,7 +110,7 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
 
             this.lastParams = params;
             window.history.pushState(
-                { uniqueIdentifier: this.uniqueIdentifier, ...params },
+                { uniqueIdentifier: this.uniqueIdentifier, ...(params as {}) },
                 window.document.title /* TODO: Is this a good solution? */,
                 this.encodeUrl(params, window.location.toString()),
             );
@@ -144,7 +144,7 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
         // TODO: Maybe this behaviour (putting into values initial values) should be in the options
         valuesObserver.next(params as TParams);
         window.history.replaceState(
-            { uniqueIdentifier: this.uniqueIdentifier, ...params },
+            { uniqueIdentifier: this.uniqueIdentifier, ...(params as {}) },
             window.document.title /* TODO: Is this a good solution? */,
             this.encodeUrl(params as TParams, window.location.toString()),
         );
