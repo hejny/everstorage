@@ -19,6 +19,7 @@ import { Awaitable } from './interfaces/utils/Awaitable';
 import { Instantiable } from './interfaces/utils/Instantiable';
 import { ISerialized } from './interfaces/utils/ISerialized';
 import { ISerializeRule } from './interfaces/utils/ISerializeRule';
+import { createUniqueIdentifierFromParams } from './utils/createUniqueIdentifierFromParams';
 import { isNumeric } from './utils/isNumeric';
 
 export {
@@ -41,4 +42,5 @@ export {
     BrowserHistoryQueryStorage,
     IBrowserHistoryStorageOptions,
     BrowserHistoryPathHashStorage,
+    createUniqueIdentifierFromParams,
 };

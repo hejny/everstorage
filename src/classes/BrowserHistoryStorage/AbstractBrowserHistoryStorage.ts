@@ -8,6 +8,7 @@ import {
     IParams,
 } from '../../interfaces/IObservableStorage';
 import { IStorage } from '../../interfaces/IStorage';
+import { createUniqueIdentifierFromParams } from '../../utils/createUniqueIdentifierFromParams';
 import { IBrowserHistoryStorageOptions } from './IBrowserHistoryStorageOptions';
 
 export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
@@ -17,12 +18,15 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
     private urlsObserver?: Observer<TParams>;
     private valuesObserver?: Observer<TParams>;
     private options: IBrowserHistoryStorageOptions;
+    private uniqueIdentifier: string;
 
     constructor(
         readonly defaultParams: TParams,
         private serializedStorage: IStorage<TParams>,
         partialOptions?: Partial<IBrowserHistoryStorageOptions>,
     ) {
+        this.uniqueIdentifier = this.createUniqueIdentifier(); // TODO: Check collisions globally
+
         this.options = {
             debounceInterval: 0,
             ...partialOptions,
@@ -40,9 +44,9 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
             ...(paramsPartial as object),
         } as TParams;
 
-        const urlsObserver = await forValueDefined(()=>this.urlsObserver);
+        const urlsObserver = await forValueDefined(() => this.urlsObserver);
         urlsObserver.next(params);
-        const valuesObserver = await forValueDefined(()=>this.valuesObserver);
+        const valuesObserver = await forValueDefined(() => this.valuesObserver);
         // TODO: Maybe this behaviour (putting into values values pushed by user) should be in the options
         valuesObserver.next(params);
     }
@@ -54,13 +58,25 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
     protected abstract decodeUrl(url: string): Partial<TParams>;
     protected abstract encodeUrl(params: TParams, lastUrl: string): string;
 
+    protected createUniqueIdentifier() {
+        return createUniqueIdentifierFromParams(this.defaultParams);
+    }
+
     private async init() {
         // ------------- Observing the browser state
         this.values = Observable.create((observer: Observer<TParams>) => {
             this.valuesObserver = observer;
 
             window.addEventListener('popstate', (event) => {
-                const paramsFromState = event.state as TParams /* TODO:  !!!  Scope the state - Check and separate*/;
+                const paramsFromState = event.state as TParams & {
+                    uniqueIdentifier: string;
+                };
+                if (
+                    paramsFromState.uniqueIdentifier !== this.uniqueIdentifier
+                ) {
+                    return;
+                }
+                delete paramsFromState.uniqueIdentifier;
                 this.lastParams = paramsFromState;
                 observer.next(paramsFromState);
             });
@@ -94,12 +110,12 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
 
             this.lastParams = params;
             window.history.pushState(
-                params,
+                { uniqueIdentifier: this.uniqueIdentifier, ...params },
                 window.document.title /* TODO: Is this a good solution? */,
                 this.encodeUrl(params, window.location.toString()),
             );
 
-            this.serializedStorage.setItem('params', params);
+            this.serializedStorage.setItem(this.uniqueIdentifier, params);
         });
 
         this.loadInitialParams();
@@ -108,7 +124,7 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
     private async loadInitialParams() {
         const urlParams = this.decodeUrl(window.location.toString()) as TParams;
         const storageParams =
-            (await this.serializedStorage.getItem('params')) || {};
+            (await this.serializedStorage.getItem(this.uniqueIdentifier)) || {};
 
         const params: Partial<TParams> = {};
         for (const key of Object.keys(this.defaultParams)) {
@@ -124,11 +140,11 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
         */
 
         this.lastParams = params as TParams;
-        const valuesObserver = await forValueDefined(()=>this.valuesObserver);
+        const valuesObserver = await forValueDefined(() => this.valuesObserver);
         // TODO: Maybe this behaviour (putting into values initial values) should be in the options
         valuesObserver.next(params as TParams);
         window.history.replaceState(
-            params,
+            { uniqueIdentifier: this.uniqueIdentifier, ...params },
             window.document.title /* TODO: Is this a good solution? */,
             this.encodeUrl(params as TParams, window.location.toString()),
         );
