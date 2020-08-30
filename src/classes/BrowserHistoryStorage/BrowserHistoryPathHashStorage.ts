@@ -5,7 +5,6 @@ import {
 import { IStorage } from '../../main';
 import { AbstractBrowserHistoryStorage } from './AbstractBrowserHistoryStorage';
 import { IBrowserHistoryStorageOptions } from './IBrowserHistoryStorageOptions';
-import { createUniqueIdentifierFromParams } from '../../utils/createUniqueIdentifierFromParams';
 
 // TODO: Maybe some more elegant way how to do this
 let instanced = false;
