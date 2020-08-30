@@ -31,7 +31,7 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
         this.init();
     }
 
-    public pushValues(paramsPartial: Partial<TParams>) {
+    public async pushValues(paramsPartial: Partial<TParams>) {
         // TODO: Partial is working and I do not know why? Maybe Localstorage
         // this.urlsObserver.next(params as TParams);
 
@@ -41,7 +41,8 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
         } as TParams;
 
         this.urlsObserver.next(params);
-        this.valuesObserver.next(params);
+        await forImmediate();
+        /* TODO: Problem !!! ??? */this.valuesObserver.next(params);
     }
 
     public dispose() {
