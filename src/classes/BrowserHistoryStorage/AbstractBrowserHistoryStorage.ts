@@ -42,7 +42,7 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
 
         this.urlsObserver.next(params);
         await forImmediate();
-        /* TODO: Problem !!! ??? */this.valuesObserver.next(params);
+        /* TODO: Problem !!! ??? */ this.valuesObserver.next(params);
     }
 
     public dispose() {
