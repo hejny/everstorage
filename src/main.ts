@@ -23,7 +23,7 @@ import { createUniqueIdentifierFromParams } from './utils/createUniqueIdentifier
 import { isNumeric } from './utils/isNumeric';
 
 export {
-    IValue as IParams,
+    IValue,
     IStorage,
     isNumeric,
     Awaitable,

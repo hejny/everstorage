@@ -46,7 +46,7 @@
                 inputElement.type =
                     typeof value === 'number' ? 'number' : 'text';
                 const pushValue = () => {
-                    storage.pushValues({ [key]: inputElement.value });
+                    storage.pushValue({ [key]: inputElement.value });
                 };
                 inputElement.addEventListener('change', pushValue);
                 inputElement.addEventListener('click', pushValue);
