@@ -12,7 +12,7 @@ import { MemoryStorage } from './classes/MemoryStorage';
 import { MultiStorage } from './classes/MultiStorage';
 import { ObjectStorage } from './classes/ObjectStorage';
 import { PrefixStorage } from './classes/PrefixStorage';
-import { IParams } from './interfaces/IObservableStorage';
+import { IValue } from './interfaces/IObservableStorage';
 import { IObservableStorage } from './interfaces/IObservableStorage';
 import { IStorage } from './interfaces/IStorage';
 import { Awaitable } from './interfaces/utils/Awaitable';
@@ -23,7 +23,7 @@ import { createUniqueIdentifierFromParams } from './utils/createUniqueIdentifier
 import { isNumeric } from './utils/isNumeric';
 
 export {
-    IParams,
+    IValue as IParams,
     IStorage,
     isNumeric,
     Awaitable,

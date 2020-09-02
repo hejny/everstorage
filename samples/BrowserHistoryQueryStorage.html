@@ -24,9 +24,9 @@
                 ObjectStorage,
             } = Everstorage;
 
-            const defaultParams = { x: 10, y: 10 };
+            const defaulTValue = { x: 10, y: 10 };
             const storage = new BrowserHistoryQueryStorage(
-                defaultParams,
+                defaulTValue,
                 new PrefixStorage(
                     new ObjectStorage(localStorage),
                     'BrowserHistoryQueryStorage',
@@ -36,7 +36,7 @@
 
             const inputElements = {};
             const formElement = document.getElementById(`values`);
-            for (const [key, value] of Object.entries(defaultParams)) {
+            for (const [key, value] of Object.entries(defaulTValue)) {
                 const inputElement = document.createElement('INPUT');
                 inputElement.type =
                     typeof value === 'number' ? 'number' : 'text';

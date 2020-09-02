@@ -1,6 +1,6 @@
 import {
     IObservableStorage,
-    IParams,
+    IValue,
 } from '../../interfaces/IObservableStorage';
 import { IStorage } from '../../main';
 import { AbstractBrowserHistoryStorage } from './AbstractBrowserHistoryStorage';
@@ -8,17 +8,17 @@ import { IBrowserHistoryStorageOptions } from './IBrowserHistoryStorageOptions';
 
 // TODO: Maybe some more elegant way how to do this
 let instanced = false;
-export class BrowserHistoryPathHashStorage<TParams extends IParams>
-    extends AbstractBrowserHistoryStorage<TParams>
-    implements IObservableStorage<TParams> {
+export class BrowserHistoryPathHashStorage<TValue extends IValue>
+    extends AbstractBrowserHistoryStorage<TValue>
+    implements IObservableStorage<TValue> {
     constructor(
-        private decodeUrlPathHash: (url: string) => TParams,
-        private encodeUrlPathHash: (params: TParams) => string,
-        defaultParams: TParams,
-        serializedStorage: IStorage<TParams>,
+        private decodeUrlPathHash: (url: string) => TValue,
+        private encodeUrlPathHash: (params: TValue) => string,
+        defaulTValue: TValue,
+        serializedStorage: IStorage<TValue>,
         options?: Partial<IBrowserHistoryStorageOptions>,
     ) {
-        super(defaultParams, serializedStorage, options);
+        super(defaulTValue, serializedStorage, options);
 
         if (instanced) {
             /* tslint:disable: no-console*/
@@ -30,7 +30,7 @@ export class BrowserHistoryPathHashStorage<TParams extends IParams>
         }
     }
 
-    protected decodeUrl(url: string): Partial<TParams> {
+    protected decodeUrl(url: string): Partial<TValue> {
         const urlObject = new URL(url);
         const parsing = /#?\/+(?<route>.*)/.exec(urlObject.hash);
         if (!parsing || !parsing.groups) {
@@ -41,7 +41,7 @@ export class BrowserHistoryPathHashStorage<TParams extends IParams>
         return this.decodeUrlPathHash('/' + route);
     }
 
-    protected encodeUrl(params: TParams, lastUrl: string): string {
+    protected encodeUrl(params: TValue, lastUrl: string): string {
         const urlObject = new URL(lastUrl);
         urlObject.hash = '#' + this.encodeUrlPathHash(params);
         return urlObject.toString();

@@ -5,24 +5,24 @@ import { forImmediate, forValueDefined } from 'waitasecond';
 
 import {
     IObservableStorage,
-    IParams,
+    IValue,
 } from '../../interfaces/IObservableStorage';
 import { IStorage } from '../../interfaces/IStorage';
 import { createUniqueIdentifierFromParams } from '../../utils/createUniqueIdentifierFromParams';
 import { IBrowserHistoryStorageOptions } from './IBrowserHistoryStorageOptions';
 
-export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
-    implements IObservableStorage<TParams> {
-    public values: Observable<TParams>;
-    private lastParams: TParams;
-    private urlsObserver?: Observer<TParams>;
-    private valuesObserver?: Observer<TParams>;
+export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
+    implements IObservableStorage<TValue> {
+    public values: Observable<TValue>;
+    private lastValue: TValue;
+    private urlsObserver?: Observer<TValue>;
+    private valuesObserver?: Observer<TValue>;
     private options: IBrowserHistoryStorageOptions;
     private uniqueIdentifier: string;
 
     constructor(
-        readonly defaultParams: TParams,
-        private serializedStorage: IStorage<TParams>,
+        readonly defaulTValue: TValue,
+        private serializedStorage: IStorage<TValue>,
         partialOptions?: Partial<IBrowserHistoryStorageOptions>,
     ) {
         this.uniqueIdentifier = this.createUniqueIdentifier(); // TODO: Check collisions globally
@@ -35,14 +35,18 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
         this.init();
     }
 
-    public async pushValues(paramsPartial: Partial<TParams>): Promise<void> {
+    get value(): TValue {
+        return this.lastValue;
+    }
+
+    public async pushValue(valuePartial: Partial<TValue>): Promise<void> {
         // TODO: Partial is working and I do not know why? Maybe Localstorage
-        // this.urlsObserver.next(params as TParams);
+        // this.urlsObserver.next(params as TValue);
 
         const params = {
-            ...(this.lastParams as object),
-            ...(paramsPartial as object),
-        } as TParams;
+            ...(this.lastValue as object),
+            ...(valuePartial as object),
+        } as TValue;
 
         const urlsObserver = await forValueDefined(() => this.urlsObserver);
         urlsObserver.next(params);
@@ -55,20 +59,20 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
         /*  TODO: Implement */
     }
 
-    protected abstract decodeUrl(url: string): Partial<TParams>;
-    protected abstract encodeUrl(params: TParams, lastUrl: string): string;
+    protected abstract decodeUrl(url: string): Partial<TValue>;
+    protected abstract encodeUrl(params: TValue, lastUrl: string): string;
 
     protected createUniqueIdentifier() {
-        return createUniqueIdentifierFromParams(this.defaultParams);
+        return createUniqueIdentifierFromParams(this.defaulTValue);
     }
 
     private async init() {
         // ------------- Observing the browser state
-        this.values = Observable.create((observer: Observer<TParams>) => {
-            this.valuesObserver = observer;
+        this.values = Observable.create((valuesObserver: Observer<TValue>) => {
+            this.valuesObserver = valuesObserver;
 
             window.addEventListener('popstate', (event) => {
-                const paramsFromState = event.state as TParams & {
+                const paramsFromState = event.state as TValue & {
                     uniqueIdentifier: string;
                 };
                 if (
@@ -77,16 +81,16 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
                     return;
                 }
                 delete paramsFromState.uniqueIdentifier;
-                this.lastParams = paramsFromState;
-                observer.next(paramsFromState);
+                this.lastValue = paramsFromState;
+                valuesObserver.next(paramsFromState);
             });
         }).pipe(share()); // TODO: Maybe publish or none
 
         await forImmediate();
 
         // ------------- Pushing state to browser
-        const urls: Observable<TParams> = Observable.create(
-            (observer: Observer<TParams>) => {
+        const urls: Observable<TValue> = Observable.create(
+            (observer: Observer<TValue>) => {
                 this.urlsObserver = observer;
             },
         ).pipe(
@@ -100,15 +104,15 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
         );
 
         urls.subscribe((params) => {
-            // console.log(`params`, params, this.lastParams);
+            // console.log(`params`, params, this.lasTValue);
 
-            if (isEqual(params, this.lastParams)) {
+            if (isEqual(params, this.lastValue)) {
                 // Preventing pushing same state twice
                 return;
             }
             // console.log(`router PUSHING STATE`, params);
 
-            this.lastParams = params;
+            this.lastValue = params;
             window.history.pushState(
                 { uniqueIdentifier: this.uniqueIdentifier, ...(params as {}) },
                 window.document.title /* TODO: Is this a good solution? */,
@@ -122,31 +126,31 @@ export abstract class AbstractBrowserHistoryStorage<TParams extends IParams>
     }
 
     private async loadInitialParams() {
-        const urlParams = this.decodeUrl(window.location.toString()) as TParams;
+        const urlParams = this.decodeUrl(window.location.toString()) as TValue;
         const storageParams =
             (await this.serializedStorage.getItem(this.uniqueIdentifier)) || {};
 
-        const params: Partial<TParams> = {};
-        for (const key of Object.keys(this.defaultParams)) {
+        const params: Partial<TValue> = {};
+        for (const key of Object.keys(this.defaulTValue)) {
             (params as any)[key] =
-                urlParams[key] || storageParams[key] || this.defaultParams[key];
+                urlParams[key] || storageParams[key] || this.defaulTValue[key];
         }
 
         /*
         console.log('urlParams', urlParams);
         console.log('storageParams', storageParams);
-        console.log('defaultParams', defaultParams);
+        console.log('defaulTValue', defaulTValue);
         console.log('params', params);
         */
 
-        this.lastParams = params as TParams;
+        this.lastValue = params as TValue;
         const valuesObserver = await forValueDefined(() => this.valuesObserver);
         // TODO: Maybe this behaviour (putting into values initial values) should be in the options
-        valuesObserver.next(params as TParams);
+        valuesObserver.next(params as TValue);
         window.history.replaceState(
             { uniqueIdentifier: this.uniqueIdentifier, ...(params as {}) },
             window.document.title /* TODO: Is this a good solution? */,
-            this.encodeUrl(params as TParams, window.location.toString()),
+            this.encodeUrl(params as TValue, window.location.toString()),
         );
     }
 }

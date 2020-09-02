@@ -1,6 +1,6 @@
 import {
     IObservableStorage,
-    IParams,
+    IValue,
 } from '../../interfaces/IObservableStorage';
 import { IStorage } from '../../main';
 import { AbstractBrowserHistoryStorage } from './AbstractBrowserHistoryStorage';
@@ -8,17 +8,17 @@ import { IBrowserHistoryStorageOptions } from './IBrowserHistoryStorageOptions';
 
 // TODO: Maybe some more elegant way how to do this
 let instanced = false;
-export class BrowserHistoryPathStorage<TParams extends IParams>
-    extends AbstractBrowserHistoryStorage<TParams>
-    implements IObservableStorage<TParams> {
+export class BrowserHistoryPathStorage<TValue extends IValue>
+    extends AbstractBrowserHistoryStorage<TValue>
+    implements IObservableStorage<TValue> {
     constructor(
-        private decodeUrlPath: (url: string) => TParams,
-        private encodeUrlPath: (params: TParams) => string,
-        defaultParams: TParams,
-        serializedStorage: IStorage<TParams>,
+        private decodeUrlPath: (url: string) => TValue,
+        private encodeUrlPath: (params: TValue) => string,
+        defaulTValue: TValue,
+        serializedStorage: IStorage<TValue>,
         options?: Partial<IBrowserHistoryStorageOptions>,
     ) {
-        super(defaultParams, serializedStorage, options);
+        super(defaulTValue, serializedStorage, options);
 
         if (instanced) {
             /* tslint:disable: no-console*/
@@ -30,12 +30,12 @@ export class BrowserHistoryPathStorage<TParams extends IParams>
         }
     }
 
-    protected decodeUrl(url: string): Partial<TParams> {
+    protected decodeUrl(url: string): Partial<TValue> {
         const urlObject = new URL(url);
         return this.decodeUrlPath(urlObject.pathname);
     }
 
-    protected encodeUrl(params: TParams, lastUrl: string): string {
+    protected encodeUrl(params: TValue, lastUrl: string): string {
         const urlObject = new URL(lastUrl);
         urlObject.pathname = this.encodeUrlPath(params);
         return urlObject.toString();

@@ -2,22 +2,23 @@ import { isNullOrUndefined } from 'util';
 
 import {
     IObservableStorage,
-    IParams,
+    IValue,
 } from '../../interfaces/IObservableStorage';
 import { isNumeric } from '../../utils/isNumeric';
 import { AbstractBrowserHistoryStorage } from './AbstractBrowserHistoryStorage';
 
 /**
  * Note: Not suppoting array query params
+ * TODO: Order of GET params
  *
  */
-export class BrowserHistoryQueryStorage<TParams extends IParams>
-    extends AbstractBrowserHistoryStorage<TParams>
-    implements IObservableStorage<TParams> {
-    protected decodeUrl(url: string): Partial<TParams> {
+export class BrowserHistoryQueryStorage<TValue extends IValue>
+    extends AbstractBrowserHistoryStorage<TValue>
+    implements IObservableStorage<TValue> {
+    protected decodeUrl(url: string): Partial<TValue> {
         const urlObject = new URL(url);
-        const params: Partial<TParams> = {};
-        for (const key of Object.keys(this.defaultParams)) {
+        const params: Partial<TValue> = {};
+        for (const key of Object.keys(this.defaulTValue)) {
             let value: string | number | null = urlObject.searchParams.get(
                 key as any,
             );
@@ -27,10 +28,10 @@ export class BrowserHistoryQueryStorage<TParams extends IParams>
             (params as any)[key] = value;
         }
 
-        return params as TParams;
+        return params as TValue;
     }
 
-    protected encodeUrl(params: TParams, lastUrl: string): string {
+    protected encodeUrl(params: TValue, lastUrl: string): string {
         const url = new URL(lastUrl);
 
         for (const [key, value] of Object.entries(params)) {
