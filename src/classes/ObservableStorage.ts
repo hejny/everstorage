@@ -27,13 +27,13 @@ export abstract class ObservableStorage<TValue extends IValue>
         return this.lastValue;
     }
 
-    public async pushValue(valuePartial: Partial<TValue>): Promise<void> {
+    public async pushValue(partialValue: Partial<TValue>): Promise<void> {
         // TODO: Partial is working and I do not know why? Maybe Localstorage
         // this.urlsObserver.next(params as TValue );
 
         const params = {
             ...(this.lastValue as object),
-            ...(valuePartial as object),
+            ...(partialValue as object),
         } as TValue;
 
         // TODO: Remove const valuesObserver = await forValueDefined(() => this.valuesObserver);

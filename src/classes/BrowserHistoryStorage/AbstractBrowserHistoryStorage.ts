@@ -9,7 +9,10 @@ import {
 } from '../../interfaces/IObservableStorage';
 import { IStorage } from '../../interfaces/IStorage';
 import { createUniqueIdentifierFromParams } from '../../utils/createUniqueIdentifierFromParams';
-import { IBrowserHistoryStorageOptions } from './IBrowserHistoryStorageOptions';
+import {
+    BROWSER_HISTORY_STORAGE_OPTIONS_DEFAULTS,
+    IBrowserHistoryStorageOptions,
+} from './IBrowserHistoryStorageOptions';
 
 export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
     implements IObservableStorage<TValue> {
@@ -19,6 +22,7 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
     private valuesObserver?: Observer<TValue>;
     private options: IBrowserHistoryStorageOptions;
     private uniqueIdentifier: string;
+    // private pushValueLock: boolean = false /* TODO: Put locking and queues into waitasecond */;
 
     constructor(
         readonly defaultValue: TValue,
@@ -28,9 +32,7 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
         // TODO: Check collisions globally
 
         this.options = {
-            debounceInterval: 0,
-            saveToHistory: true,
-            saveToStorage: true,
+            ...BROWSER_HISTORY_STORAGE_OPTIONS_DEFAULTS,
             ...partialOptions,
         };
 
@@ -47,20 +49,39 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
         return this.lastValue;
     }
 
-    public async pushValue(valuePartial: Partial<TValue>): Promise<void> {
-        // TODO: Partial is working and I do not know why? Maybe Localstorage
-        // this.urlsObserver.next(params as TValue);
+    public async pushValue(partialValue: Partial<TValue>): Promise<void> {
+        /*await forValueDefined(() =>
+            this.pushValueLock ? console.log(`Waiting for lock`) : true,
+        );
+        this.pushValueLock = true;*/
 
-        const params = {
+        if (this.options.preventDuplicates) {
+            let changed = false;
+            for (const [key, value] of Object.entries(partialValue)) {
+                // console.log(this.lastValue[key], value);
+                if (this.lastValue[key] !== value) {
+                    changed = true;
+                }
+            }
+            if (!changed) {
+                //this.pushValueLock = false;
+                return;
+            }
+        }
+        const value = {
             ...(this.lastValue as object),
-            ...(valuePartial as object),
+            ...(partialValue as object),
         } as TValue;
 
+        this.lastValue = value;
+
         const urlsObserver = await forValueDefined(() => this.urlsObserver);
-        urlsObserver.next(params);
+        urlsObserver.next(value);
         const valuesObserver = await forValueDefined(() => this.valuesObserver);
         // TODO: Maybe this behaviour (putting into values values pushed by user) should be in the options
-        valuesObserver.next(params);
+        valuesObserver.next(value);
+
+        //this.pushValueLock = false;
     }
 
     public dispose() {
@@ -83,6 +104,7 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
 
             if (this.options.saveToHistory) {
                 window.addEventListener('popstate', (event) => {
+                    console.log('popstate');
                     const paramsFromState = event.state as TValue & {
                         uniqueIdentifier: string;
                     };
@@ -122,6 +144,7 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
 
                 if (isEqual(params, this.lastValue)) {
                     // Preventing pushing same state twice
+                    // TODO: Maybe duplicite functionality with preventDuplicates
                     return;
                 }
                 // console.log(`router PUSHING STATE`, params);

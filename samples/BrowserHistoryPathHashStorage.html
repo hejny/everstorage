@@ -46,7 +46,11 @@
                 inputElement.type =
                     typeof value === 'number' ? 'number' : 'text';
                 const pushValue = () => {
-                    storage.pushValue({ [key]: inputElement.value });
+                    let value = inputElement.value;
+                    if (inputElement.type === 'number') {
+                        value = Number.parseFloat(value);
+                    }
+                    storage.pushValue({ [key]: value });
                 };
                 inputElement.addEventListener('change', pushValue);
                 inputElement.addEventListener('click', pushValue);

@@ -27,7 +27,11 @@
             const defaultValue = { x: 10, y: 10 };
             const storage = new BrowserHistoryQueryStorage(
                 defaultValue,
-                { debounceInterval: 0 },
+                {
+                    debounceInterval: 0,
+                    saveToHistory: true,
+                    saveToStorage: false,
+                },
                 new PrefixStorage(
                     new ObjectStorage(localStorage),
                     'BrowserHistoryQueryStorage',
@@ -41,7 +45,11 @@
                 inputElement.type =
                     typeof value === 'number' ? 'number' : 'text';
                 const pushValue = () => {
-                    storage.pushValue({ [key]: inputElement.value });
+                    let value = inputElement.value;
+                    if (inputElement.type === 'number') {
+                        value = Number.parseFloat(value);
+                    }
+                    storage.pushValue({ [key]: value });
                 };
                 inputElement.addEventListener('change', pushValue);
                 inputElement.addEventListener('click', pushValue);
