@@ -22,8 +22,8 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
 
     constructor(
         readonly defaultValue: TValue,
-        private serializedStorage: IStorage<TValue>,
         partialOptions?: Partial<IBrowserHistoryStorageOptions>,
+        private serializedStorage?: IStorage<TValue>,
     ) {
         // TODO: Check collisions globally
 
@@ -31,6 +31,12 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
             debounceInterval: 0,
             ...partialOptions,
         };
+
+        if (this.options.saveToStorage && !serializedStorage) {
+            throw new Error(
+                `When you want to save to storage you need to provide one.`,
+            );
+        }
 
         this.init();
     }
@@ -73,19 +79,22 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
         this.values = Observable.create((valuesObserver: Observer<TValue>) => {
             this.valuesObserver = valuesObserver;
 
-            window.addEventListener('popstate', (event) => {
-                const paramsFromState = event.state as TValue & {
-                    uniqueIdentifier: string;
-                };
-                if (
-                    paramsFromState.uniqueIdentifier !== this.uniqueIdentifier
-                ) {
-                    return;
-                }
-                delete paramsFromState.uniqueIdentifier;
-                this.lastValue = paramsFromState;
-                valuesObserver.next(paramsFromState);
-            });
+            if (this.options.saveToHistory) {
+                window.addEventListener('popstate', (event) => {
+                    const paramsFromState = event.state as TValue & {
+                        uniqueIdentifier: string;
+                    };
+                    if (
+                        paramsFromState.uniqueIdentifier !==
+                        this.uniqueIdentifier
+                    ) {
+                        return;
+                    }
+                    delete paramsFromState.uniqueIdentifier;
+                    this.lastValue = paramsFromState;
+                    valuesObserver.next(paramsFromState);
+                });
+            }
         }).pipe(share()); // TODO: Maybe publish or none
 
         await forImmediate();
@@ -105,32 +114,48 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
             ),
         );
 
-        urls.subscribe((params) => {
-            // console.log(`params`, params, this.lasTValue);
+        if (this.options.saveToHistory) {
+            urls.subscribe((params) => {
+                // console.log(`params`, params, this.lasTValue);
 
-            if (isEqual(params, this.lastValue)) {
-                // Preventing pushing same state twice
-                return;
-            }
-            // console.log(`router PUSHING STATE`, params);
+                if (isEqual(params, this.lastValue)) {
+                    // Preventing pushing same state twice
+                    return;
+                }
+                // console.log(`router PUSHING STATE`, params);
 
-            this.lastValue = params;
-            window.history.pushState(
-                { uniqueIdentifier: this.uniqueIdentifier, ...(params as {}) },
-                window.document.title /* TODO: Is this a good solution? */,
-                this.encodeUrl(params, window.location.toString()),
-            );
+                this.lastValue = params;
+                window.history.pushState(
+                    {
+                        uniqueIdentifier: this.uniqueIdentifier,
+                        ...(params as {}),
+                    },
+                    window.document.title /* TODO: Is this a good solution? */,
+                    this.encodeUrl(params, window.location.toString()),
+                );
 
-            this.serializedStorage.setItem(this.uniqueIdentifier, params);
-        });
+                if (this.options.saveToStorage) {
+                    this.serializedStorage!.setItem(
+                        this.uniqueIdentifier,
+                        params,
+                    );
+                }
+            });
+        }
 
         this.loadInitialParams();
     }
 
     private async loadInitialParams() {
-        const urlParams = this.decodeUrl(window.location.toString()) as TValue;
-        const storageParams =
-            (await this.serializedStorage.getItem(this.uniqueIdentifier)) || {};
+        const urlParams: Partial<TValue> = this.decodeUrl(
+            window.location.toString(),
+        ) as TValue;
+        const storageParams: Partial<TValue> =
+            (this.options.saveToStorage &&
+                (await this.serializedStorage!.getItem(
+                    this.uniqueIdentifier,
+                ))) ||
+            {};
 
         const params: Partial<TValue> = {};
         for (const key of Object.keys(this.defaultValue)) {
@@ -149,10 +174,12 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
         const valuesObserver = await forValueDefined(() => this.valuesObserver);
         // TODO: Maybe this behaviour (putting into values initial values) should be in the options
         valuesObserver.next(params as TValue);
-        window.history.replaceState(
-            { uniqueIdentifier: this.uniqueIdentifier, ...(params as {}) },
-            window.document.title /* TODO: Is this a good solution? */,
-            this.encodeUrl(params as TValue, window.location.toString()),
-        );
+        if (this.options.saveToHistory) {
+            window.history.replaceState(
+                { uniqueIdentifier: this.uniqueIdentifier, ...(params as {}) },
+                window.document.title /* TODO: Is this a good solution? */,
+                this.encodeUrl(params as TValue, window.location.toString()),
+            );
+        }
     }
 }

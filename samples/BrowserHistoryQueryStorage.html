@@ -27,11 +27,11 @@
             const defaultValue = { x: 10, y: 10 };
             const storage = new BrowserHistoryQueryStorage(
                 defaultValue,
+                { debounceInterval: 0 },
                 new PrefixStorage(
                     new ObjectStorage(localStorage),
                     'BrowserHistoryQueryStorage',
                 ),
-                { debounceInterval: 0 },
             );
 
             const inputElements = {};

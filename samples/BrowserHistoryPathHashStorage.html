@@ -32,11 +32,11 @@
                 },
                 ({ x, y }) => `/${x}/${y}`,
                 defaultValue,
+                { debounceInterval: 50 },
                 new PrefixStorage(
                     new ObjectStorage(localStorage),
                     'BrowserHistoryPathHashStorage',
                 ),
-                { debounceInterval: 50 },
             );
 
             const inputElements = {};

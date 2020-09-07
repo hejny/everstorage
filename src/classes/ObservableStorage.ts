@@ -6,6 +6,9 @@ import { IObservableStorage } from '../interfaces/IObservableStorage';
 import { IStorage } from '../interfaces/IStorage';
 import { createUniqueIdentifierFromParams, IValue } from '../main';
 
+/**
+ * TODO: Maybe this is unsued due to option to setup a storages in AbstractBrowserHistoryStorage extended classes
+ */
 export abstract class ObservableStorage<TValue extends IValue>
     implements IObservableStorage<TValue> {
     public values: Observable<TValue>;

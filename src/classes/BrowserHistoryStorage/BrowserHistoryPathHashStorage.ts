@@ -15,10 +15,10 @@ export class BrowserHistoryPathHashStorage<TValue extends IValue>
         private decodeUrlPathHash: (url: string) => TValue,
         private encodeUrlPathHash: (params: TValue) => string,
         defaultValue: TValue,
-        serializedStorage: IStorage<TValue>,
         options?: Partial<IBrowserHistoryStorageOptions>,
+        serializedStorage?: IStorage<TValue>,
     ) {
-        super(defaultValue, serializedStorage, options);
+        super(defaultValue, options, serializedStorage);
 
         if (instanced) {
             /* tslint:disable: no-console*/
