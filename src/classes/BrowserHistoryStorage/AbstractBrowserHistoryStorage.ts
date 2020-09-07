@@ -21,11 +21,11 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
     private uniqueIdentifier: string;
 
     constructor(
-        readonly defaulTValue: TValue,
+        readonly defaultValue: TValue,
         private serializedStorage: IStorage<TValue>,
         partialOptions?: Partial<IBrowserHistoryStorageOptions>,
     ) {
-        this.uniqueIdentifier = this.createUniqueIdentifier(); // TODO: Check collisions globally
+        // TODO: Check collisions globally
 
         this.options = {
             debounceInterval: 0,
@@ -35,7 +35,7 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
         this.init();
     }
 
-    get value(): TValue {
+    public get value(): TValue {
         return this.lastValue;
     }
 
@@ -63,10 +63,12 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
     protected abstract encodeUrl(params: TValue, lastUrl: string): string;
 
     protected createUniqueIdentifier() {
-        return createUniqueIdentifierFromParams(this.defaulTValue);
+        return createUniqueIdentifierFromParams(this.defaultValue);
     }
 
     private async init() {
+        this.uniqueIdentifier = this.createUniqueIdentifier();
+
         // ------------- Observing the browser state
         this.values = Observable.create((valuesObserver: Observer<TValue>) => {
             this.valuesObserver = valuesObserver;
@@ -131,15 +133,15 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
             (await this.serializedStorage.getItem(this.uniqueIdentifier)) || {};
 
         const params: Partial<TValue> = {};
-        for (const key of Object.keys(this.defaulTValue)) {
+        for (const key of Object.keys(this.defaultValue)) {
             (params as any)[key] =
-                urlParams[key] || storageParams[key] || this.defaulTValue[key];
+                urlParams[key] || storageParams[key] || this.defaultValue[key];
         }
 
         /*
         console.log('urlParams', urlParams);
         console.log('storageParams', storageParams);
-        console.log('defaulTValue', defaulTValue);
+        console.log('defaultValue', defaultValue);
         console.log('params', params);
         */
 

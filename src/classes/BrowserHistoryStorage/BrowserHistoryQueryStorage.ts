@@ -18,7 +18,7 @@ export class BrowserHistoryQueryStorage<TValue extends IValue>
     protected decodeUrl(url: string): Partial<TValue> {
         const urlObject = new URL(url);
         const params: Partial<TValue> = {};
-        for (const key of Object.keys(this.defaulTValue)) {
+        for (const key of Object.keys(this.defaultValue)) {
             let value: string | number | null = urlObject.searchParams.get(
                 key as any,
             );
