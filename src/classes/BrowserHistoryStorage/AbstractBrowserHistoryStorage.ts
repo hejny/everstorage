@@ -29,6 +29,8 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
 
         this.options = {
             debounceInterval: 0,
+            saveToHistory: true,
+            saveToStorage: true,
             ...partialOptions,
         };
 
