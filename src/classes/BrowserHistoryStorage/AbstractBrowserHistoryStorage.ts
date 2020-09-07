@@ -1,4 +1,3 @@
-import isEqual from 'lodash/isEqual';
 import { interval, Observable, Observer } from 'rxjs';
 import { debounce, share } from 'rxjs/operators';
 import { forImmediate, forValueDefined } from 'waitasecond';
@@ -18,7 +17,7 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
     implements IObservableStorage<TValue> {
     public values: Observable<TValue>;
     private lastValue: TValue;
-    private urlsObserver?: Observer<TValue>;
+    private valuesToSaveObserver?: Observer<TValue>;
     private valuesObserver?: Observer<TValue>;
     private options: IBrowserHistoryStorageOptions;
     private uniqueIdentifier: string;
@@ -75,8 +74,11 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
 
         this.lastValue = value;
 
-        const urlsObserver = await forValueDefined(() => this.urlsObserver);
-        urlsObserver.next(value);
+        const valuesToSaveObserver = await forValueDefined(
+            () => this.valuesToSaveObserver,
+        );
+        valuesToSaveObserver.next(value);
+
         const valuesObserver = await forValueDefined(() => this.valuesObserver);
         // TODO: Maybe this behaviour (putting into values values pushed by user) should be in the options
         valuesObserver.next(value);
@@ -104,7 +106,7 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
 
             if (this.options.saveToHistory) {
                 window.addEventListener('popstate', (event) => {
-                    console.log('popstate');
+                    // console.log('popstate');
                     const paramsFromState = event.state as TValue & {
                         uniqueIdentifier: string;
                     };
@@ -124,9 +126,10 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
         await forImmediate();
 
         // ------------- Pushing state to browser
-        const urls: Observable<TValue> = Observable.create(
+
+        const valuesToSave: Observable<TValue> = Observable.create(
             (observer: Observer<TValue>) => {
-                this.urlsObserver = observer;
+                this.valuesToSaveObserver = observer;
             },
         ).pipe(
             debounce(() =>
@@ -138,40 +141,30 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
             ),
         );
 
-        if (this.options.saveToHistory) {
-            urls.subscribe((params) => {
-                // console.log(`params`, params, this.lasTValue);
+        valuesToSave.subscribe((paramsToUrl) => {
+            // console.log(`router PUSHING STATE`, params);
 
-                if (isEqual(params, this.lastValue)) {
-                    // Preventing pushing same state twice
-                    // TODO: Maybe duplicite functionality with preventDuplicates
-                    return;
-                }
-                // console.log(`router PUSHING STATE`, params);
-
-                this.lastValue = params;
+            if (this.options.saveToHistory) {
                 window.history.pushState(
                     {
                         uniqueIdentifier: this.uniqueIdentifier,
-                        ...(params as {}),
+                        ...(paramsToUrl as {}),
                     },
                     window.document.title /* TODO: Is this a good solution? */,
-                    this.encodeUrl(params, window.location.toString()),
+                    this.encodeUrl(paramsToUrl, window.location.toString()),
                 );
+            }
 
-                if (this.options.saveToStorage) {
-                    this.serializedStorage!.setItem(
-                        this.uniqueIdentifier,
-                        params,
-                    );
-                }
-            });
-        }
+            if (this.options.saveToStorage) {
+                this.serializedStorage!.setItem(
+                    this.uniqueIdentifier,
+                    paramsToUrl,
+                );
+            }
+        });
 
-        this.loadInitialParams();
-    }
+        // -------------Load initial params
 
-    private async loadInitialParams() {
         const urlParams: Partial<TValue> = this.decodeUrl(
             window.location.toString(),
         ) as TValue;
