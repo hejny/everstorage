@@ -165,15 +165,17 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
 
         // -------------Load initial params
 
-        const urlParams: Partial<TValue> = this.decodeUrl(
-            window.location.toString(),
-        ) as TValue;
-        const storageParams: Partial<TValue> =
-            (this.options.saveToStorage &&
-                (await this.serializedStorage!.getItem(
-                    this.uniqueIdentifier,
-                ))) ||
-            {};
+        const urlParams: Partial<TValue> = !this.options.saveToHistory
+            ? {}
+            : this.decodeUrl(window.location.toString());
+
+        const storageParams: Partial<TValue> = !this.options.saveToStorage
+            ? {}
+            : (this.options.saveToStorage &&
+                  (await this.serializedStorage!.getItem(
+                      this.uniqueIdentifier,
+                  ))) ||
+              {};
 
         const params: Partial<TValue> = {};
         for (const key of Object.keys(this.defaultValue)) {
