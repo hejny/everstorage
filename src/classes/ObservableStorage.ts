@@ -55,8 +55,8 @@ export abstract class ObservableStorage<TValue extends IValue>
         this.uniqueIdentifier = this.createUniqueIdentifier();
 
         // ------------- Observing the browser state
-        this.values = Observable.create((valuesObserver: Observer<TValue>) => {
-            this.valuesObserver = valuesObserver;
+        this.values = Observable.create((observer: Observer<TValue>) => {
+            this.valuesObserver = observer;
         }).pipe(share()); // TODO: Maybe publish or none
 
         // TODO: Remove await forImmediate();

@@ -56,6 +56,7 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
 
         if (this.options.preventDuplicates) {
             let changed = false;
+            /* tslint:disable:no-shadowed-variable */
             for (const [key, value] of Object.entries(partialValue)) {
                 // console.log(this.lastValue[key], value);
                 if (this.lastValue[key] !== value) {
@@ -63,7 +64,7 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
                 }
             }
             if (!changed) {
-                //this.pushValueLock = false;
+                // this.pushValueLock = false;
                 return;
             }
         }
@@ -83,7 +84,7 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
         // TODO: Maybe this behaviour (putting into values values pushed by user) should be in the options
         valuesObserver.next(value);
 
-        //this.pushValueLock = false;
+        // this.pushValueLock = false;
     }
 
     public dispose() {
@@ -101,8 +102,8 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
         this.uniqueIdentifier = this.createUniqueIdentifier();
 
         // ------------- Observing the browser state
-        this.values = Observable.create((valuesObserver: Observer<TValue>) => {
-            this.valuesObserver = valuesObserver;
+        this.values = Observable.create((observer: Observer<TValue>) => {
+            this.valuesObserver = observer;
 
             if (this.options.saveToHistory) {
                 window.addEventListener('popstate', (event) => {
@@ -118,7 +119,7 @@ export abstract class AbstractBrowserHistoryStorage<TValue extends IValue>
                     }
                     delete paramsFromState.uniqueIdentifier;
                     this.lastValue = paramsFromState;
-                    valuesObserver.next(paramsFromState);
+                    observer.next(paramsFromState);
                 });
             }
         }).pipe(share()); // TODO: Maybe publish or none
