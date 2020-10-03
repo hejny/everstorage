@@ -1,9 +1,6 @@
-import { isNullOrUndefined } from 'util';
-
-import {
-    IObservableStorage,
-    IValue,
-} from '../../interfaces/IObservableStorage';
+import { IObservableStorage } from '../../interfaces/IObservableStorage';
+import { ISerializable } from '../../interfaces/ISerializable';
+import { ISerialized } from '../../interfaces/ISerialized';
 import { isNumeric } from '../../utils/isNumeric';
 import { AbstractBrowserHistoryStorage } from './AbstractBrowserHistoryStorage';
 
@@ -12,12 +9,12 @@ import { AbstractBrowserHistoryStorage } from './AbstractBrowserHistoryStorage';
  * TODO: Order of GET params
  *
  */
-export class BrowserHistoryQueryStorage<TValue extends IValue>
+export class BrowserHistoryQueryStorage<TValue extends ISerializable>
     extends AbstractBrowserHistoryStorage<TValue>
     implements IObservableStorage<TValue> {
     protected decodeUrl(url: string): Partial<TValue> {
         const urlObject = new URL(url);
-        const params: Partial<TValue> = {};
+        const params: ISerialized = {};
         for (const key of Object.keys(this.defaultValue)) {
             let value: string | number | null = urlObject.searchParams.get(
                 key as any,
@@ -28,19 +25,20 @@ export class BrowserHistoryQueryStorage<TValue extends IValue>
             (params as any)[key] = value;
         }
 
-        return params as TValue;
+        return this.serializer.deserialize(params);
     }
 
     protected encodeUrl(params: TValue, lastUrl: string): string {
         const url = new URL(lastUrl);
 
-        for (const [key, value] of Object.entries(params)) {
-            if (
-                isNullOrUndefined(
-                    /** @deprecated since v4.0.0 - use `value === null || value === undefined` instead. */
-                    value,
-                )
-            ) {
+        for (const [key, value] of Object.entries(
+            this.serializer.serialize(
+                params /* TODO: Bit inefficient, maybe cache on level of Serializer */,
+            ),
+        )) {
+            // console.log(key, value);
+
+            if (value === null || value === undefined) {
                 url.searchParams.delete(key);
             } else {
                 url.searchParams.set(key, value.toString());

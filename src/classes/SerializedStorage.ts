@@ -1,12 +1,18 @@
 import { IAwaitable } from '../interfaces/IAwaitable';
-import { IJson } from '../interfaces/IJson';
+import { ISerializable } from '../interfaces/ISerializable';
+import { ISerialized } from '../interfaces/ISerialized';
 import { IStorage } from '../interfaces/IStorage';
+import { Serializer } from '../utils/Serializer';
 
 /**
- * This class behaves like LocalStorage but entries are JSON objects
+ * This class behaves like LocalStorage but entries are objects
+ * TODO: This is taken from CollBoard and should be reviewed
  */
-export class ObjectStorage<T extends IJson> {
-    constructor(private baseStorage: IStorage<string>) {}
+export class SerializedStorage<T extends ISerializable> {
+    constructor(
+        private baseStorage: IStorage<ISerialized>,
+        private serializer: Serializer<T>,
+    ) {}
 
     /**
      * Returns the number of key/value pairs currently present in the list associated with the object.
@@ -26,13 +32,9 @@ export class ObjectStorage<T extends IJson> {
      * Returns the current value associated with the given key, or null if the given key does not exist in the list associated with the object.
      */
     public async getItem(key: string): Promise<T | null> {
-        const serializedString = await this.baseStorage.getItem(key);
-        if (!serializedString) {
-            return null;
-        }
-        const object = JSON.parse(serializedString);
-
-        return object;
+        return this.serializer.deserialize(
+            (await this.baseStorage.getItem(key)) as ISerialized,
+        );
     }
 
     /**
@@ -54,8 +56,6 @@ export class ObjectStorage<T extends IJson> {
      * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
      */
     public setItem(key: string, value: T): IAwaitable<void> {
-        return this.baseStorage.setItem(key, JSON.stringify(value));
+        return this.baseStorage.setItem(key, this.serializer.serialize(value));
     }
 }
-
-export const objectLocalStorage = new ObjectStorage(localStorage);

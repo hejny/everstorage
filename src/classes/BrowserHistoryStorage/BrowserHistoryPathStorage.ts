@@ -1,14 +1,14 @@
-import {
-    IObservableStorage,
-    IValue,
-} from '../../interfaces/IObservableStorage';
-import { IStorage } from '../../main';
+import { IObservableStorage } from '../../interfaces/IObservableStorage';
+import { ISerializable } from '../../interfaces/ISerializable';
+import { ISerialized } from '../../interfaces/ISerialized';
+import { IStorage } from '../../interfaces/IStorage';
+import { Serializer } from '../../utils/Serializer';
 import { AbstractBrowserHistoryStorage } from './AbstractBrowserHistoryStorage';
 import { IBrowserHistoryStorageOptions } from './IBrowserHistoryStorageOptions';
 
 // TODO: Maybe some more elegant way how to do this
 let instanced = false;
-export class BrowserHistoryPathStorage<TValue extends IValue>
+export class BrowserHistoryPathStorage<TValue extends ISerializable>
     extends AbstractBrowserHistoryStorage<TValue>
     implements IObservableStorage<TValue> {
     constructor(
@@ -16,9 +16,10 @@ export class BrowserHistoryPathStorage<TValue extends IValue>
         private encodeUrlPath: (params: TValue) => string,
         defaultValue: TValue,
         options?: Partial<IBrowserHistoryStorageOptions>,
-        serializedStorage?: IStorage<TValue>,
+        storage?: IStorage<ISerialized>,
+        serializer?: Serializer<TValue>,
     ) {
-        super(defaultValue, options, serializedStorage);
+        super(defaultValue, options, storage, serializer);
 
         if (instanced) {
             /* tslint:disable: no-console*/

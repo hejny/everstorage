@@ -16,7 +16,8 @@ app.use(serveStatic(staticBasePath, { index: false }));
 app.use(
     serveIndex(staticBasePath, {
         icons: true,
-        filter: (filename, index, files, dir) => /\.html$/.test(filename),
+        filter: (filename, index, files, dir) =>
+            /(\.html|samples)$/.test(filename),
     }),
 );
 app.listen(PORT);

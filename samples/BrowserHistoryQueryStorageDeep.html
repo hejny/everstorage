@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Sample of BrowserHistoryQueryStorage</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="./common-assets/common.css"
+        />
+    </head>
+    <body>
+        <script
+            type="text/javascript"
+            src="../dist/main.dev.browser.js"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/json5/0.5.1/json5.min.js"
+            integrity="sha512-0Z0waakasLFLv2VFHGqiiCQebtQi7wpUieRR4yInvJ/EGQk9r+4LvjMEgsi15EnvONG2uo2Z9bdJXDV8uU8iuA=="
+            crossorigin="anonymous"
+        ></script>
+
+        <!-- TODO: Ace or other editor -->
+        <textarea id="value" cols="100" rows="55"></textarea>
+
+        <script type="text/javascript">
+            // TODO: Do all samples DRY
+
+            const {
+                BrowserHistoryQueryStorage,
+                PrefixStorage,
+                ObjectStorage,
+            } = Everstorage;
+
+            const storage = new BrowserHistoryQueryStorage(
+                {
+                    x: 10,
+                    date: new Date(),
+                    //position: { x: 10, y: 10 },
+                    //deep: { sub: { sub: 'subsubvalue' } },
+                },
+                {
+                    debounceInterval: 0,
+                    saveToHistory: true,
+                    saveToStorage: true,
+                },
+            );
+
+            const inputElements = {};
+            const valueElement = document.getElementById(`value`);
+
+            const pushValue = () => {
+                const valueRaw = valueElement.value;
+                value = JSON5.parse(valueRaw);
+                storage.pushValue(value);
+            };
+            valueElement.addEventListener('change', pushValue);
+            valueElement.addEventListener('click', pushValue);
+
+            storage.values.subscribe((value) => {
+                console.log(`new value`, value);
+                valueElement.value = JSON5.stringify(value, null, 4);
+            });
+        </script>
+    </body>
+</html>

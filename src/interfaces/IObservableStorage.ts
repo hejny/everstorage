@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
 
-export type IValue = Record<string, string | number | null | undefined>;
+import { ISerializable } from './ISerializable';
 
 /** This is simmilar to Web Storage API interface but values are observable streams. */
-export interface IObservableStorage<TValue extends IValue> {
+export interface IObservableStorage<TValue extends ISerializable> {
     value: TValue;
     values: Observable<TValue>;
     pushValue(value: TValue): void;

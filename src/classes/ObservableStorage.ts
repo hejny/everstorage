@@ -1,87 +1,91 @@
-import { Observable, Observer } from 'rxjs';
-import { share } from 'rxjs/operators';
-import { forValueDefined } from 'waitasecond';
+// TODO: Add serializer
 
-import { IObservableStorage } from '../interfaces/IObservableStorage';
-import { IStorage } from '../interfaces/IStorage';
-import { createUniqueIdentifierFromParams, IValue } from '../main';
+// import { Observable, Observer } from 'rxjs';
+// import { share } from 'rxjs/operators';
+// import { forValueDefined } from 'waitasecond';
 
-/**
- * TODO: Maybe this is unsued due to option to setup a storages in AbstractBrowserHistoryStorage extended classes
- */
-export abstract class ObservableStorage<TValue extends IValue>
-    implements IObservableStorage<TValue> {
-    public values: Observable<TValue>;
-    private lastValue: TValue;
-    private valuesObserver: Observer<TValue>;
-    private uniqueIdentifier: string;
+// import { IObservableStorage } from '../interfaces/IObservableStorage';
+// import { IJsonExtended } from '../interfaces/IJsonExtended';
+// import { IStorage } from '../interfaces/IStorage';
+// import { createUniqueIdentifierFromParams } from '../utils/createUniqueIdentifierFromParams';
+// import { ISerializable } from '../interfaces/ISerializable';
 
-    constructor(
-        readonly defaultValue: TValue,
-        private serializedStorage: IStorage<TValue>,
-    ) {
-        this.init();
-    }
+// /**
+//  * TODO: Maybe this is unsued due to option to setup a storages in AbstractBrowserHistoryStorage extended classes
+//  */
+// export abstract class ObservableStorage<TValue extends ISerializable>
+//     implements IObservableStorage<TValue> {
+//     public values: Observable<TValue>;
+//     private lastValue: TValue;
+//     private valuesObserver: Observer<TValue>;
+//     private uniqueIdentifier: string;
 
-    public get value(): TValue {
-        return this.lastValue;
-    }
+//     constructor(
+//         readonly defaultValue: TValue,
+//         private serializedStorage: IStorage<TValue>,
+//     ) {
+//         this.init();
+//     }
 
-    public async pushValue(partialValue: Partial<TValue>): Promise<void> {
-        // TODO: Partial is working and I do not know why? Maybe Localstorage
-        // this.urlsObserver.next(params as TValue );
+//     public get value(): TValue {
+//         return this.lastValue;
+//     }
 
-        const params = {
-            ...(this.lastValue as object),
-            ...(partialValue as object),
-        } as TValue;
+//     public async pushValue(partialValue: Partial<TValue>): Promise<void> {
+//         // TODO: Partial is working and I do not know why? Maybe Localstorage
+//         // this.urlsObserver.next(params as TValue );
 
-        // TODO: Remove const valuesObserver = await forValueDefined(() => this.valuesObserver);
-        // TODO: Maybe this behaviour (putting into values values pushed by user) should be in the options
-        this.valuesObserver.next(params);
+//         const params = {
+//             ...(this.lastValue as object),
+//             ...(partialValue as object),
+//         } as TValue;
 
-        this.serializedStorage.setItem(this.uniqueIdentifier, params);
-    }
+//         // TODO: Remove const valuesObserver = await forValueDefined(() => this.valuesObserver);
+//         // TODO: Maybe this behaviour (putting into values values pushed by user) should be in the options
+//         this.valuesObserver.next(params);
 
-    public dispose() {
-        /*  TODO: Implement */
-    }
+//         this.serializedStorage.setItem(this.uniqueIdentifier, params);
+//     }
 
-    protected createUniqueIdentifier() {
-        return createUniqueIdentifierFromParams(this.defaultValue);
-    }
+//     public dispose() {
+//         /*  TODO: Implement */
+//     }
 
-    private async init() {
-        this.uniqueIdentifier = this.createUniqueIdentifier();
+//     protected createUniqueIdentifier() {
+//         return createUniqueIdentifierFromParams(this.defaultValue);
+//     }
 
-        // ------------- Observing the browser state
-        this.values = Observable.create((observer: Observer<TValue>) => {
-            this.valuesObserver = observer;
-        }).pipe(share()); // TODO: Maybe publish or none
+//     private async init() {
+//         this.uniqueIdentifier = this.createUniqueIdentifier();
 
-        // TODO: Remove await forImmediate();
-        this.loadInitialParams();
-    }
+//         // ------------- Observing the browser state
+//         this.values = Observable.create((observer: Observer<TValue>) => {
+//             this.valuesObserver = observer;
+//         }).pipe(share()); // TODO: Maybe publish or none
 
-    private async loadInitialParams() {
-        const storageParams =
-            (await this.serializedStorage.getItem(this.uniqueIdentifier)) || {};
+//         // TODO: Remove await forImmediate();
+//         this.loadInitialParams();
+//     }
 
-        const params: Partial<TValue> = {};
-        for (const key of Object.keys(this.defaultValue)) {
-            (params as any)[key] = storageParams[key] || this.defaultValue[key];
-        }
+//     private async loadInitialParams() {
+//         const storageParams =
+//             (await this.serializedStorage.getItem(this.uniqueIdentifier)) || {};
 
-        /*
-        console.log('urlParams', urlParams);
-        console.log('storageParams', storageParams);
-        console.log('defaultValue', defaultValue);
-        console.log('params', params);
-        */
+//         const params: Partial<TValue> = {};
+//         for (const key of Object.keys(this.defaultValue)) {
+//             (params as any)[key] = storageParams[key] || this.defaultValue[key];
+//         }
 
-        this.lastValue = params as TValue;
-        const valuesObserver = await forValueDefined(() => this.valuesObserver);
-        // TODO: Maybe this behaviour (putting into values initial values) should be in the options
-        valuesObserver.next(params as TValue);
-    }
-}
+//         /*
+//         console.log('urlParams', urlParams);
+//         console.log('storageParams', storageParams);
+//         console.log('defaultValue', defaultValue);
+//         console.log('params', params);
+//         */
+
+//         this.lastValue = params as TValue;
+//         const valuesObserver = await forValueDefined(() => this.valuesObserver);
+//         // TODO: Maybe this behaviour (putting into values initial values) should be in the options
+//         valuesObserver.next(params as TValue);
+//     }
+// }

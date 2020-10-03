@@ -12,33 +12,47 @@ import { BROWSER_HISTORY_STORAGE_OPTIONS_DEFAULTS } from './classes/BrowserHisto
 import { MemoryStorage } from './classes/MemoryStorage';
 import { MultiStorage } from './classes/MultiStorage';
 import { ObjectStorage } from './classes/ObjectStorage';
+import { objectLocalStorage } from './classes/ObjectStorage';
 import { PrefixStorage } from './classes/PrefixStorage';
-import { IValue } from './interfaces/IObservableStorage';
+import { SerializedStorage } from './classes/SerializedStorage';
+import { IAwaitable } from './interfaces/IAwaitable';
+import { IBrowserState } from './interfaces/IBrowserState';
+import { IInstantiable } from './interfaces/IInstantiable';
+import { IJson } from './interfaces/IJson';
 import { IObservableStorage } from './interfaces/IObservableStorage';
+import { ISerializable } from './interfaces/ISerializable';
+import { ISerialized } from './interfaces/ISerialized';
+import { ISerializeRule } from './interfaces/ISerializeRule';
 import { IStorage } from './interfaces/IStorage';
-import { Awaitable } from './interfaces/utils/Awaitable';
-import { Instantiable } from './interfaces/utils/Instantiable';
-import { ISerialized } from './interfaces/utils/ISerialized';
-import { ISerializeRule } from './interfaces/utils/ISerializeRule';
 import { createUniqueIdentifierFromParams } from './utils/createUniqueIdentifierFromParams';
 import { isNumeric } from './utils/isNumeric';
+import { Serializer } from './utils/Serializer';
+import { serializer } from './utils/serializers';
+import { serializerWithDate } from './utils/serializers';
 
 export {
-    IValue,
+    IJson,
     IStorage,
     isNumeric,
-    Awaitable,
+    serializer,
+    Serializer,
+    IAwaitable,
     ISerialized,
-    Instantiable,
     MultiStorage,
     AsyncStorage,
+    ISerializable,
+    IInstantiable,
+    IBrowserState,
     PrefixStorage,
     ObjectStorage,
     MemoryStorage,
     ISerializeRule,
     blackholeStorage,
     BlackholeStorage,
+    SerializedStorage,
+    serializerWithDate,
     IObservableStorage,
+    objectLocalStorage,
     BrowserHistoryPathStorage,
     BrowserHistoryQueryStorage,
     IBrowserHistoryStorageOptions,
