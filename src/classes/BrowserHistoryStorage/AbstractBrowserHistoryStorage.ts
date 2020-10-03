@@ -106,6 +106,17 @@ export abstract class AbstractBrowserHistoryStorage<
         /*  TODO: Implement */
     }
 
+    public createLink(value: TValue, baseUrl?: URL | string): URL {
+        if (!baseUrl) {
+            baseUrl = window.location.toString();
+        }
+
+        return this.encodeUrl(
+            value,
+            typeof baseUrl === 'string' ? new URL(baseUrl) : baseUrl,
+        );
+    }
+
     public async initialize() {
         // ------------- Check if initialized and prevent multiple initializations
 
@@ -178,7 +189,10 @@ export abstract class AbstractBrowserHistoryStorage<
                         data: this.serializer.serialize(paramsToUrl),
                     } as IBrowserState,
                     window.document.title /* TODO: Is this a good solution? */,
-                    this.encodeUrl(paramsToUrl, window.location.toString()),
+                    this.encodeUrl(
+                        paramsToUrl,
+                        new URL(window.location.toString()),
+                    ).toString(),
                 );
             }
 
@@ -191,7 +205,7 @@ export abstract class AbstractBrowserHistoryStorage<
 
         const urlParams: Partial<TValue> = !this.options.saveToHistory
             ? {}
-            : this.decodeUrl(window.location.toString());
+            : this.decodeUrl(new URL(window.location.toString()));
 
         const storageParams: Partial<TValue> = !this.options.saveToStorage
             ? {}
@@ -225,13 +239,16 @@ export abstract class AbstractBrowserHistoryStorage<
                     data: this.serializer.serialize(params as TValue),
                 } as IBrowserState,
                 window.document.title /* TODO: Is this a good solution? */,
-                this.encodeUrl(params as TValue, window.location.toString()),
+                this.encodeUrl(
+                    params as TValue,
+                    new URL(window.location.toString()),
+                ).toString(),
             );
         }
     }
 
-    protected abstract decodeUrl(url: string): Partial<TValue>;
-    protected abstract encodeUrl(params: TValue, lastUrl: string): string;
+    protected abstract decodeUrl(url: URL): Partial<TValue>;
+    protected abstract encodeUrl(params: TValue, lastUrl: URL): URL;
 
     protected createUniqueIdentifier() {
         return createUniqueIdentifierFromParams(this.defaultValue);

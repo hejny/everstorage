@@ -12,11 +12,10 @@ import { AbstractBrowserHistoryStorage } from './AbstractBrowserHistoryStorage';
 export class BrowserHistoryQueryStorage<TValue extends ISerializable>
     extends AbstractBrowserHistoryStorage<TValue>
     implements IObservableStorage<TValue> {
-    protected decodeUrl(url: string): Partial<TValue> {
-        const urlObject = new URL(url);
+    protected decodeUrl(url: URL): Partial<TValue> {
         const params: ISerialized = {};
         for (const key of Object.keys(this.defaultValue)) {
-            let value: string | number | null = urlObject.searchParams.get(
+            let value: string | number | null = url.searchParams.get(
                 key as any,
             );
             if (isNumeric(value)) {
@@ -30,8 +29,9 @@ export class BrowserHistoryQueryStorage<TValue extends ISerializable>
         return this.serializer.deserialize(params);
     }
 
-    protected encodeUrl(params: TValue, lastUrl: string): string {
-        const url = new URL(lastUrl);
+    protected encodeUrl(params: TValue, lastUrl: URL): URL {
+        // Note: deep clonning to prevent mutating
+        const url = new URL(lastUrl.toString());
 
         for (const [key, value] of Object.entries(
             this.serializer.serialize(
@@ -53,7 +53,7 @@ export class BrowserHistoryQueryStorage<TValue extends ISerializable>
             }
         }
 
-        return url.toString();
+        return url;
     }
 }
 

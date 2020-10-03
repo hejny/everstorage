@@ -31,14 +31,14 @@ export class BrowserHistoryPathStorage<TValue extends ISerializable>
         }
     }
 
-    protected decodeUrl(url: string): Partial<TValue> {
-        const urlObject = new URL(url);
-        return this.decodeUrlPath(urlObject.pathname);
+    protected decodeUrl(url: URL): Partial<TValue> {
+        return this.decodeUrlPath(url.pathname);
     }
 
-    protected encodeUrl(params: TValue, lastUrl: string): string {
-        const urlObject = new URL(lastUrl);
-        urlObject.pathname = this.encodeUrlPath(params);
-        return urlObject.toString();
+    protected encodeUrl(params: TValue, lastUrl: URL): URL {
+        // Note: deep clonning to prevent mutating
+        const url = new URL(lastUrl.toString());
+        url.pathname = this.encodeUrlPath(params);
+        return url;
     }
 }
