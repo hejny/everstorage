@@ -36,8 +36,8 @@
                 {
                     x: 10,
                     date: new Date(),
-                    //position: { x: 10, y: 10 },
-                    //deep: { sub: { sub: 'subsubvalue' } },
+                    position: { x: 10, y: 10 },
+                    deep: { sub: { sub: 'subsubvalue' } },
                 },
                 {
                     debounceInterval: 0,
@@ -52,6 +52,7 @@
             const pushValue = () => {
                 const valueRaw = valueElement.value;
                 value = JSON5.parse(valueRaw);
+                value.date = new Date(value.date);
                 storage.pushValue(value);
             };
             valueElement.addEventListener('change', pushValue);

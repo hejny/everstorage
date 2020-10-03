@@ -1,8 +1,8 @@
 import { interval, Observable, Observer } from 'rxjs';
 import { debounce, share } from 'rxjs/operators';
 import { forImmediate, forValueDefined } from 'waitasecond';
-import { IBrowserState } from '../../interfaces/IBrowserState';
 
+import { IBrowserState } from '../../interfaces/IBrowserState';
 import { IObservableStorage } from '../../interfaces/IObservableStorage';
 import { ISerializable } from '../../interfaces/ISerializable';
 import { ISerialized } from '../../interfaces/ISerialized';
@@ -11,7 +11,6 @@ import { createUniqueIdentifierFromParams } from '../../utils/createUniqueIdenti
 import { Serializer } from '../../utils/Serializer';
 import { serializerWithDate } from '../../utils/serializers';
 import { objectLocalStorage } from '../ObjectStorage';
-import { PrefixStorage } from '../PrefixStorage';
 import { SerializedStorage } from '../SerializedStorage';
 import {
     BROWSER_HISTORY_STORAGE_OPTIONS_DEFAULTS,

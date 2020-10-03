@@ -21,6 +21,8 @@ export class BrowserHistoryQueryStorage<TValue extends ISerializable>
             );
             if (isNumeric(value)) {
                 value = parseFloat(value as any);
+            } else if (typeof value === 'string' && JSON_LIKE.test(value)) {
+                value = JSON.parse(value as any);
             }
             (params as any)[key] = value;
         }
@@ -41,10 +43,18 @@ export class BrowserHistoryQueryStorage<TValue extends ISerializable>
             if (value === null || value === undefined) {
                 url.searchParams.delete(key);
             } else {
-                url.searchParams.set(key, value.toString());
+                // TODO: Maybe some flattening to not to pass ugly GET params in JSON format
+                const valueString =
+                    typeof value === 'object'
+                        ? JSON.stringify(value)
+                        : value.toString();
+
+                url.searchParams.set(key, valueString);
             }
         }
 
         return url.toString();
     }
 }
+
+const JSON_LIKE = /\{.*\}/s; // TODO: Better
