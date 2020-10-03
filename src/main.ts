@@ -21,6 +21,7 @@ import { IInstantiable } from './interfaces/IInstantiable';
 import { IJson } from './interfaces/IJson';
 import { IObservableStorage } from './interfaces/IObservableStorage';
 import { ISerializable } from './interfaces/ISerializable';
+import { ISerializableCore } from './interfaces/ISerializable';
 import { ISerialized } from './interfaces/ISerialized';
 import { ISerializeRule } from './interfaces/ISerializeRule';
 import { IStorage } from './interfaces/IStorage';
@@ -49,6 +50,7 @@ export {
     ISerializeRule,
     blackholeStorage,
     BlackholeStorage,
+    ISerializableCore,
     SerializedStorage,
     serializerWithDate,
     IObservableStorage,

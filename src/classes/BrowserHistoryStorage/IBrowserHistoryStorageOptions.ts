@@ -1,4 +1,6 @@
 export interface IBrowserHistoryStorageOptions {
+    initialize: boolean;
+    uniqueIdentifier: null|string;
     debounceInterval: number;
     preventDuplicates: boolean;
     saveToHistory: boolean;
@@ -6,6 +8,8 @@ export interface IBrowserHistoryStorageOptions {
 }
 
 export const BROWSER_HISTORY_STORAGE_OPTIONS_DEFAULTS: IBrowserHistoryStorageOptions = {
+    initialize: true,
+    uniqueIdentifier: null,
     debounceInterval: 0,
     preventDuplicates: true,
     saveToHistory: true,

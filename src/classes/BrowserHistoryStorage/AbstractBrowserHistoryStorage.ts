@@ -27,12 +27,13 @@ export abstract class AbstractBrowserHistoryStorage<
     private options: IBrowserHistoryStorageOptions;
     private uniqueIdentifier: string;
     private storage?: IStorage<TValue>;
+    private initialized: boolean = false;
     // private pushValueLock: boolean = false /* TODO: Put locking and queues into waitasecond */;
 
     constructor(
         readonly defaultValue: TValue,
         options?: Partial<IBrowserHistoryStorageOptions>,
-        storage?: IStorage<ISerialized>,
+        private baseStorage?: IStorage<ISerialized>,
         protected serializer: Serializer<
             TValue
         > = (serializerWithDate as unknown) as Serializer<TValue>,
@@ -53,15 +54,9 @@ export abstract class AbstractBrowserHistoryStorage<
         }
         */
 
-        this.storage = new SerializedStorage(
-            // new PrefixStorage(
-            storage || (objectLocalStorage as IStorage<ISerialized>),
-            //    this.uniqueIdentifier,
-            // ),
-            this.serializer,
-        );
-
-        this.init();
+        if (this.options.initialize) {
+            this.initialize();
+        }
     }
 
     public get value(): TValue {
@@ -111,15 +106,29 @@ export abstract class AbstractBrowserHistoryStorage<
         /*  TODO: Implement */
     }
 
-    protected abstract decodeUrl(url: string): Partial<TValue>;
-    protected abstract encodeUrl(params: TValue, lastUrl: string): string;
+    public async initialize() {
+        // ------------- Check if initialized and prevent multiple initializations
 
-    protected createUniqueIdentifier() {
-        return createUniqueIdentifierFromParams(this.defaultValue);
-    }
+        if (this.initialized) {
+            throw new Error(`Browser history storage was alread initialized.`);
+        }
 
-    private async init() {
-        this.uniqueIdentifier = this.createUniqueIdentifier();
+        this.initialized = true;
+
+        // ------------- Create a uniqueIdentifier
+
+        this.uniqueIdentifier =
+            this.options.uniqueIdentifier || this.createUniqueIdentifier();
+
+        // ------------- Create a storage
+
+        this.storage = new SerializedStorage(
+            // new PrefixStorage(
+            this.baseStorage || (objectLocalStorage as IStorage<ISerialized>),
+            //    this.uniqueIdentifier,
+            // ),
+            this.serializer,
+        );
 
         // ------------- Observing the browser state
         this.values = new Observable((observer: Observer<TValue>) => {
@@ -219,5 +228,12 @@ export abstract class AbstractBrowserHistoryStorage<
                 this.encodeUrl(params as TValue, window.location.toString()),
             );
         }
+    }
+
+    protected abstract decodeUrl(url: string): Partial<TValue>;
+    protected abstract encodeUrl(params: TValue, lastUrl: string): string;
+
+    protected createUniqueIdentifier() {
+        return createUniqueIdentifierFromParams(this.defaultValue);
     }
 }

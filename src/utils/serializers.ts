@@ -26,4 +26,5 @@ export const serializerWithDate = new Serializer<ISerializable>([
         deserialize: (datestring: any) =>
             (new Date(datestring) as any) as ISerializable,
     },
+    // TODO: Add support for other such types - Regex
 ]);
