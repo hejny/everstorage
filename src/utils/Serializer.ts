@@ -182,10 +182,9 @@ export class Serializer<T extends ISerializable> {
 
         if (typeof value === 'object') {
             if (Array.isArray(value)) {
-                return Promise.all(
-                    value.map((value2) =>
-                        this.deserializeWithPrimitives(value2),
-                    ),
+                // Promise.all(
+                return value.map((value2) =>
+                    this.deserializeWithPrimitives(value2),
                 );
             } else {
                 return this.deserialize(value);

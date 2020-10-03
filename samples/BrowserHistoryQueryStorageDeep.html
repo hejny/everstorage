@@ -37,12 +37,13 @@
                     x: 10,
                     date: new Date(),
                     position: { x: 10, y: 10 },
-                    deep: { sub: { sub: 'subsubvalue' } },
+                    deep: { sub: { sub: 'subsubvalue' }, array: [1, 2, 3] },
                 },
                 {
+                    // TODO: Choose in UI
                     debounceInterval: 0,
                     saveToHistory: true,
-                    saveToStorage: true,
+                    saveToStorage: false,
                 },
             );
 
