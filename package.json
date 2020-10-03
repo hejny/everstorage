@@ -1,6 +1,6 @@
 {
   "name": "everstorage",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "author": "Pavol Hejný <me@pavolhejny.com> (https://pavolhejny.com)",
   "description": "A vector manipulation class",
   "main": "./dist/main.js",
@@ -34,7 +34,6 @@
     "update-in-other-repos": "npm run update-in-other-collboard && npm run update-in-other-krmitka",
     "update-in-other-collboard": "cd ../../HeduApp/collboard && git stash && npm i everstorage@latest && git add package.json package-lock.json && git commit --allow-empty -m \"Update of everstorage\" && git push && git stash pop",
     "update-in-other-krmitka": "cd ../../cso/krmitka && git stash && npm i everstorage@latest && git add package.json package-lock.json && git commit --allow-empty -m \"Update of everstorage\" && git push && git stash pop"
-
   },
   "dependencies": {
     "rxjs": "^6.6.2",
