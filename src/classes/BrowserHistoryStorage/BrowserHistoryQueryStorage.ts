@@ -57,4 +57,4 @@ export class BrowserHistoryQueryStorage<TValue extends ISerializable>
     }
 }
 
-const JSON_LIKE = /\{.*\}/s; // TODO: Better
+const JSON_LIKE = /\{.*\}/; // /s; // TODO: Better
