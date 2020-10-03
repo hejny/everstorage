@@ -22,7 +22,7 @@ export class Serializer<T extends ISerializable> {
     }
 
     public removeRule(rule: ISerializeRule<T>) {
-        this.rules = this.rules.filter((rule_) => rule !== rule_);
+        this.rules = this.rules.filter((rule2) => rule !== rule2);
         // TODO: Should be here checking if rule is existing?
     }
 
@@ -134,8 +134,8 @@ export class Serializer<T extends ISerializable> {
 
         if (typeof value === 'object' || typeof value === 'function') {
             if (Array.isArray(value)) {
-                return value.map((value) =>
-                    this.serializeWithPrimitives(value),
+                return value.map((value2) =>
+                    this.serializeWithPrimitives(value2),
                 );
             } else {
                 return this.serialize(value);
@@ -183,7 +183,9 @@ export class Serializer<T extends ISerializable> {
         if (typeof value === 'object') {
             if (Array.isArray(value)) {
                 return Promise.all(
-                    value.map((value) => this.deserializeWithPrimitives(value)),
+                    value.map((value2) =>
+                        this.deserializeWithPrimitives(value2),
+                    ),
                 );
             } else {
                 return this.deserialize(value);

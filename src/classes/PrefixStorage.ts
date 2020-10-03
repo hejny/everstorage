@@ -1,5 +1,5 @@
-import { IStorage } from '../interfaces/IStorage';
 import { IAwaitable } from '../interfaces/IAwaitable';
+import { IStorage } from '../interfaces/IStorage';
 
 /**
  * This class behaves like LocalStorage but separates keys by prefix
