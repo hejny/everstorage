@@ -156,6 +156,19 @@ export class Serializer<T extends ISerializable> {
             return null;
         }
 
+        if (typeof value === 'string') {
+            // TODO: DRY
+            for (const serializeRule of this.rules) {
+                if (
+                    serializeRule.deserialize &&
+                    serializeRule.checkSerialized &&
+                    serializeRule.checkSerialized(value)
+                ) {
+                    return serializeRule.deserialize(value);
+                }
+            }
+        }
+
         // TODO: Why is not working: ['boolean', 'number', 'bigint', 'string', 'symbol'].includes[typeof value]
         if (
             typeof value === 'boolean' ||

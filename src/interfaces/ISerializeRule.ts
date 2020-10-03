@@ -15,4 +15,5 @@ export interface ISerializeRule<T extends ISerializable> {
     deserialize?: (serialized: ISerialized) => T;
 }
 
+// Note: When checkSerialized is working with string there must be defined deserialize. TODO: Interface union
 // TODO: Split into multiple exported interfaces

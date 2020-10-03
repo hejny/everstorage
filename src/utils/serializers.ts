@@ -17,8 +17,13 @@ export const serializerWithDate = new Serializer<ISerializable>([
         name: 'Date',
         checkInstance: (instance: any) =>
             typeof instance.getMonth === 'function',
+        checkSerialized: (data: any) =>
+            // @see https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+            /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/.test(
+                data,
+            ),
         serialize: (date: any) => date.toISOString(),
-        // TODO:  !!! serialize/deserialize
-        // factory: (serialized: ISerialized) => T;
+        deserialize: (datestring: any) =>
+            (new Date(datestring) as any) as ISerializable,
     },
 ]);

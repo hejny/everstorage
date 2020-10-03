@@ -55,10 +55,10 @@ export abstract class AbstractBrowserHistoryStorage<
         */
 
         this.storage = new SerializedStorage(
-            new PrefixStorage(
-                storage || (objectLocalStorage as IStorage<ISerialized>),
-                this.uniqueIdentifier,
-            ),
+            // new PrefixStorage(
+            storage || (objectLocalStorage as IStorage<ISerialized>),
+            //    this.uniqueIdentifier,
+            // ),
             this.serializer,
         );
 
