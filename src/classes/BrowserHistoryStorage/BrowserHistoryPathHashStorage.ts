@@ -31,9 +31,8 @@ export class BrowserHistoryPathHashStorage<TValue extends ISerializable>
         }
     }
 
-    protected decodeUrl(url: string): Partial<TValue> {
-        const urlObject = new URL(url);
-        const parsing = /#?\/+(?<route>.*)/.exec(urlObject.hash);
+    protected decodeUrl(url: URL): Partial<TValue> {
+        const parsing = /#?\/+(?<route>.*)/.exec(url.hash);
         if (!parsing || !parsing.groups) {
             return this.decodeUrlPathHash('/');
             // throw new Error(`Error while parsing url.`);
@@ -42,9 +41,10 @@ export class BrowserHistoryPathHashStorage<TValue extends ISerializable>
         return this.decodeUrlPathHash('/' + route);
     }
 
-    protected encodeUrl(params: TValue, lastUrl: string): string {
-        const urlObject = new URL(lastUrl);
+    protected encodeUrl(params: TValue, lastUrl: URL): URL {
+        // Note: deep clonning to prevent mutating
+        const urlObject = new URL(lastUrl.toString());
         urlObject.hash = '#' + this.encodeUrlPathHash(params);
-        return urlObject.toString();
+        return urlObject;
     }
 }

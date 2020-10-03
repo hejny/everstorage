@@ -1,7 +1,5 @@
-import { IInstantiable } from './IInstantiable';
-
 // TODO: This may be generically typed with deserialized type for example ISerialized<Vector>
-export type ISerializable = ISerializableCore|object;
+export type ISerializable = ISerializableCore | object;
 
 export interface ISerializableCore {
     [key: string]:
@@ -13,7 +11,6 @@ export interface ISerializableCore {
         | ISerializable[]
         | ISerializable;
 }
-
 
 /*/
 // Note: Keeping for testing purposes:
