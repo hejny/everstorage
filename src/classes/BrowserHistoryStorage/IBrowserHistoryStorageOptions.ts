@@ -1,6 +1,6 @@
 export interface IBrowserHistoryStorageOptions {
     initialize: boolean;
-    uniqueIdentifier: null|string;
+    uniqueIdentifier: null | string;
     debounceInterval: number;
     preventDuplicates: boolean;
     saveToHistory: boolean;
