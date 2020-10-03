@@ -937,13 +937,22 @@ img { max-width: 100%; }
 			<a href="../classes/objectstorage.html" class="tsd-kind-icon">Object<wbr>Storage</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/observablestorage.html" class="tsd-kind-icon">Observable<wbr>Storage</a>
+			<a href="../classes/prefixstorage.html" class="tsd-kind-icon">Prefix<wbr>Storage</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/prefixstorage.html" class="tsd-kind-icon">Prefix<wbr>Storage</a>
+			<a href="../classes/serializedstorage.html" class="tsd-kind-icon">Serialized<wbr>Storage</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="../classes/serializer.html" class="tsd-kind-icon">Serializer</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="ibrowserhistorystorageoptions.html" class="tsd-kind-icon">IBrowser<wbr>History<wbr>Storage<wbr>Options</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="ibrowserstate.html" class="tsd-kind-icon">IBrowser<wbr>State</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="ijson.html" class="tsd-kind-icon">IJson</a>
 		</li>
 		<li class="current tsd-kind-interface tsd-has-type-parameter">
 			<a href="iobservablestorage.html" class="tsd-kind-icon">IObservable<wbr>Storage</a>
@@ -962,29 +971,44 @@ img { max-width: 100%; }
 				</li>
 			</ul>
 		</li>
+		<li class=" tsd-kind-interface">
+			<a href="iserializable.html" class="tsd-kind-icon">ISerializable</a>
+		</li>
 		<li class=" tsd-kind-interface tsd-has-type-parameter">
 			<a href="iserializerule.html" class="tsd-kind-icon">ISerialize<wbr>Rule</a>
+		</li>
+		<li class=" tsd-kind-interface tsd-is-not-exported">
+			<a href="iserializedobject.html" class="tsd-kind-icon">ISerialized<wbr>Object</a>
 		</li>
 		<li class=" tsd-kind-interface tsd-has-type-parameter">
 			<a href="istorage.html" class="tsd-kind-icon">IStorage</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-			<a href="../globals.html#awaitable" class="tsd-kind-icon">Awaitable</a>
+			<a href="../globals.html#iawaitable" class="tsd-kind-icon">IAwaitable</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="../globals.html#iinstantiable" class="tsd-kind-icon">IInstantiable</a>
 		</li>
 		<li class=" tsd-kind-type-alias">
 			<a href="../globals.html#iserialized" class="tsd-kind-icon">ISerialized</a>
 		</li>
-		<li class=" tsd-kind-type-alias">
-			<a href="../globals.html#ivalue" class="tsd-kind-icon">IValue</a>
-		</li>
-		<li class=" tsd-kind-type-alias">
-			<a href="../globals.html#instantiable" class="tsd-kind-icon">Instantiable</a>
+		<li class=" tsd-kind-variable tsd-is-not-exported">
+			<a href="../globals.html#json_like" class="tsd-kind-icon">JSON_<wbr>LIKE</a>
 		</li>
 		<li class=" tsd-kind-variable">
 			<a href="../globals.html#blackholestorage" class="tsd-kind-icon">blackhole<wbr>Storage</a>
 		</li>
 		<li class=" tsd-kind-variable tsd-is-not-exported">
 			<a href="../globals.html#instanced" class="tsd-kind-icon">instanced</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#objectlocalstorage" class="tsd-kind-icon">object<wbr>Local<wbr>Storage</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#serializer" class="tsd-kind-icon">serializer</a>
+		</li>
+		<li class=" tsd-kind-variable">
+			<a href="../globals.html#serializerwithdate" class="tsd-kind-icon">serializer<wbr>With<wbr>Date</a>
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="../globals.html#createuniqueidentifierfromparams" class="tsd-kind-icon">create<wbr>Unique<wbr>Identifier<wbr>From<wbr>Params</a>
@@ -1003,7 +1027,7 @@ img { max-width: 100%; }
 			<h3>Type parameters</h3>
 			<ul class="tsd-type-parameters">
 				<li>
-					<h4>TValue<span class="tsd-signature-symbol">: </span><a href="../globals.html#ivalue" class="tsd-signature-type">IValue</a></h4>
+					<h4>TValue<span class="tsd-signature-symbol">: </span><a href="iserializable.html" class="tsd-signature-type">ISerializable</a></h4>
 				</li>
 			</ul>
 		</section>
@@ -1025,7 +1049,6 @@ img { max-width: 100%; }
 				<li><a href="../classes/browserhistorypathstorage.html" class="tsd-signature-type">BrowserHistoryPathStorage</a></li>
 				<li><a href="../classes/browserhistoryquerystorage.html" class="tsd-signature-type">BrowserHistoryQueryStorage</a></li>
 				<li><a href="../classes/browserhistoryquerystorage.html" class="tsd-signature-type">BrowserHistoryQueryStorage</a></li>
-				<li><a href="../classes/observablestorage.html" class="tsd-signature-type">ObservableStorage</a></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -1057,7 +1080,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TValue</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/e177a32/src/interfaces/IObservableStorage.ts#L7">interfaces/IObservableStorage.ts:7</a></li>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/8c6a156/src/interfaces/IObservableStorage.ts#L7">interfaces/IObservableStorage.ts:7</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1067,7 +1090,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/e177a32/src/interfaces/IObservableStorage.ts#L8">interfaces/IObservableStorage.ts:8</a></li>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/8c6a156/src/interfaces/IObservableStorage.ts#L8">interfaces/IObservableStorage.ts:8</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1084,7 +1107,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/e177a32/src/interfaces/IObservableStorage.ts#L10">interfaces/IObservableStorage.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/8c6a156/src/interfaces/IObservableStorage.ts#L10">interfaces/IObservableStorage.ts:10</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1101,7 +1124,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/e177a32/src/interfaces/IObservableStorage.ts#L9">interfaces/IObservableStorage.ts:9</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/8c6a156/src/interfaces/IObservableStorage.ts#L9">interfaces/IObservableStorage.ts:9</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
