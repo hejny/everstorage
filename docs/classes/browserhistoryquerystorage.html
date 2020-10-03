@@ -942,6 +942,9 @@ img { max-width: 100%; }
 				<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a href="browserhistoryquerystorage.html#value" class="tsd-kind-icon">value</a>
 				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a href="browserhistoryquerystorage.html#createlink" class="tsd-kind-icon">create<wbr>Link</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a href="browserhistoryquerystorage.html#createuniqueidentifier" class="tsd-kind-icon">create<wbr>Unique<wbr>Identifier</a>
 				</li>
@@ -953,6 +956,9 @@ img { max-width: 100%; }
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 					<a href="browserhistoryquerystorage.html#encodeurl" class="tsd-kind-icon">encode<wbr>Url</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a href="browserhistoryquerystorage.html#initialize" class="tsd-kind-icon">initialize</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a href="browserhistoryquerystorage.html#pushvalue" class="tsd-kind-icon">push<wbr>Value</a>
@@ -990,7 +996,7 @@ img { max-width: 100%; }
 			<a href="../interfaces/iobservablestorage.html" class="tsd-kind-icon">IObservable<wbr>Storage</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="../interfaces/iserializable.html" class="tsd-kind-icon">ISerializable</a>
+			<a href="../interfaces/iserializablecore.html" class="tsd-kind-icon">ISerializable<wbr>Core</a>
 		</li>
 		<li class=" tsd-kind-interface tsd-has-type-parameter">
 			<a href="../interfaces/iserializerule.html" class="tsd-kind-icon">ISerialize<wbr>Rule</a>
@@ -1006,6 +1012,9 @@ img { max-width: 100%; }
 		</li>
 		<li class=" tsd-kind-type-alias">
 			<a href="../globals.html#iinstantiable" class="tsd-kind-icon">IInstantiable</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="../globals.html#iserializable" class="tsd-kind-icon">ISerializable</a>
 		</li>
 		<li class=" tsd-kind-type-alias">
 			<a href="../globals.html#iserialized" class="tsd-kind-icon">ISerialized</a>
@@ -1045,7 +1054,7 @@ img { max-width: 100%; }
 			<h3>Type parameters</h3>
 			<ul class="tsd-type-parameters">
 				<li>
-					<h4>TValue<span class="tsd-signature-symbol">: </span><a href="../interfaces/iserializable.html" class="tsd-signature-type">ISerializable</a></h4>
+					<h4>TValue<span class="tsd-signature-symbol">: </span><a href="../globals.html#iserializable" class="tsd-signature-type">ISerializable</a></h4>
 				</li>
 			</ul>
 		</section>
@@ -1096,10 +1105,12 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="browserhistoryquerystorage.html#createlink" class="tsd-kind-icon">create<wbr>Link</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="browserhistoryquerystorage.html#createuniqueidentifier" class="tsd-kind-icon">create<wbr>Unique<wbr>Identifier</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="browserhistoryquerystorage.html#decodeurl" class="tsd-kind-icon">decode<wbr>Url</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="browserhistoryquerystorage.html#dispose" class="tsd-kind-icon">dispose</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="browserhistoryquerystorage.html#encodeurl" class="tsd-kind-icon">encode<wbr>Url</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="browserhistoryquerystorage.html#initialize" class="tsd-kind-icon">initialize</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="browserhistoryquerystorage.html#pushvalue" class="tsd-kind-icon">push<wbr>Value</a></li>
 						</ul>
 					</section>
@@ -1112,14 +1123,14 @@ img { max-width: 100%; }
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Browser<wbr>History<wbr>Query<wbr>Storage<span class="tsd-signature-symbol">(</span>defaultValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ibrowserhistorystorageoptions.html" class="tsd-signature-type">IBrowserHistoryStorageOptions</a><span class="tsd-signature-symbol">&gt;</span>, storage<span class="tsd-signature-symbol">: </span><a href="../interfaces/istorage.html" class="tsd-signature-type">IStorage</a><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#iserialized" class="tsd-signature-type">ISerialized</a><span class="tsd-signature-symbol">&gt;</span>, serializer<span class="tsd-signature-symbol">?: </span><a href="serializer.html" class="tsd-signature-type">Serializer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="browserhistoryquerystorage.html" class="tsd-signature-type">BrowserHistoryQueryStorage</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Browser<wbr>History<wbr>Query<wbr>Storage<span class="tsd-signature-symbol">(</span>defaultValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ibrowserhistorystorageoptions.html" class="tsd-signature-type">IBrowserHistoryStorageOptions</a><span class="tsd-signature-symbol">&gt;</span>, baseStorage<span class="tsd-signature-symbol">: </span><a href="../interfaces/istorage.html" class="tsd-signature-type">IStorage</a><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#iserialized" class="tsd-signature-type">ISerialized</a><span class="tsd-signature-symbol">&gt;</span>, serializer<span class="tsd-signature-symbol">?: </span><a href="serializer.html" class="tsd-signature-type">Serializer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="browserhistoryquerystorage.html" class="tsd-signature-type">BrowserHistoryQueryStorage</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/bebbfe6/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L29">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:29</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L30">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:30</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1131,7 +1142,7 @@ img { max-width: 100%; }
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ibrowserhistorystorageoptions.html" class="tsd-signature-type">IBrowserHistoryStorageOptions</a><span class="tsd-signature-symbol">&gt;</span></h5>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> storage: <a href="../interfaces/istorage.html" class="tsd-signature-type">IStorage</a><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#iserialized" class="tsd-signature-type">ISerialized</a><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> baseStorage: <a href="../interfaces/istorage.html" class="tsd-signature-type">IStorage</a><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#iserialized" class="tsd-signature-type">ISerialized</a><span class="tsd-signature-symbol">&gt;</span></h5>
 							</li>
 							<li>
 								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> serializer: <a href="serializer.html" class="tsd-signature-type">Serializer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;(serializerWithDate as unknown) as Serializer&lt;TValue&gt;</span></h5>
@@ -1151,7 +1162,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#defaultvalue">defaultValue</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/bebbfe6/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L33">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:33</a></li>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L34">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:34</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1162,7 +1173,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#serializer">serializer</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/bebbfe6/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L36">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:36</a></li>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L37">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:37</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1174,7 +1185,7 @@ img { max-width: 100%; }
 					<p>Implementation of <a href="../interfaces/iobservablestorage.html">IObservableStorage</a>.<a href="../interfaces/iobservablestorage.html#values">values</a></p>
 					<p>Inherited from <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#values">values</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/bebbfe6/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L23">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:23</a></li>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L23">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:23</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1189,13 +1200,40 @@ img { max-width: 100%; }
 					<p>Implementation of <a href="../interfaces/iobservablestorage.html">IObservableStorage</a>.<a href="../interfaces/iobservablestorage.html#value">value</a></p>
 					<p>Inherited from <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#value">value</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/bebbfe6/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L67">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:67</a></li>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L62">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:62</a></li>
 					</ul>
 				</aside>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<a name="createlink" class="tsd-anchor"></a>
+				<h3>create<wbr>Link</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">create<wbr>Link<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span>, baseUrl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#createlink">createLink</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L109">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:109</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>value: <span class="tsd-signature-type">TValue</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> baseUrl: <span class="tsd-signature-type">URL</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">URL</span></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 				<a name="createuniqueidentifier" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> create<wbr>Unique<wbr>Identifier</h3>
@@ -1207,7 +1245,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#createuniqueidentifier">createUniqueIdentifier</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/bebbfe6/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L117">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:117</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L253">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:253</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -1218,20 +1256,20 @@ img { max-width: 100%; }
 				<a name="decodeurl" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> decode<wbr>Url</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
-					<li class="tsd-signature tsd-kind-icon">decode<wbr>Url<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">decode<wbr>Url<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Overrides <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#decodeurl">decodeUrl</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/bebbfe6/src/classes/BrowserHistoryStorage/BrowserHistoryQueryStorage.ts#L15">classes/BrowserHistoryStorage/BrowserHistoryQueryStorage.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/BrowserHistoryQueryStorage.ts#L15">classes/BrowserHistoryStorage/BrowserHistoryQueryStorage.ts:15</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5>url: <span class="tsd-signature-type">string</span></h5>
+								<h5>url: <span class="tsd-signature-type">URL</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1250,7 +1288,7 @@ img { max-width: 100%; }
 							<p>Implementation of <a href="../interfaces/iobservablestorage.html">IObservableStorage</a>.<a href="../interfaces/iobservablestorage.html#dispose">dispose</a></p>
 							<p>Inherited from <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#dispose">dispose</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/bebbfe6/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L110">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:110</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L105">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:105</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1261,14 +1299,14 @@ img { max-width: 100%; }
 				<a name="encodeurl" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> encode<wbr>Url</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
-					<li class="tsd-signature tsd-kind-icon">encode<wbr>Url<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span>, lastUrl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					<li class="tsd-signature tsd-kind-icon">encode<wbr>Url<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span>, lastUrl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">URL</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Overrides <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#encodeurl">encodeUrl</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/bebbfe6/src/classes/BrowserHistoryStorage/BrowserHistoryQueryStorage.ts#L33">classes/BrowserHistoryStorage/BrowserHistoryQueryStorage.ts:33</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/BrowserHistoryQueryStorage.ts#L32">classes/BrowserHistoryStorage/BrowserHistoryQueryStorage.ts:32</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1277,10 +1315,28 @@ img { max-width: 100%; }
 								<h5>params: <span class="tsd-signature-type">TValue</span></h5>
 							</li>
 							<li>
-								<h5>lastUrl: <span class="tsd-signature-type">string</span></h5>
+								<h5>lastUrl: <span class="tsd-signature-type">URL</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">URL</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<a name="initialize" class="tsd-anchor"></a>
+				<h3>initialize</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<li class="tsd-signature tsd-kind-icon">initialize<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Inherited from <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#initialize">initialize</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L120">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:120</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -1295,7 +1351,7 @@ img { max-width: 100%; }
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="abstractbrowserhistorystorage.html#pushvalue">pushValue</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/bebbfe6/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L71">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:71</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/816bd0f/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L66">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:66</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
