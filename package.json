@@ -32,7 +32,7 @@
     "generate-main-exports": "ts-node ./scripts/generate-main-exports/generate-main-exports.ts",
     "update-in-other-repos": "npm run update-in-other-collboard && npm run update-in-other-krmitka",
     "update-in-other-collboard": "cd ../../HeduApp/collboard && git stash && npm i everstorage@latest && git add package.json package-lock.json && git commit --allow-empty -m \"Update of everstorage\" && git push && git stash pop",
-    "update-in-other-krmitka": "cd ../../HeduApp/collboard && git stash && npm i everstorage@latest && git add package.json package-lock.json && git commit --allow-empty -m \"Update of everstorage\" && git push && git stash pop"
+    "update-in-other-krmitka": "cd ../../cso/krmitka && git stash && npm i everstorage@latest && git add package.json package-lock.json && git commit --allow-empty -m \"Update of everstorage\" && git push && git stash pop"
 
   },
   "dependencies": {
