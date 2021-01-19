@@ -1,25 +1,15 @@
 import { IObservableStorage } from '../../interfaces/IObservableStorage';
 import { ISerializable } from '../../interfaces/ISerializable';
-import { ISerialized } from '../../interfaces/ISerialized';
-import { IStorage } from '../../interfaces/IStorage';
-import { Serializer } from '../../utils/Serializer';
 import { AbstractBrowserHistoryStorage } from './AbstractBrowserHistoryStorage';
-import { IBrowserHistoryStorageOptions } from './IBrowserHistoryStorageOptions';
+import { IBrowserHistoryPathStorageArgs } from './BrowserHistoryPathStorage';
 
 // TODO: Maybe some more elegant way how to do this
 let instanced = false;
 export class BrowserHistoryPathHashStorage<TValue extends ISerializable>
     extends AbstractBrowserHistoryStorage<TValue>
     implements IObservableStorage<TValue> {
-    constructor(
-        private decodeUrlPathHash: (url: string) => TValue,
-        private encodeUrlPathHash: (params: TValue) => string,
-        defaultValue: TValue,
-        options?: Partial<IBrowserHistoryStorageOptions>,
-        storage?: IStorage<ISerialized>,
-        serializer?: Serializer<TValue>,
-    ) {
-        super(defaultValue, options, storage, serializer);
+    constructor(private args: IBrowserHistoryPathStorageArgs<TValue>) {
+        super(args);
 
         if (instanced) {
             /* tslint:disable: no-console*/
@@ -34,17 +24,17 @@ export class BrowserHistoryPathHashStorage<TValue extends ISerializable>
     protected decodeUrl(url: URL): Partial<TValue> {
         const parsing = /#?\/+(?<route>.*)/.exec(url.hash);
         if (!parsing || !parsing.groups) {
-            return this.decodeUrlPathHash('/');
+            return this.args.decodeUrlPath('/');
             // throw new Error(`Error while parsing url.`);
         }
         const { route } = parsing.groups;
-        return this.decodeUrlPathHash('/' + route);
+        return this.args.decodeUrlPath('/' + route);
     }
 
     protected encodeUrl(params: TValue, lastUrl: URL): URL {
         // Note: deep clonning to prevent mutating
         const urlObject = new URL(lastUrl.toString());
-        urlObject.hash = '#' + this.encodeUrlPathHash(params);
+        urlObject.hash = '#' + this.args.encodeUrlPath(params);
         return urlObject;
     }
 }

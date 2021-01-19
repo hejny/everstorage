@@ -17,32 +17,41 @@ import {
     IBrowserHistoryStorageOptions,
 } from './IBrowserHistoryStorageOptions';
 
+export interface IAbstractBrowserHistoryStorageOptions<
+    TValue extends ISerializable
+> extends Partial<IBrowserHistoryStorageOptions> {
+    defaultValue: TValue;
+    baseStorage?: IStorage<ISerialized>;
+    serializer?: Serializer<TValue>;
+}
+
 export abstract class AbstractBrowserHistoryStorage<
     TValue extends ISerializable
 > implements IObservableStorage<TValue> {
     public values: Observable<TValue>;
+    protected options: Required<IAbstractBrowserHistoryStorageOptions<TValue>>;
     private lastValue: TValue;
     private valuesToSaveObserver?: Observer<TValue>;
     private valuesObserver?: Observer<TValue>;
-    private options: IBrowserHistoryStorageOptions;
     private uniqueIdentifier: string;
     private storage?: IStorage<TValue>;
     private initialized: boolean = false;
     // private pushValueLock: boolean = false /* TODO: Put locking and queues into waitasecond */;
 
-    constructor(
-        readonly defaultValue: TValue,
-        options?: Partial<IBrowserHistoryStorageOptions>,
-        private baseStorage?: IStorage<ISerialized>,
-        protected serializer: Serializer<
-            TValue
-        > = (serializerWithDate as unknown) as Serializer<TValue>,
-    ) {
+    constructor(options: IAbstractBrowserHistoryStorageOptions<TValue>) {
         // TODO: Check collisions globally
+
+        if (options.serializer) {
+            options.serializer = (serializerWithDate as unknown) as Serializer<
+                TValue
+            >;
+        }
 
         this.options = {
             ...BROWSER_HISTORY_STORAGE_OPTIONS_DEFAULTS,
             ...options,
+            /* TODO: Bit inefficient */
+            // serializer: (serializerWithDate as unknown) as Serializer<TValue>,
         };
 
         /*
@@ -135,10 +144,11 @@ export abstract class AbstractBrowserHistoryStorage<
 
         this.storage = new SerializedStorage(
             // new PrefixStorage(
-            this.baseStorage || (objectLocalStorage as IStorage<ISerialized>),
+            this.options.baseStorage ||
+                (objectLocalStorage as IStorage<ISerialized>),
             //    this.uniqueIdentifier,
             // ),
-            this.serializer,
+            this.options.serializer,
         );
 
         // ------------- Observing the browser state
@@ -153,7 +163,9 @@ export abstract class AbstractBrowserHistoryStorage<
                         return;
                     }
 
-                    const value = this.serializer.deserialize(state.data);
+                    const value = this.options.serializer.deserialize(
+                        state.data,
+                    );
 
                     this.lastValue = value;
                     observer.next(value);
@@ -186,7 +198,7 @@ export abstract class AbstractBrowserHistoryStorage<
                 window.history.pushState(
                     {
                         uniqueIdentifier: this.uniqueIdentifier,
-                        data: this.serializer.serialize(paramsToUrl),
+                        data: this.options.serializer.serialize(paramsToUrl),
                     } as IBrowserState,
                     window.document.title /* TODO: Is this a good solution? */,
                     this.encodeUrl(
@@ -214,9 +226,11 @@ export abstract class AbstractBrowserHistoryStorage<
               {};
 
         const params: Partial<TValue> = {};
-        for (const key of Object.keys(this.defaultValue)) {
+        for (const key of Object.keys(this.options.defaultValue)) {
             (params as any)[key] =
-                urlParams[key] || storageParams[key] || this.defaultValue[key];
+                urlParams[key] ||
+                storageParams[key] ||
+                this.options.defaultValue[key];
         }
 
         // TODO: !!! Serializer
@@ -236,7 +250,7 @@ export abstract class AbstractBrowserHistoryStorage<
             window.history.replaceState(
                 {
                     uniqueIdentifier: this.uniqueIdentifier,
-                    data: this.serializer.serialize(params as TValue),
+                    data: this.options.serializer.serialize(params as TValue),
                 } as IBrowserState,
                 window.document.title /* TODO: Is this a good solution? */,
                 this.encodeUrl(
@@ -251,6 +265,6 @@ export abstract class AbstractBrowserHistoryStorage<
     protected abstract encodeUrl(params: TValue, lastUrl: URL): URL;
 
     protected createUniqueIdentifier() {
-        return createUniqueIdentifierFromParams(this.defaultValue);
+        return createUniqueIdentifierFromParams(this.options.defaultValue);
     }
 }
