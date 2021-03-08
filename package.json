@@ -1,6 +1,6 @@
 {
   "name": "everstorage",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "author": "Pavol Hejný <me@pavolhejny.com> (https://pavolhejny.com)",
   "description": "A vector manipulation class",
   "main": "./dist/main.js",
@@ -31,7 +31,7 @@
     "lint": "tslint -p tsconfig.json",
     "generate-main-exports": "ts-node ./scripts/generate-main-exports/generate-main-exports.ts",
     "generate-main-exports-commit": "git diff --exit-code && npm run generate-main-exports && npm run prettier && git add src && git commit --allow-empty -m \"Updating exports\""
-   },
+  },
   "dependencies": {
     "rxjs": "^6.6.2",
     "waitasecond": "^1.0.0"
