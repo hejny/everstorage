@@ -8,7 +8,7 @@ import { ISerializable } from '../../interfaces/ISerializable';
 import { ISerialized } from '../../interfaces/ISerialized';
 import { IStorage } from '../../interfaces/IStorage';
 import { createUniqueIdentifierFromParams } from '../../utils/createUniqueIdentifierFromParams';
-import { IDestroyable } from '../../utils/IDestroyable';
+import { IDestroyable } from '../../interfaces/IDestroyable';
 import { Serializer } from '../../utils/Serializer';
 import { serializerWithDate } from '../../utils/serializers';
 import { objectLocalStorage } from '../ObjectStorage';

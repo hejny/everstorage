@@ -27,7 +27,7 @@ import { ISerializeRule } from './interfaces/ISerializeRule';
 import { IStorage } from './interfaces/IStorage';
 import { createUniqueIdentifierFromParams } from './utils/createUniqueIdentifierFromParams';
 import { IAwaitable } from './utils/IAwaitable';
-import { IDestroyable } from './utils/IDestroyable';
+import { IDestroyable } from './interfaces/IDestroyable';
 import { isNumeric } from './utils/isNumeric';
 import { Serializer } from './utils/Serializer';
 import { serializer } from './utils/serializers';
