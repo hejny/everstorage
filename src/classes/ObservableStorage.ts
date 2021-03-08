@@ -47,7 +47,7 @@
 //         this.serializedStorage.setItem(this.uniqueIdentifier, params);
 //     }
 
-//     public dispose() {
+//     public destroy() {
 //         /*  TODO: Implement */
 //     }
 

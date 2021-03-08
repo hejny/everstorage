@@ -102,8 +102,18 @@ export abstract class AbstractBrowserHistoryStorage<
         // this.pushValueLock = false;
     }
 
-    public dispose() {
-        /*  TODO: Implement */
+    public destroy() {
+        if (this.options.saveToHistory) {
+            window.history.pushState(
+                null,
+                window.document.title /* TODO: Is this a good solution? */,
+                this.encodeUrl(
+                    this.defaultValue,
+                    new URL(window.location.toString()),
+                ).toString(),
+            );
+        }
+        // TODO: maybe more to destroy
     }
 
     public createLink(value: TValue, baseUrl?: URL | string): URL {

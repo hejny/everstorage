@@ -7,5 +7,5 @@ export interface IObservableStorage<TValue extends ISerializable> {
     value: TValue;
     values: Observable<TValue>;
     pushValue(value: TValue): void;
-    dispose(): void;
+    destroy(): void;
 }
