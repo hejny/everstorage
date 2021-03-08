@@ -8,6 +8,7 @@ import { ISerializable } from '../../interfaces/ISerializable';
 import { ISerialized } from '../../interfaces/ISerialized';
 import { IStorage } from '../../interfaces/IStorage';
 import { createUniqueIdentifierFromParams } from '../../utils/createUniqueIdentifierFromParams';
+import { IDestroyable } from '../../utils/IDestroyable';
 import { Serializer } from '../../utils/Serializer';
 import { serializerWithDate } from '../../utils/serializers';
 import { objectLocalStorage } from '../ObjectStorage';
@@ -19,7 +20,7 @@ import {
 
 export abstract class AbstractBrowserHistoryStorage<
     TValue extends ISerializable
-> implements IObservableStorage<TValue> {
+> implements IObservableStorage<TValue>,IDestroyable {
     public values: Observable<TValue>;
     private lastValue: TValue;
     private valuesToSaveObserver?: Observer<TValue>;
@@ -102,7 +103,10 @@ export abstract class AbstractBrowserHistoryStorage<
         // this.pushValueLock = false;
     }
 
+    public destroyed = false;
+
     public destroy() {
+        this.destroyed = true;
         if (this.options.saveToHistory) {
             window.history.pushState(
                 null,
