@@ -21,6 +21,7 @@ import {
 export abstract class AbstractBrowserHistoryStorage<
     TValue extends ISerializable
 > implements IObservableStorage<TValue>,IDestroyable {
+    public destroyed = false;
     public values: Observable<TValue>;
     private lastValue: TValue;
     private valuesToSaveObserver?: Observer<TValue>;
@@ -102,8 +103,6 @@ export abstract class AbstractBrowserHistoryStorage<
 
         // this.pushValueLock = false;
     }
-
-    public destroyed = false;
 
     public destroy() {
         this.destroyed = true;
