@@ -20,7 +20,7 @@ import {
 
 export abstract class AbstractBrowserHistoryStorage<
     TValue extends ISerializable
-> implements IObservableStorage<TValue>,IDestroyable {
+> implements IObservableStorage<TValue>, IDestroyable {
     public destroyed = false;
     public values: Observable<TValue>;
     private lastValue: TValue;
