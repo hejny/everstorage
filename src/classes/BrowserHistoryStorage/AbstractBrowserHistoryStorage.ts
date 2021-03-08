@@ -1,14 +1,13 @@
 import { interval, Observable, Observer } from 'rxjs';
 import { debounce, share } from 'rxjs/operators';
 import { forImmediate, forValueDefined } from 'waitasecond';
-
 import { IBrowserState } from '../../interfaces/IBrowserState';
+import { IDestroyable } from '../../interfaces/IDestroyable';
 import { IObservableStorage } from '../../interfaces/IObservableStorage';
 import { ISerializable } from '../../interfaces/ISerializable';
 import { ISerialized } from '../../interfaces/ISerialized';
 import { IStorage } from '../../interfaces/IStorage';
 import { createUniqueIdentifierFromParams } from '../../utils/createUniqueIdentifierFromParams';
-import { IDestroyable } from '../../interfaces/IDestroyable';
 import { Serializer } from '../../utils/Serializer';
 import { serializerWithDate } from '../../utils/serializers';
 import { objectLocalStorage } from '../ObjectStorage';
@@ -36,9 +35,7 @@ export abstract class AbstractBrowserHistoryStorage<
         readonly defaultValue: TValue,
         options?: Partial<IBrowserHistoryStorageOptions>,
         private baseStorage?: IStorage<ISerialized>,
-        protected serializer: Serializer<
-            TValue
-        > = (serializerWithDate as unknown) as Serializer<TValue>,
+        protected serializer: Serializer<TValue> = (serializerWithDate as unknown) as Serializer<TValue>,
     ) {
         // TODO: Check collisions globally
 
