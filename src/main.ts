@@ -26,6 +26,8 @@ import { ISerialized } from './interfaces/ISerialized';
 import { ISerializeRule } from './interfaces/ISerializeRule';
 import { IStorage } from './interfaces/IStorage';
 import { createUniqueIdentifierFromParams } from './utils/createUniqueIdentifierFromParams';
+import { IAwaitable } from './utils/IAwaitable';
+import { IDestroyable } from './utils/IDestroyable';
 import { isNumeric } from './utils/isNumeric';
 import { Serializer } from './utils/Serializer';
 import { serializer } from './utils/serializers';
@@ -38,7 +40,9 @@ export {
     serializer,
     Serializer,
     IAwaitable,
+    IAwaitable,
     ISerialized,
+    IDestroyable,
     MultiStorage,
     AsyncStorage,
     ISerializable,
