@@ -1,6 +1,6 @@
-import { interval, Observable, Observer } from 'rxjs';
-import { debounce, share } from 'rxjs/operators';
-import { forImmediate, forValueDefined } from 'waitasecond';
+import { BehaviorSubject, interval, Subject } from 'rxjs';
+import { debounce } from 'rxjs/operators';
+import { forImmediate } from 'waitasecond';
 import { IBrowserState } from '../../interfaces/IBrowserState';
 import { IDestroyable } from '../../interfaces/IDestroyable';
 import { IObservableStorage } from '../../interfaces/IObservableStorage';
@@ -21,10 +21,8 @@ export abstract class AbstractBrowserHistoryStorage<
     TValue extends ISerializable
 > implements IObservableStorage<TValue>, IDestroyable {
     public destroyed = false;
-    public values: Observable<TValue>;
-    private lastValue: TValue;
-    private valuesToSaveObserver?: Observer<TValue>;
-    private valuesObserver?: Observer<TValue>;
+    public values: BehaviorSubject<TValue>;
+    private valuesToSave: Subject<TValue>;
     private options: IBrowserHistoryStorageOptions;
     private uniqueIdentifier: string;
     private storage?: IStorage<TValue>;
@@ -59,10 +57,10 @@ export abstract class AbstractBrowserHistoryStorage<
     }
 
     public get value(): TValue {
-        return this.lastValue;
+        return this.values.getValue();
     }
 
-    public async pushValue(partialValue: Partial<TValue>): Promise<void> {
+    public set value(partialValue: /*Partial<*/ TValue) {
         /*await forValueDefined(() =>
             this.pushValueLock ? console.log(`Waiting for lock`) : true,
         );
@@ -70,10 +68,11 @@ export abstract class AbstractBrowserHistoryStorage<
 
         if (this.options.preventDuplicates) {
             let changed = false;
+            const lastValue = this.values.getValue();
             /* tslint:disable:no-shadowed-variable */
             for (const [key, value] of Object.entries(partialValue)) {
                 // console.log(this.lastValue[key], value);
-                if (this.lastValue[key] !== value) {
+                if (lastValue[key] !== value) {
                     changed = true;
                 }
             }
@@ -83,20 +82,14 @@ export abstract class AbstractBrowserHistoryStorage<
             }
         }
         const value = {
-            ...(this.lastValue as object),
+            ...(this.values.getValue() as object),
             ...(partialValue as object),
         } as TValue;
 
-        this.lastValue = value;
+        this.valuesToSave.next(value);
 
-        const valuesToSaveObserver = await forValueDefined(
-            () => this.valuesToSaveObserver,
-        );
-        valuesToSaveObserver.next(value);
-
-        const valuesObserver = await forValueDefined(() => this.valuesObserver);
         // TODO: Maybe this behaviour (putting into values values pushed by user) should be in the options
-        valuesObserver.next(value);
+        this.values.next(value);
 
         // this.pushValueLock = false;
     }
@@ -152,64 +145,60 @@ export abstract class AbstractBrowserHistoryStorage<
         );
 
         // ------------- Observing the browser state
-        this.values = new Observable((observer: Observer<TValue>) => {
-            this.valuesObserver = observer;
+        this.values = new BehaviorSubject(this.defaultValue);
 
-            if (this.options.saveToHistory) {
-                window.addEventListener('popstate', (event) => {
-                    // console.log('popstate');
-                    const state = event.state as IBrowserState;
-                    if (state.uniqueIdentifier !== this.uniqueIdentifier) {
-                        return;
-                    }
+        if (this.options.saveToHistory) {
+            window.addEventListener('popstate', (event) => {
+                // console.log('popstate');
+                const state = event.state as IBrowserState;
+                if (state.uniqueIdentifier !== this.uniqueIdentifier) {
+                    return;
+                }
 
-                    const value = this.serializer.deserialize(state.data);
+                const value = this.serializer.deserialize(state.data);
 
-                    this.lastValue = value;
-                    observer.next(value);
-                });
-            }
-        }).pipe(share()); // TODO: Maybe publish or none
+                this.values.next(value);
+            });
+        }
 
         await forImmediate();
 
         // ------------- Pushing state to browser
 
-        const valuesToSave: Observable<TValue> = Observable.create(
-            (observer: Observer<TValue>) => {
-                this.valuesToSaveObserver = observer;
-            },
-        ).pipe(
-            debounce(() =>
-                interval(
-                    // TODO: Maybe when there is debounceInterval=0 there should be no pipe with debounce+interval
-                    //  TODO: Is there some better solution then debouncing with interval?
-                    this.options.debounceInterval,
+        this.valuesToSave = new Subject();
+
+        this.valuesToSave
+            .pipe(
+                debounce(() =>
+                    interval(
+                        // TODO: Maybe when there is debounceInterval=0 there should be no pipe with debounce+interval
+                        //  TODO: Is there some better solution then debouncing with interval?
+                        this.options.debounceInterval,
+                    ),
                 ),
-            ),
-        );
+            )
+            .subscribe((paramsToUrl) => {
+                // console.log(`router PUSHING STATE`, params);
 
-        valuesToSave.subscribe((paramsToUrl) => {
-            // console.log(`router PUSHING STATE`, params);
+                if (this.options.saveToHistory) {
+                    window.history.pushState(
+                        {
+                            uniqueIdentifier: this.uniqueIdentifier,
+                            data: this.serializer.serialize(paramsToUrl),
+                        } as IBrowserState,
+                        window.document
+                            .title /* TODO: Is this a good solution? */,
+                        this.encodeUrl(
+                            paramsToUrl,
+                            new URL(window.location.toString()),
+                        ).toString(),
+                    );
+                }
 
-            if (this.options.saveToHistory) {
-                window.history.pushState(
-                    {
-                        uniqueIdentifier: this.uniqueIdentifier,
-                        data: this.serializer.serialize(paramsToUrl),
-                    } as IBrowserState,
-                    window.document.title /* TODO: Is this a good solution? */,
-                    this.encodeUrl(
-                        paramsToUrl,
-                        new URL(window.location.toString()),
-                    ).toString(),
-                );
-            }
-
-            if (this.options.saveToStorage) {
-                this.storage!.setItem(this.uniqueIdentifier, paramsToUrl);
-            }
-        });
+                if (this.options.saveToStorage) {
+                    this.storage!.setItem(this.uniqueIdentifier, paramsToUrl);
+                }
+            });
 
         // -------------Load initial params
 
@@ -238,10 +227,8 @@ export abstract class AbstractBrowserHistoryStorage<
         console.log('params', params);
         */
 
-        this.lastValue = params as TValue;
-        const valuesObserver = await forValueDefined(() => this.valuesObserver);
         // TODO: Maybe this behaviour (putting into values initial values) should be in the options
-        valuesObserver.next(params as TValue);
+        this.values.next(params as TValue);
         if (this.options.saveToHistory) {
             window.history.replaceState(
                 {

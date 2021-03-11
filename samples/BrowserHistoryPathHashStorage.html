@@ -32,7 +32,12 @@
                 },
                 ({ x, y }) => `/${x}/${y}`,
                 defaultValue,
-                { debounceInterval: 50 },
+                {
+                    // TODO: Maybr choose in sample UI
+                    debounceInterval: 50,
+                    saveToHistory: true,
+                    saveToStorage: true,
+                },
                 new PrefixStorage(
                     new ObjectStorage(localStorage),
                     'BrowserHistoryPathHashStorage',
@@ -50,7 +55,7 @@
                     if (inputElement.type === 'number') {
                         value = Number.parseFloat(value);
                     }
-                    storage.pushValue({ [key]: value });
+                    storage.value = { [key]: value };
                 };
                 inputElement.addEventListener('change', pushValue);
                 inputElement.addEventListener('click', pushValue);

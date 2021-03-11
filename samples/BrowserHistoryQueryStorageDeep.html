@@ -25,6 +25,7 @@
 
         <script type="text/javascript">
             // TODO: Do all samples DRY
+            // TODO: Maybe store deep values not as nested JSON but as firstSecondThird
 
             const {
                 BrowserHistoryQueryStorage,
@@ -40,8 +41,8 @@
                     deep: { sub: { sub: 'subsubvalue' }, array: [1, 2, 3] },
                 },
                 {
-                    // TODO: Choose in UI
-                    debounceInterval: 0,
+                    // TODO: Maybr choose in sample UI
+                    debounceInterval: 50,
                     saveToHistory: true,
                     saveToStorage: false,
                 },
@@ -54,7 +55,7 @@
                 const valueRaw = valueElement.value;
                 value = JSON5.parse(valueRaw);
                 value.date = new Date(value.date);
-                storage.pushValue(value);
+                storage.value = value;
             };
             valueElement.addEventListener('change', pushValue);
             valueElement.addEventListener('click', pushValue);

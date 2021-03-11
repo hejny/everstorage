@@ -30,8 +30,9 @@
             const storage = new BrowserHistoryQueryStorage(
                 defaultValue,
                 {
-                    debounceInterval: 0,
-                    saveToHistory: false,
+                    // TODO: Maybr choose in sample UI
+                    debounceInterval: 50,
+                    saveToHistory: true,
                     saveToStorage: true,
                 },
                 new PrefixStorage(
@@ -51,7 +52,7 @@
                     if (inputElement.type === 'number') {
                         value = Number.parseFloat(value);
                     }
-                    storage.pushValue({ [key]: value });
+                    storage.value = { [key]: value };
                 };
                 inputElement.addEventListener('change', pushValue);
                 inputElement.addEventListener('click', pushValue);

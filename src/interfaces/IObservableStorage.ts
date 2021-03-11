@@ -1,12 +1,16 @@
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { IDestroyable } from './IDestroyable';
 import { ISerializable } from './ISerializable';
 
 /** This is simmilar to Web Storage API interface but values are observable streams. */
-/* TODO: !!! Change it entirelly to BehaviorSubject and  maybe completelly remove IDestroyable */
 export interface IObservableStorage<TValue extends ISerializable>
     extends IDestroyable {
+    /**
+     * Just a shorthand to get/set last/next value in values
+     */
     value: TValue;
-    values: Observable<TValue>;
-    pushValue(value: TValue): void;
+    /**
+     * Set values through value not value.next() (TODO: Maybe change?)
+     */
+    values: Omit<BehaviorSubject<TValue>, 'next'>;
 }
