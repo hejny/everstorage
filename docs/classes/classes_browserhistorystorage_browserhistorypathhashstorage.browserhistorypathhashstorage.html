@@ -2700,7 +2700,7 @@ img {
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a href="classes_browserhistorystorage_browserhistorypathhashstorage.browserhistorypathhashstorage.html#values" class="tsd-kind-icon">values</a>
 				</li>
-				<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+				<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 					<a href="classes_browserhistorystorage_browserhistorypathhashstorage.browserhistorypathhashstorage.html#value" class="tsd-kind-icon">value</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
@@ -2720,9 +2720,6 @@ img {
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a href="classes_browserhistorystorage_browserhistorypathhashstorage.browserhistorypathhashstorage.html#initialize" class="tsd-kind-icon">initialize</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a href="classes_browserhistorystorage_browserhistorypathhashstorage.browserhistorypathhashstorage.html#pushvalue" class="tsd-kind-icon">push<wbr>Value</a>
 				</li>
 			</ul>
 		</li>
@@ -2779,7 +2776,7 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Accessors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="classes_browserhistorystorage_browserhistorypathhashstorage.browserhistorypathhashstorage.html#value" class="tsd-kind-icon">value</a></li>
+							<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="classes_browserhistorystorage_browserhistorypathhashstorage.browserhistorypathhashstorage.html#value" class="tsd-kind-icon">value</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -2791,7 +2788,6 @@ img {
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="classes_browserhistorystorage_browserhistorypathhashstorage.browserhistorypathhashstorage.html#destroy" class="tsd-kind-icon">destroy</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="classes_browserhistorystorage_browserhistorypathhashstorage.browserhistorypathhashstorage.html#encodeurl" class="tsd-kind-icon">encode<wbr>Url</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="classes_browserhistorystorage_browserhistorypathhashstorage.browserhistorypathhashstorage.html#initialize" class="tsd-kind-icon">initialize</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="classes_browserhistorystorage_browserhistorypathhashstorage.browserhistorypathhashstorage.html#pushvalue" class="tsd-kind-icon">push<wbr>Value</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2810,7 +2806,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/66b39d4/src/classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts#L13">classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts:13</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b5985f8/src/classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts#L13">classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts:13</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -2899,7 +2895,7 @@ img {
 					<p>Implementation of <a href="../interfaces/interfaces_iobservablestorage.iobservablestorage.html">IObservableStorage</a>.<a href="../interfaces/interfaces_iobservablestorage.iobservablestorage.html#destroyed">destroyed</a></p>
 					<p>Inherited from <a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html#destroyed">destroyed</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/66b39d4/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L23">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:23</a></li>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b5985f8/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L23">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:23</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2914,33 +2910,64 @@ img {
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 				<a name="values" class="tsd-anchor"></a>
 				<h3>values</h3>
-				<div class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<div class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">BehaviorSubject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<p>Implementation of <a href="../interfaces/interfaces_iobservablestorage.iobservablestorage.html">IObservableStorage</a>.<a href="../interfaces/interfaces_iobservablestorage.iobservablestorage.html#values">values</a></p>
 					<p>Inherited from <a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html#values">values</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/66b39d4/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L24">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:24</a></li>
+						<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b5985f8/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L24">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:24</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Set values through value not value.next() (TODO: Maybe change?)</p>
+					</div>
+				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Accessors</h2>
-			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+			<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 				<a name="value" class="tsd-anchor"></a>
 				<h3>value</h3>
-				<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+				<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 					<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> value<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span></li>
+					<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> value<span class="tsd-signature-symbol">(</span>partialValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Implementation of <a href="../interfaces/interfaces_iobservablestorage.iobservablestorage.html">IObservableStorage</a>.<a href="../interfaces/interfaces_iobservablestorage.iobservablestorage.html#value">value</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/66b39d4/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L61">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:61</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b5985f8/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L59">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:59</a></li>
 							</ul>
 						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Just a shorthand to get/set last/next value in values</p>
+							</div>
+						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TValue</span></h4>
+					</li>
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<p>Implementation of <a href="../interfaces/interfaces_iobservablestorage.iobservablestorage.html">IObservableStorage</a>.<a href="../interfaces/interfaces_iobservablestorage.iobservablestorage.html#value">value</a></p>
+							<ul>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b5985f8/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L63">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:63</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Just a shorthand to get/set last/next value in values</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>partialValue: <span class="tsd-signature-type">TValue</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -2958,7 +2985,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html#createlink">createLink</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/66b39d4/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L119">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:119</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b5985f8/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L112">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:112</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2985,7 +3012,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html#createuniqueidentifier">createUniqueIdentifier</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/66b39d4/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L263">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:263</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b5985f8/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L250">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:250</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -3003,7 +3030,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html#decodeurl">decodeUrl</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/66b39d4/src/classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts#L34">classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts:34</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b5985f8/src/classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts#L34">classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts:34</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3028,7 +3055,7 @@ img {
 							<p>Implementation of <a href="../interfaces/interfaces_iobservablestorage.iobservablestorage.html">IObservableStorage</a>.<a href="../interfaces/interfaces_iobservablestorage.iobservablestorage.html#destroy">destroy</a></p>
 							<p>Inherited from <a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html#destroy">destroy</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/66b39d4/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L104">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:104</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b5985f8/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L97">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:97</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -3046,7 +3073,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html#encodeurl">encodeUrl</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/66b39d4/src/classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts#L44">classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts:44</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b5985f8/src/classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts#L44">classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage.ts:44</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3073,33 +3100,9 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html#initialize">initialize</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/66b39d4/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L130">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:130</a></li>
+								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/b5985f8/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L123">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:123</a></li>
 							</ul>
 						</aside>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-				<a name="pushvalue" class="tsd-anchor"></a>
-				<h3>push<wbr>Value</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">push<wbr>Value<span class="tsd-signature-symbol">(</span>partialValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<p>Inherited from <a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html">AbstractBrowserHistoryStorage</a>.<a href="classes_browserhistorystorage_abstractbrowserhistorystorage.abstractbrowserhistorystorage.html#pushvalue">pushValue</a></p>
-							<ul>
-								<li>Defined in <a href="https://github.com/hejny/everstorage/blob/66b39d4/src/classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts#L65">classes/BrowserHistoryStorage/AbstractBrowserHistoryStorage.ts:65</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>partialValue: <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></h5>
-							</li>
-						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
@@ -3116,16 +3119,17 @@ img {
 						<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 					</ul>
 					<ul class="tsd-legend">
+						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+						<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+					</ul>
+					<ul class="tsd-legend">
 						<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 						<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 					</ul>
 					<ul class="tsd-legend">
 						<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 						<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-					</ul>
-					<ul class="tsd-legend">
-						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
 					</ul>
 					<ul class="tsd-legend">
 						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
