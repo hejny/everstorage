@@ -15,6 +15,7 @@ import { ObjectStorage } from './classes/ObjectStorage';
 import { objectLocalStorage } from './classes/ObjectStorage';
 import { PrefixStorage } from './classes/PrefixStorage';
 import { SerializedStorage } from './classes/SerializedStorage';
+import { createEmptyValue } from './interfaces/createEmptyValue';
 import { IAwaitable } from './interfaces/IAwaitable';
 import { IBrowserState } from './interfaces/IBrowserState';
 import { IDestroyable } from './interfaces/IDestroyable';
@@ -50,6 +51,7 @@ PrefixStorage,
 ObjectStorage,
 MemoryStorage,
 ISerializeRule,
+createEmptyValue,
 blackholeStorage,
 BlackholeStorage,
 ISerializableCore,
