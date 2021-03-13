@@ -28,6 +28,8 @@ export interface IStorage<T> {
      * Throws a "QuotaExceededError" DOMException exception if the new value couldn't be set. (Setting could fail if, e.g., the user has disabled storage for the site, or if the quota has been exceeded.)
      */
     setItem(key: string, value: T): IAwaitable<void>;
+
+    // TODO: hyerarchic (deterministic) storage like rootStorage.subStorage('a')
 }
 
 /* tslint:disable:jsdoc-format */
