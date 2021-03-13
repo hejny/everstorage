@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Sample of BrowserHistoryQueryStorage</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="./common-assets/common.css"
+        />
+    </head>
+    <body>
+        <script
+            type="text/javascript"
+            src="../dist/main.dev.browser.js"
+        ></script>
+
+        <div id="root"></div>
+
+        <script type="text/javascript">
+            // TODO: Do all samples DRY
+
+            const {
+                BrowserHistoryQueryStorage,
+                BrowserHistoryPathHashStorage,
+                PrefixStorage,
+                ObjectStorage,
+            } = Everstorage;
+
+            const storageOptions = {
+                // TODO: Maybe choose in sample UI
+                debounceInterval: 50,
+                saveToHistory: true,
+                saveToStorage: true,
+            };
+
+            const rootElement = document.getElementById(`root`);
+            const rootStorage = new PrefixStorage(
+                new ObjectStorage(localStorage),
+                'multipleBrowserHistoryStorages',
+            );
+
+            const addButtonElement = document.createElement('BUTTON');
+            addButtonElement.innerHTML = `Create storage`;
+            addButtonElement.addEventListener('click', () => {
+                createNewStorage();
+            });
+            rootElement.appendChild(addButtonElement);
+
+            let i = 0;
+            function createNewStorage() {
+                const name = `s${i++}`;
+
+                const storageFormElement = document.createElement('FORM');
+                storageFormElement.innerHTML = `<h2>${name}</h2>`;
+                rootElement.appendChild(storageFormElement);
+
+                const defaultValue = { [`${name}x`]: 10, [`${name}y`]: 10 };
+                const storage = new BrowserHistoryQueryStorage(
+                    defaultValue,
+                    storageOptions,
+                    rootStorage,
+                );
+
+                const inputElements = {};
+
+                for (const [key, value] of Object.entries(defaultValue)) {
+                    const inputElement = document.createElement('INPUT');
+                    inputElement.type =
+                        typeof value === 'number' ? 'number' : 'text';
+                    const pushValue = () => {
+                        let value = inputElement.value;
+                        if (inputElement.type === 'number') {
+                            value = Number.parseFloat(value);
+                        }
+                        storage.value = { [key]: value };
+                    };
+                    inputElement.addEventListener('change', pushValue);
+                    inputElement.addEventListener('click', pushValue);
+                    storageFormElement.appendChild(inputElement);
+                    inputElements[key] = inputElement;
+                }
+
+                const subscription = storage.values.subscribe((values) => {
+                    console.log(`new values`, values);
+                    for (const [key, value] of Object.entries(values)) {
+                        inputElements[key].value = value;
+                    }
+                });
+
+                const destroy = () => {
+                    rootElement.removeChild(storageFormElement);
+                    subscription.unsubscribe();
+                    storage.destroy();
+                };
+
+                const destroyButtonElement = document.createElement('BUTTON');
+                destroyButtonElement.innerHTML = `Destroy this storage`;
+                destroyButtonElement.addEventListener('click', () => {
+                    destroy();
+                });
+                storageFormElement.appendChild(destroyButtonElement);
+
+                return {
+                    destroy,
+                };
+            }
+        </script>
+    </body>
+</html>

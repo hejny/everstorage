@@ -4,7 +4,7 @@ export function createUniqueIdentifierFromParams(
     params: ISerializable,
 ): string {
     const uniqueIdentifierParts: string[] = [];
-    for (const [key, value] of Object.entries(params)) {
+    for (const key of Object.keys(params)) {
         uniqueIdentifierParts.push(key);
         // Note: using only keys not type of values> uniqueIdentifierParts.push(typeof value);
     }

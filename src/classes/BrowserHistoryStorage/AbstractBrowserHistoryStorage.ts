@@ -1,6 +1,7 @@
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { debounce } from 'rxjs/operators';
 import { forImmediate } from 'waitasecond';
+import { createEmptyValue } from '../../interfaces/createEmptyValue';
 import { IBrowserState } from '../../interfaces/IBrowserState';
 import { IDestroyable } from '../../interfaces/IDestroyable';
 import { IObservableStorage } from '../../interfaces/IObservableStorage';
@@ -103,14 +104,17 @@ export abstract class AbstractBrowserHistoryStorage<
         if (this.options.saveToHistory) {
             window.history.pushState(
                 null,
-                window.document.title /* TODO: Is this a good solution? */,
+                window.document.title,
                 this.encodeUrl(
-                    this.defaultValue,
+                    createEmptyValue(this.defaultValue) as any,
                     new URL(window.location.toString()),
                 ).toString(),
             );
+
+            window.removeEventListener('popstate', this.popstateEventListener);
         }
-        // TODO: maybe more to destroy
+
+        this.valuesToSave.complete();
     }
 
     public createLink(value: TValue, baseUrl?: URL | string): URL {
@@ -123,6 +127,11 @@ export abstract class AbstractBrowserHistoryStorage<
             typeof baseUrl === 'string' ? new URL(baseUrl) : baseUrl,
         );
     }
+
+    /**
+     * This is saved to be able to destoroy
+     */
+    private popstateEventListener: (event: PopStateEvent) => void;
 
     public async initialize() {
         // ------------- Check if initialized and prevent multiple initializations
@@ -152,7 +161,7 @@ export abstract class AbstractBrowserHistoryStorage<
         this.values = new BehaviorSubject(this.defaultValue);
 
         if (this.options.saveToHistory) {
-            window.addEventListener('popstate', (event) => {
+            this.popstateEventListener = (event: PopStateEvent) => {
                 const state = event.state;
                 // console.log('popstate', { state });
 
@@ -170,7 +179,8 @@ export abstract class AbstractBrowserHistoryStorage<
 
                 // console.log('popstate/next', { value });
                 this.values.next((value as IBrowserState) as TValue);
-            });
+            };
+            window.addEventListener('popstate', this.popstateEventListener);
         }
 
         await forImmediate();
