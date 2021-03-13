@@ -11,11 +11,12 @@ export interface IObservableStorage<TValue extends ISerializable>
     value: TValue;
 
     /**
-     * If you want a set a value only partially
-     */
-    setValue(value: Partial<TValue>): void;
-    /**
      * Set values through value not value.next() (TODO: Maybe change?)
      */
     values: Omit<BehaviorSubject<TValue>, 'next'>;
+
+    /**
+     * If you want a set a value only partially
+     */
+    setValue(value: Partial<TValue>): void;
 }
