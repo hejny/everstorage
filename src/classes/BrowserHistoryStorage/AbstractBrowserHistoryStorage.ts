@@ -161,9 +161,9 @@ export abstract class AbstractBrowserHistoryStorage<
                     return;
                 }
 
-                const value = this.serializer.deserialize(state.data);
+                const value = this.serializer.deserialize(state.data)!;
 
-                this.values.next(value as IBrowserState);
+                this.values.next((value as IBrowserState) as TValue);
             });
         }
 
