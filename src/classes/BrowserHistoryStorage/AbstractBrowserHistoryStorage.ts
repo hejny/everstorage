@@ -234,9 +234,9 @@ export abstract class AbstractBrowserHistoryStorage<
                   (await this.storage!.getItem(this.uniqueIdentifier))) ||
               {};
 
-        const params: Partial<TValue> = {};
+        const initialParams: Partial<TValue> = {};
         for (const key of Object.keys(this.defaultValue)) {
-            (params as any)[key] =
+            (initialParams as any)[key] =
                 urlParams[key] || storageParams[key] || this.defaultValue[key];
         }
 
@@ -250,20 +250,8 @@ export abstract class AbstractBrowserHistoryStorage<
         */
 
         // TODO: Maybe this behaviour (putting into values initial values) should be in the options
-        this.values.next(params as TValue);
-        if (this.options.saveToHistory) {
-            window.history.replaceState(
-                {
-                    uniqueIdentifier: this.uniqueIdentifier,
-                    data: this.serializer.serialize(params as TValue),
-                } as IBrowserState,
-                window.document.title /* TODO: Is this a good solution? */,
-                this.encodeUrl(
-                    params as TValue,
-                    new URL(window.location.toString()),
-                ).toString(),
-            );
-        }
+        this.values.next(initialParams as TValue);
+        this.valuesToSave.next(initialParams as TValue);
     }
 
     protected abstract decodeUrl(url: URL): Partial<TValue>;
