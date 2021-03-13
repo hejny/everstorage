@@ -30,6 +30,11 @@ export abstract class AbstractBrowserHistoryStorage<
     private initialized: boolean = false;
     // private pushValueLock: boolean = false /* TODO: Put locking and queues into waitasecond */;
 
+    /**
+     * This is saved to be able to destoroy
+     */
+    private popstateEventListener: (event: PopStateEvent) => void;
+
     constructor(
         readonly defaultValue: TValue,
         options?: Partial<IBrowserHistoryStorageOptions>,
@@ -267,9 +272,4 @@ export abstract class AbstractBrowserHistoryStorage<
     protected createUniqueIdentifier() {
         return createUniqueIdentifierFromParams(this.defaultValue);
     }
-
-    /**
-     * This is saved to be able to destoroy
-     */
-    private popstateEventListener: (event: PopStateEvent) => void;
 }
