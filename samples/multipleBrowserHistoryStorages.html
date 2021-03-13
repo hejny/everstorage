@@ -22,9 +22,17 @@
 
             const {
                 BrowserHistoryQueryStorage,
+                BrowserHistoryPathHashStorage,
                 PrefixStorage,
                 ObjectStorage,
             } = Everstorage;
+
+            const storageOptions = {
+                // TODO: Maybe choose in sample UI
+                debounceInterval: 50,
+                saveToHistory: true,
+                saveToStorage: true,
+            };
 
             const rootElement = document.getElementById(`root`);
             const rootStorage = new PrefixStorage(
@@ -32,22 +40,29 @@
                 'multipleBrowserHistoryStorages',
             );
 
-            for (const name of ['a', 'b']) {
+            for (const name of ['a', 'b', 'c']) {
                 const formElement = document.createElement('FORM');
                 formElement.innerHTML = `<h2>Values ${name.toUpperCase()}</h2>`;
                 rootElement.appendChild(formElement);
 
                 const defaultValue = { [`${name}x`]: 10, [`${name}y`]: 10 };
-                const storage = new BrowserHistoryQueryStorage(
-                    defaultValue,
-                    {
-                        // TODO: Maybr choose in sample UI
-                        debounceInterval: 50,
-                        saveToHistory: true,
-                        saveToStorage: true,
-                    },
-                    rootStorage,
-                );
+                const storage =
+                    name !== 'c'
+                        ? new BrowserHistoryQueryStorage(
+                              defaultValue,
+                              storageOptions,
+                              rootStorage,
+                          )
+                        : new BrowserHistoryPathHashStorage(
+                              (urlPath) => {
+                                  const [_, cx, cy] = urlPath.split('/');
+                                  return { cx, cy };
+                              },
+                              ({ cx, cy }) => `/${cx}/${cy}`,
+                              defaultValue,
+                              storageOptions,
+                              rootStorage,
+                          );
 
                 const inputElements = {};
 
