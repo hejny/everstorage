@@ -6,7 +6,7 @@ export function createUniqueIdentifierFromParams(
     const uniqueIdentifierParts: string[] = [];
     for (const [key, value] of Object.entries(params)) {
         uniqueIdentifierParts.push(key);
-        uniqueIdentifierParts.push(typeof value);
+        // Note: using only keys not type of values> uniqueIdentifierParts.push(typeof value);
     }
     return uniqueIdentifierParts.join('-');
 }
