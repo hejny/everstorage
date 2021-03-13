@@ -150,14 +150,20 @@ export abstract class AbstractBrowserHistoryStorage<
         if (this.options.saveToHistory) {
             window.addEventListener('popstate', (event) => {
                 // console.log('popstate');
-                const state = event.state as IBrowserState;
+                const state = event.state;
+                if (!state) {
+                    return;
+                }
+                if (typeof state !== 'object') {
+                    return;
+                }
                 if (state.uniqueIdentifier !== this.uniqueIdentifier) {
                     return;
                 }
 
                 const value = this.serializer.deserialize(state.data);
 
-                this.values.next(value);
+                this.values.next(value as IBrowserState);
             });
         }
 
