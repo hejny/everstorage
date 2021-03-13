@@ -9,6 +9,11 @@ export interface IObservableStorage<TValue extends ISerializable>
      * Just a shorthand to get/set last/next value in values
      */
     value: TValue;
+
+    /**
+     * If you want a set a value only partially
+     */
+    setValue(value: Partial<TValue>): void;
     /**
      * Set values through value not value.next() (TODO: Maybe change?)
      */

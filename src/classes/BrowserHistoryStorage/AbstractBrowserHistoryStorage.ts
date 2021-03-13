@@ -60,7 +60,11 @@ export abstract class AbstractBrowserHistoryStorage<
         return this.values.getValue();
     }
 
-    public set value(partialValue: /*Partial<*/ TValue) {
+    public set value(value: TValue) {
+        this.setValue(value);
+    }
+
+    public setValue(partialValue: Partial<TValue>) {
         /*await forValueDefined(() =>
             this.pushValueLock ? console.log(`Waiting for lock`) : true,
         );
