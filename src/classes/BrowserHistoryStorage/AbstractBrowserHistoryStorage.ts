@@ -128,11 +128,6 @@ export abstract class AbstractBrowserHistoryStorage<
         );
     }
 
-    /**
-     * This is saved to be able to destoroy
-     */
-    private popstateEventListener: (event: PopStateEvent) => void;
-
     public async initialize() {
         // ------------- Check if initialized and prevent multiple initializations
 
@@ -272,4 +267,9 @@ export abstract class AbstractBrowserHistoryStorage<
     protected createUniqueIdentifier() {
         return createUniqueIdentifierFromParams(this.defaultValue);
     }
+
+    /**
+     * This is saved to be able to destoroy
+     */
+    private popstateEventListener: (event: PopStateEvent) => void;
 }
