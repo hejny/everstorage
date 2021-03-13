@@ -14,6 +14,10 @@
             type="text/javascript"
             src="../dist/main.dev.browser.js"
         ></script>
+        <script
+            type="text/javascript"
+            src="../node_modules/waitasecond/dist/functions/forTime.js"
+        ></script>
 
         <div id="root"></div>
 
@@ -40,56 +44,60 @@
                 'multipleBrowserHistoryStorages',
             );
 
-            for (const name of ['a', 'b', 'c']) {
-                const formElement = document.createElement('FORM');
-                formElement.innerHTML = `<h2>Values ${name.toUpperCase()}</h2>`;
-                rootElement.appendChild(formElement);
+            (async () => {
+                for (const name of ['a', 'b', 'c']) {
+                    const formElement = document.createElement('FORM');
+                    formElement.innerHTML = `<h2>Values ${name.toUpperCase()}</h2>`;
+                    rootElement.appendChild(formElement);
 
-                const defaultValue = { [`${name}x`]: 10, [`${name}y`]: 10 };
-                const storage =
-                    name !== 'c'
-                        ? new BrowserHistoryQueryStorage(
-                              defaultValue,
-                              storageOptions,
-                              rootStorage,
-                          )
-                        : new BrowserHistoryPathHashStorage(
-                              (urlPath) => {
-                                  const [_, cx, cy] = urlPath.split('/');
-                                  return { cx, cy };
-                              },
-                              ({ cx, cy }) => `/${cx}/${cy}`,
-                              defaultValue,
-                              storageOptions,
-                              rootStorage,
-                          );
+                    const defaultValue = { [`${name}x`]: 10, [`${name}y`]: 10 };
+                    const storage =
+                        name !== 'c'
+                            ? new BrowserHistoryQueryStorage(
+                                  defaultValue,
+                                  storageOptions,
+                                  rootStorage,
+                              )
+                            : new BrowserHistoryPathHashStorage(
+                                  (urlPath) => {
+                                      const [_, cx, cy] = urlPath.split('/');
+                                      return { cx, cy };
+                                  },
+                                  ({ cx, cy }) => `/${cx}/${cy}`,
+                                  defaultValue,
+                                  storageOptions,
+                                  rootStorage,
+                              );
 
-                const inputElements = {};
+                    const inputElements = {};
 
-                for (const [key, value] of Object.entries(defaultValue)) {
-                    const inputElement = document.createElement('INPUT');
-                    inputElement.type =
-                        typeof value === 'number' ? 'number' : 'text';
-                    const pushValue = () => {
-                        let value = inputElement.value;
-                        if (inputElement.type === 'number') {
-                            value = Number.parseFloat(value);
-                        }
-                        storage.value = { [key]: value };
-                    };
-                    inputElement.addEventListener('change', pushValue);
-                    inputElement.addEventListener('click', pushValue);
-                    formElement.appendChild(inputElement);
-                    inputElements[key] = inputElement;
-                }
-
-                storage.values.subscribe((values) => {
-                    console.log(`new values`, values);
-                    for (const [key, value] of Object.entries(values)) {
-                        inputElements[key].value = value;
+                    for (const [key, value] of Object.entries(defaultValue)) {
+                        const inputElement = document.createElement('INPUT');
+                        inputElement.type =
+                            typeof value === 'number' ? 'number' : 'text';
+                        const pushValue = () => {
+                            let value = inputElement.value;
+                            if (inputElement.type === 'number') {
+                                value = Number.parseFloat(value);
+                            }
+                            storage.value = { [key]: value };
+                        };
+                        inputElement.addEventListener('change', pushValue);
+                        inputElement.addEventListener('click', pushValue);
+                        formElement.appendChild(inputElement);
+                        inputElements[key] = inputElement;
                     }
-                });
-            }
+
+                    storage.values.subscribe((values) => {
+                        console.log(`new values`, values);
+                        for (const [key, value] of Object.entries(values)) {
+                            inputElements[key].value = value;
+                        }
+                    });
+
+                    await forTime(1000);
+                }
+            })();
         </script>
     </body>
 </html>
