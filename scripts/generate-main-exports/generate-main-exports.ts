@@ -9,9 +9,9 @@ import { promisify } from 'util';
 main();
 
 async function main() {
-    const comments = [
-        'GENERATED WITH generate-main-exports',
-        'Warning: Do not edit by hand, all changes will be lost on next execution!',
+    const COMMENTS = [
+        '🏭 GENERATED WITH generate-main-exports',
+        '⚠️ Warning: Do not edit by hand, all changes will be lost on next execution!',
     ];
 
     const filesPath = await glob(join(__dirname, '../../src/**/*.ts'));
@@ -25,7 +25,8 @@ async function main() {
     const exports: Array<{ path: string; name: string }> = [];
     for (const file of files) {
         let execArray: any; // RegExpExecArray | null;
-        const regExp = /^export\s+(?!abstract)\s*(async)?\s*[a-z]+\s+(?<name>[a-zA-Z0-9_]+)/gm;
+        const regExp =
+            /^export\s+(?!abstract)\s*(async)?\s*[a-z]+\s+(?<name>[a-zA-Z0-9_]+)/gm;
         while ((execArray = regExp.exec(file.content))) {
             const { name } = execArray.groups!;
             exports.push({ path: file.path, name });
@@ -34,7 +35,7 @@ async function main() {
 
     let content = '';
 
-    content += comments.map((comment) => `// ${comment}`).join('\n');
+    content += COMMENTS.map((comment) => `// ${comment}`).join('\n');
     content += '\n\n';
 
     content += exports
@@ -61,7 +62,10 @@ async function main() {
         .map(({ name }) => name)
         .join(',\n')}\n};`;
 
-    await promisify(writeFile)(join(__dirname, '../../src/main.ts'), content);
+    const indexPath = join(__dirname, '../../src/index.ts');
+    await promisify(writeFile)(indexPath, content);
+
+    console.log('\x1b[36m%s\x1b[0m', `Index file generates to:\n${indexPath}`);
 
     // Note: Here is not prettier due to prettier will be triggered automatically by prettier-watch script
 }

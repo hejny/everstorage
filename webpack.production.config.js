@@ -3,9 +3,9 @@ configs.push(
     Object.assign({}, require('./webpack.common.config.js'), {
         mode: 'production',
         output: {
-            filename: 'main.js',
+            filename: 'index.js',
             path: __dirname + '/dist/',
-            libraryTarget: 'umd',// TODO: Maybe Problematic place
+            libraryTarget: 'umd', // TODO: Maybe Problematic place
         },
     }),
 );

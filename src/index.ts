@@ -1,5 +1,5 @@
-// GENERATED WITH generate-main-exports
-// Warning: Do not edit by hand, all changes will be lost on next execution!
+// 🏭 GENERATED WITH generate-main-exports
+// ⚠️ Warning: Do not edit by hand, all changes will be lost on next execution!
 
 import { AsyncStorage } from './classes/AsyncStorage';
 import { BlackholeStorage } from './classes/BlackholeStorage';
@@ -16,9 +16,7 @@ import { objectLocalStorage } from './classes/ObjectStorage';
 import { PrefixStorage } from './classes/PrefixStorage';
 import { SerializedStorage } from './classes/SerializedStorage';
 import { createEmptyValue } from './interfaces/createEmptyValue';
-import { IAwaitable } from './interfaces/IAwaitable';
 import { IBrowserState } from './interfaces/IBrowserState';
-import { IDestroyable } from './interfaces/IDestroyable';
 import { IInstantiable } from './interfaces/IInstantiable';
 import { IJson } from './interfaces/IJson';
 import { IObservableStorage } from './interfaces/IObservableStorage';
@@ -39,9 +37,7 @@ IStorage,
 isNumeric,
 serializer,
 Serializer,
-IAwaitable,
 ISerialized,
-IDestroyable,
 MultiStorage,
 AsyncStorage,
 ISerializable,

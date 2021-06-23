@@ -2,20 +2,21 @@
     "autokill": true,
     "terminals": [
         {
-            "name": "develop-samples-server",
+            "name": "👨🏽‍💻🔥 Develop samples server",
             "command": "npm run develop-samples-server"
         },
         {
-            "name": "develop-build",
+            "name": "👨🏽‍💻🔥 Develop build",
             "command": "npm run develop-build"
         },
         {
-            "name": "test-watch",
+            "name": "🧪🔥 Test watch",
             "command": "npm run test-watch"
         },
         {
-            "name": "generate-main-exports",
-            "command": "npm run generate-main-exports"
+            "name": "🏭 Generate main exports",
+            "command": "npm run generate-main-exports",
+            "onlySingle": true
         }
     ]
 }

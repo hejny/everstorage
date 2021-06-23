@@ -22,5 +22,7 @@ app.use(
 );
 app.listen(PORT);
 
-console.info(`Static server listening on port ${PORT}.`);
+console.info(
+    `Static server listening on port ${PORT}.\nOpen it on http://localhost:${PORT}/samples/`,
+);
 // Note: not opening the browser opn(`http://localhost:${PORT}/samples/`);

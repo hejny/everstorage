@@ -1,4 +1,4 @@
-import { IAwaitable } from '../interfaces/IAwaitable';
+import { IAwaitable } from 'destroyable';
 import { ISerializable } from '../interfaces/ISerializable';
 import { ISerialized } from '../interfaces/ISerialized';
 import { IStorage } from '../interfaces/IStorage';

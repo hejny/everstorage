@@ -1,9 +1,9 @@
+import { IDestroyable } from 'destroyable';
 import { BehaviorSubject, interval, Subject } from 'rxjs';
 import { debounce } from 'rxjs/operators';
 import { forImmediate } from 'waitasecond';
 import { createEmptyValue } from '../../interfaces/createEmptyValue';
 import { IBrowserState } from '../../interfaces/IBrowserState';
-import { IDestroyable } from '../../interfaces/IDestroyable';
 import { IObservableStorage } from '../../interfaces/IObservableStorage';
 import { ISerializable } from '../../interfaces/ISerializable';
 import { ISerialized } from '../../interfaces/ISerialized';
@@ -19,8 +19,9 @@ import {
 } from './IBrowserHistoryStorageOptions';
 
 export abstract class AbstractBrowserHistoryStorage<
-    TValue extends ISerializable
-> implements IObservableStorage<TValue>, IDestroyable {
+    TValue extends ISerializable,
+> implements IObservableStorage<TValue>, IDestroyable
+{
     public destroyed = false;
     public values: BehaviorSubject<TValue>;
     private valuesToSave: Subject<TValue>;
@@ -39,7 +40,7 @@ export abstract class AbstractBrowserHistoryStorage<
         readonly defaultValue: TValue,
         options?: Partial<IBrowserHistoryStorageOptions>,
         private baseStorage?: IStorage<ISerialized>,
-        protected serializer: Serializer<TValue> = (serializerWithDate as unknown) as Serializer<TValue>,
+        protected serializer: Serializer<TValue> = serializerWithDate as unknown as Serializer<TValue>,
     ) {
         // TODO: Check collisions globally
 
@@ -178,7 +179,7 @@ export abstract class AbstractBrowserHistoryStorage<
                 const value = this.serializer.deserialize(state.data)!;
 
                 // console.log('popstate/next', { value });
-                this.values.next((value as IBrowserState) as TValue);
+                this.values.next(value as IBrowserState as TValue);
             };
             window.addEventListener('popstate', this.popstateEventListener);
         }

@@ -1,5 +1,5 @@
+import { IDestroyable } from 'destroyable';
 import { BehaviorSubject } from 'rxjs';
-import { IDestroyable } from './IDestroyable';
 import { ISerializable } from './ISerializable';
 
 /** This is simmilar to Web Storage API interface but values are observable streams. */

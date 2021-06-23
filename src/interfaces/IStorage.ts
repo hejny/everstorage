@@ -1,4 +1,4 @@
-import { IAwaitable } from './IAwaitable';
+import { IAwaitable } from 'destroyable';
 
 /** This is same as Web Storage API interface but everything is asynchronous. */
 export interface IStorage<T> {

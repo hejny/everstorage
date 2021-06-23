@@ -3,8 +3,8 @@
     "version": "1.2.0",
     "author": "Pavol Hejný <me@pavolhejny.com> (https://pavolhejny.com)",
     "description": "A vector manipulation class",
-    "main": "./dist/main.js",
-    "types": "./dist/typings/src/main.d.ts",
+    "main": "./dist/index.js",
+    "types": "./dist/typings/src/index.d.ts",
     "files": [
         "dist/**"
     ],
@@ -15,7 +15,6 @@
     "keywords": [],
     "license": "MIT",
     "scripts": {
-        "start": "npm run develop",
         "preversion": "npm test && npm run lint && npm run generate-main-exports-commit && npm run build && npm run documentation-commit",
         "postversion": "git push && git push --tags && npm publish",
         "build": "webpack --config webpack.production.config.js",
@@ -36,6 +35,7 @@
         "@types/serve-static": "^1.13.5",
         "@types/uuid": "^3.4.5",
         "codecov": "^3.5.0",
+        "destroyable": "^0.4.0",
         "express": "^4.17.1",
         "glob-promise": "^3.4.0",
         "jest": "^24.8.0",
