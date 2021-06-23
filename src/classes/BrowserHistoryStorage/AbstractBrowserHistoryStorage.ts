@@ -22,7 +22,7 @@ export abstract class AbstractBrowserHistoryStorage<
     TValue extends ISerializable,
 > implements IObservableStorage<TValue>, IDestroyable
 {
-    public destroyed = false;
+    public isDestroyed = false;
     public values: BehaviorSubject<TValue>;
     private valuesToSave: Subject<TValue>;
     private options: IBrowserHistoryStorageOptions;
