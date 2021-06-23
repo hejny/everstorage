@@ -106,7 +106,7 @@ export abstract class AbstractBrowserHistoryStorage<
     }
 
     public destroy() {
-        this.destroyed = true;
+        this.isDestroyed = true;
         if (this.options.saveToHistory) {
             window.history.pushState(
                 null,
