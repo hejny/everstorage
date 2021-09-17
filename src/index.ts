@@ -8,6 +8,7 @@ import { BrowserHistoryPathHashStorage } from './classes/BrowserHistoryStorage/B
 import { BrowserHistoryPathStorage } from './classes/BrowserHistoryStorage/BrowserHistoryPathStorage';
 import { BrowserHistoryQueryStorage } from './classes/BrowserHistoryStorage/BrowserHistoryQueryStorage';
 import { BrowserHistoryUrlStorage } from './classes/BrowserHistoryStorage/BrowserHistoryUrlStorage';
+import { BrowserHistoryUrlStringStorage } from './classes/BrowserHistoryStorage/BrowserHistoryUrlStringStorage';
 import { IBrowserHistoryStorageOptions } from './classes/BrowserHistoryStorage/IBrowserHistoryStorageOptions';
 import { BROWSER_HISTORY_STORAGE_OPTIONS_DEFAULTS } from './classes/BrowserHistoryStorage/IBrowserHistoryStorageOptions';
 import { MemoryStorage } from './classes/MemoryStorage';
@@ -61,6 +62,7 @@ BrowserHistoryPathStorage,
 BrowserHistoryQueryStorage,
 IBrowserHistoryStorageOptions,
 BrowserHistoryPathHashStorage,
+BrowserHistoryUrlStringStorage,
 createUniqueIdentifierFromParams,
 BROWSER_HISTORY_STORAGE_OPTIONS_DEFAULTS
 };

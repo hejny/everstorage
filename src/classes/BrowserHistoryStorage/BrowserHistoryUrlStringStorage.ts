@@ -8,13 +8,13 @@ import { IBrowserHistoryStorageOptions } from './IBrowserHistoryStorageOptions';
 
 // TODO: Maybe some more elegant way how to do this
 let instanced = false;
-export class BrowserHistoryUrlStorage<TValue extends ISerializable>
+export class BrowserHistoryUrlStringStorage<TValue extends ISerializable>
     extends AbstractBrowserHistoryStorage<TValue>
     implements IObservableStorage<TValue>
 {
     constructor(
-        readonly decodeUrl: (url: URL) => TValue,
-        readonly encodeUrl: (params: TValue) => URL,
+        private decodeUrlString: (url: string) => TValue,
+        private encodeUrlString: (params: TValue) => string,
         defaultValue: TValue /* !!! There is important to enumerate all keys */,
         options?: Partial<IBrowserHistoryStorageOptions>,
         storage?: IStorage<ISerialized>,
@@ -30,5 +30,13 @@ export class BrowserHistoryUrlStorage<TValue extends ISerializable>
         } else {
             instanced = true;
         }
+    }
+
+    protected decodeUrl(url: URL): Partial<TValue> {
+        return this.decodeUrlString(url.toString());
+    }
+
+    protected encodeUrl(params: TValue): URL {
+        return new URL(this.encodeUrlString(params));
     }
 }
