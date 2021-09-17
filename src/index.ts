@@ -7,6 +7,7 @@ import { blackholeStorage } from './classes/BlackholeStorage';
 import { BrowserHistoryPathHashStorage } from './classes/BrowserHistoryStorage/BrowserHistoryPathHashStorage';
 import { BrowserHistoryPathStorage } from './classes/BrowserHistoryStorage/BrowserHistoryPathStorage';
 import { BrowserHistoryQueryStorage } from './classes/BrowserHistoryStorage/BrowserHistoryQueryStorage';
+import { BrowserHistoryUrlStorage } from './classes/BrowserHistoryStorage/BrowserHistoryUrlStorage';
 import { IBrowserHistoryStorageOptions } from './classes/BrowserHistoryStorage/IBrowserHistoryStorageOptions';
 import { BROWSER_HISTORY_STORAGE_OPTIONS_DEFAULTS } from './classes/BrowserHistoryStorage/IBrowserHistoryStorageOptions';
 import { MemoryStorage } from './classes/MemoryStorage';
@@ -55,6 +56,7 @@ SerializedStorage,
 serializerWithDate,
 IObservableStorage,
 objectLocalStorage,
+BrowserHistoryUrlStorage,
 BrowserHistoryPathStorage,
 BrowserHistoryQueryStorage,
 IBrowserHistoryStorageOptions,
