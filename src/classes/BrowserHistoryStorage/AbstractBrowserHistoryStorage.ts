@@ -128,13 +128,13 @@ export abstract class AbstractBrowserHistoryStorage<
             baseUrl = window.location.toString();
         }
 
-        const baseUrl_ =
+        const baseUrlUrl =
             typeof baseUrl === 'string' ? new URL(baseUrl) : baseUrl;
-        const baseValue = this.decodeUrl(baseUrl_);
+        const baseValue = this.decodeUrl(baseUrlUrl);
 
         return this.encodeUrl(
             { ...this.defaultValue, ...baseValue, ...value },
-            baseUrl_,
+            baseUrlUrl,
         );
     }
 
