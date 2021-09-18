@@ -123,7 +123,7 @@ export abstract class AbstractBrowserHistoryStorage<
         this.valuesToSave.complete();
     }
 
-    public createLink(value: TValue, baseUrl?: URL | string): URL {
+    public createLink(value: Partial<TValue>, baseUrl?: URL | string): URL {
         if (!baseUrl) {
             baseUrl = window.location.toString();
         }
@@ -256,7 +256,7 @@ export abstract class AbstractBrowserHistoryStorage<
     }
 
     protected abstract decodeUrl(url: URL): Partial<TValue>;
-    protected abstract encodeUrl(params: TValue, lastUrl: URL): URL;
+    protected abstract encodeUrl(params: Partial<TValue>, lastUrl: URL): URL;
 
     protected createUniqueIdentifier() {
         return createUniqueIdentifierFromParams(this.defaultValue);
