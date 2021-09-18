@@ -128,9 +128,13 @@ export abstract class AbstractBrowserHistoryStorage<
             baseUrl = window.location.toString();
         }
 
+        const baseUrl_ =
+            typeof baseUrl === 'string' ? new URL(baseUrl) : baseUrl;
+        const baseValue = this.decodeUrl(baseUrl_);
+
         return this.encodeUrl(
-            value,
-            typeof baseUrl === 'string' ? new URL(baseUrl) : baseUrl,
+            { ...this.defaultValue, ...baseValue, ...value },
+            baseUrl_,
         );
     }
 
@@ -256,7 +260,7 @@ export abstract class AbstractBrowserHistoryStorage<
     }
 
     protected abstract decodeUrl(url: URL): Partial<TValue>;
-    protected abstract encodeUrl(params: Partial<TValue>, lastUrl: URL): URL;
+    protected abstract encodeUrl(params: TValue, lastUrl: URL): URL;
 
     protected createUniqueIdentifier() {
         return createUniqueIdentifierFromParams(this.defaultValue);
