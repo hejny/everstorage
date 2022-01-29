@@ -19,6 +19,8 @@ export class Serializer<T extends ISerializable> {
      */
     public addRule(rule: ISerializeRule<T>) {
         this.rules.push(rule);
+
+// !!! Use destroyable here
     }
 
     public removeRule(rule: ISerializeRule<T>) {
@@ -265,3 +267,5 @@ export class Serializer<T extends ISerializable> {
         );
     }
 }
+
+// !!! Tests and to to separate library
