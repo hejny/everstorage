@@ -1,3 +1,4 @@
+import { registerItemsInArray, Registration } from 'destroyable';
 import { ISerializable } from '../interfaces/ISerializable';
 import { ISerialized } from '../interfaces/ISerialized';
 import { ISerializeRule } from '../interfaces/ISerializeRule';
@@ -17,15 +18,8 @@ export class Serializer<T extends ISerializable> {
     /**
      * TODO: Extending an instances of serializers. For example add new rules to basic serializer to cerate new one with default + new rules.
      */
-    public addRule(rule: ISerializeRule<T>) {
-        this.rules.push(rule);
-
-// !!! Use destroyable here
-    }
-
-    public removeRule(rule: ISerializeRule<T>) {
-        this.rules = this.rules.filter((rule2) => rule !== rule2);
-        // TODO: Should be here checking if rule is existing?
+    public addRule(...rules: Array<ISerializeRule<T>>): Registration {
+        return registerItemsInArray({ base: this.rules, add: rules });
     }
 
     public serialize(instance: null): null;
@@ -49,9 +43,8 @@ export class Serializer<T extends ISerializable> {
                 serializedData.__class = serializeRule.name;
                 for (const [key, value] of Object.entries(instance)) {
                     if (!key.startsWith('__')) {
-                        serializedData[key] = this.serializeWithPrimitives(
-                            value,
-                        );
+                        serializedData[key] =
+                            this.serializeWithPrimitives(value);
                     }
                 }
                 return serializedData;
