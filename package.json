@@ -13,7 +13,7 @@
     "url": "git+git@github.com/hejny/everstorage"
   },
   "keywords": [],
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "preversion": "npm test && npm run lint && npm run generate-main-exports-commit && npm run build && npm run documentation-commit",
     "postversion": "git push && git push --tags && npm publish",
