@@ -2,7 +2,7 @@
   "name": "everstorage",
   "version": "1.10.1",
   "author": "Pavol Hejný <me@pavolhejny.com> (https://pavolhejny.com)",
-  "description": "A vector manipulation class",
+  "description": "The library was written for uniting API of various browser and cloud storage services.",
   "main": "./dist/index.js",
   "types": "./dist/typings/src/index.d.ts",
   "files": [
