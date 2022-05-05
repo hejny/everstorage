@@ -10,7 +10,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+git@github.com/hejny/everstorage"
+    "url": "https://github.com/hejny/everstorage"
   },
   "keywords": [],
   "license": "SEE LICENSE IN LICENSE",
