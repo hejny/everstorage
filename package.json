@@ -2,7 +2,7 @@
     "name": "everstorage",
     "version": "1.10.1",
     "author": "Pavol Hejný <me@pavolhejny.com> (https://pavolhejny.com)",
-    "description": "The library was written for uniting API of various browser and cloud storage services.",
+    "description": "I am open to pull requests, feedback, and suggestions. Or if you like this utility, you can ☕ buy me a coffee or donate via cryptocurrencies.",
     "main": "./dist/index.js",
     "types": "./dist/typings/src/index.d.ts",
     "files": [
