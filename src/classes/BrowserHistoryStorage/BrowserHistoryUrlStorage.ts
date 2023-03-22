@@ -15,7 +15,7 @@ export class BrowserHistoryUrlStorage<TValue extends ISerializable>
     constructor(
         readonly decodeUrl: (url: URL) => TValue,
         readonly encodeUrl: (params: TValue) => URL,
-        defaultValue: TValue /* TODO: !!! There is important to enumerate all keys */,
+        defaultValue: TValue /* !!! There is important to enumerate all keys */,
         options?: Partial<IBrowserHistoryStorageOptions>,
         storage?: IStorage<ISerialized>,
         serializer?: Serializer<TValue>,
