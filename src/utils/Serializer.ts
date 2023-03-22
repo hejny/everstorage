@@ -24,7 +24,7 @@ export class Serializer<T extends ISerializable> {
 
     public serialize(instance: null): null;
     public serialize(instance: T): ISerialized;
-    public serialize(instance: null | T): null | ISerialized; // TODO !!!
+    public serialize(instance: null | T): null | ISerialized; // TODO TODO: !!!
     public serialize(instance: null | T): null | ISerialized {
         // TODO: Warn or error when object class is definitelly not generic Object but not defined in serializeRules
 
@@ -261,4 +261,4 @@ export class Serializer<T extends ISerializable> {
     }
 }
 
-// !!! Tests and to to separate library
+// TODO: !!! Tests and to to separate library
