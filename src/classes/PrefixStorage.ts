@@ -1,4 +1,4 @@
-import { IAwaitable } from 'destroyable';
+import { Promisable } from 'type-fest';
 import { IStorage } from '../interfaces/IStorage';
 
 /**
@@ -14,7 +14,7 @@ export class PrefixStorage<T> implements IStorage<T> {
     /**
      * Returns the number of key/value pairs currently present in the list associated with the object.
      */
-    public get length(): IAwaitable<number> {
+    public get length(): Promisable<number> {
         return this.baseStorage.length /* TODO: Real count */;
     }
 
@@ -28,7 +28,7 @@ export class PrefixStorage<T> implements IStorage<T> {
     /**
      * Returns the current value associated with the given key, or null if the given key does not exist in the list associated with the object.
      */
-    public getItem(key: string): IAwaitable<T | null> {
+    public getItem(key: string): Promisable<T | null> {
         return this.baseStorage.getItem(this.keyPrefix + this.separator + key);
     }
 
@@ -50,7 +50,7 @@ export class PrefixStorage<T> implements IStorage<T> {
     /**
      * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
      */
-    public setItem(key: string, value: T): IAwaitable<void> {
+    public setItem(key: string, value: T): Promisable<void> {
         return this.baseStorage.setItem(
             this.keyPrefix + this.separator + key,
             value,

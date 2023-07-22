@@ -1,3 +1,7 @@
+import { JsonValue } from 'type-fest';
+
+export type IJson = JsonValue;
+/*
 export interface IJson {
     [key: string]:
         | string
@@ -9,4 +13,8 @@ export interface IJson {
         | IJson;
 }
 
-// TODO: !!! Use here typefest
+*/
+
+/**
+ * TODO: !!! Just ACRY change IJson to JsonValue and remove this file
+ */

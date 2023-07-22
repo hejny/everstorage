@@ -1,4 +1,4 @@
-import { IAwaitable } from 'destroyable';
+import { Promisable } from 'type-fest';
 import { IJson } from '../interfaces/IJson';
 import { IStorage } from '../interfaces/IStorage';
 
@@ -11,7 +11,7 @@ export class ObjectStorage<T extends IJson> {
     /**
      * Returns the number of key/value pairs currently present in the list associated with the object.
      */
-    public get length(): IAwaitable<number> {
+    public get length(): Promisable<number> {
         return this.baseStorage.length;
     }
 
@@ -53,7 +53,7 @@ export class ObjectStorage<T extends IJson> {
     /**
      * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
      */
-    public setItem(key: string, value: T): IAwaitable<void> {
+    public setItem(key: string, value: T): Promisable<void> {
         return this.baseStorage.setItem(key, JSON.stringify(value));
     }
 }
