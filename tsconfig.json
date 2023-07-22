@@ -1,19 +1,19 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "lib": ["es2018", "dom"],
-    "sourceMap": true,
-    "declaration": true,
-    "declarationDir": "typings",
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,    
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "esModuleInterop": true
-  },
-  "exclude": ["dist"]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": ["es2018", "dom"],
+        "sourceMap": true,
+        "declaration": true,
+        "declarationDir": "typings",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true
+    },
+    "exclude": ["dist"]
 }
