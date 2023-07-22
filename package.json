@@ -17,7 +17,7 @@
     "scripts": {
         "preversion": "npm test && npm run lint && npm run generate-main-exports-commit && npm run build && npm run documentation-commit",
         "postversion": "git push && git push --tags && npm publish",
-        "build": "rm -r dist && webpack --config webpack.production.config.js && rm -r typings",
+        "build": "rm -r dist && webpack --config webpack.production.config.js",
         "develop-samples-server": "ts-node ./samples/_server.ts",
         "develop-build": "onchange \"src/**/*.{ts,tsx}\" --initial --kill --delay 500  -- webpack --config webpack.development.config.js",
         "documentation": "typedoc --excludePrivate --hideGenerator --theme default --out docs --name \"Everstorage\" ./src",
