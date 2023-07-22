@@ -14,8 +14,8 @@ import { serializerWithDate } from '../../utils/serializers';
 import { objectLocalStorage } from '../ObjectStorage';
 import { SerializedStorage } from '../SerializedStorage';
 import {
-    BROWSER_HISTORY_STORAGE_OPTIONS_DEFAULTS,
-    IBrowserHistoryStorageOptions,
+  BROWSER_HISTORY_STORAGE_OPTIONS_DEFAULTS,
+  IBrowserHistoryStorageOptions
 } from './IBrowserHistoryStorageOptions';
 
 export abstract class AbstractBrowserHistoryStorage<
