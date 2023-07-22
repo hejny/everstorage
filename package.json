@@ -20,7 +20,7 @@
         "build": "webpack --config webpack.production.config.js",
         "develop-samples-server": "ts-node ./samples/_server.ts",
         "develop-build": "onchange \"src/**/*.{ts,tsx}\" --initial --kill --delay 500  -- webpack --config webpack.development.config.js",
-        "documentation": "typedoc --excludePrivate --hideGenerator --theme minimal --out docs --name \"Everstorage\" ./src",
+        "documentation": "typedoc --excludePrivate --hideGenerator --theme default --out docs --name \"Everstorage\" ./src",
         "documentation-commit": "git diff --exit-code && npm run documentation && git add docs && git commit --allow-empty -m \"Documentation\"",
         "test": "jest --config jestconfig.json",
         "test-watch": "jest --config jestconfig.json --watchAll",
