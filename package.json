@@ -15,7 +15,7 @@
     "keywords": [],
     "license": "SEE LICENSE IN LICENSE",
     "scripts": {
-        "preversion": "npm test && npm run lint && npm run generate-main-exports-commit && npm run buildcommit && npm run documentation-commit",
+        "preversion": "npm test && npm run lint && npm run generate-main-exports-commit && npm run build && npm run documentation-commit",
         "postversion": "git push && git push --tags && npm publish",
         "build": "rm -r dist && webpack --config webpack.production.config.js && rm -r typings",
         "develop-samples-server": "ts-node ./samples/_server.ts",
