@@ -27,3 +27,6 @@ yarn.lock
 .idea
 .vscode/*
 !.vscode/terminals.json
+
+# NPM configuration
+.npmrc
