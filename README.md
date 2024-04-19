@@ -8,6 +8,7 @@
 [![Quality of package 💾 Everstorage](https://packagequality.com/shield/everstorage.svg)](https://packagequality.com/#?package=everstorage)
 [![Known Vulnerabilities](https://snyk.io/test/github/hejny/everstorage/badge.svg)](https://snyk.io/test/github/hejny/everstorage)
 [![Issues](https://img.shields.io/github/issues/hejny/everstorage.svg?style=flat)](https://github.com/hejny/everstorage/issues)
+[![Socket](https://socket.dev/api/badge/npm/package/everstorage)](https://socket.dev/npm/package/everstorage)
 <!--[![License of 💾 Everstorage](https://img.shields.io/github/license/hejny/everstorage.svg?style=flat)](https://github.com/hejny/everstorage/blob/main/LICENSE)-->
 
 <!--/Badges-->
