@@ -27,8 +27,8 @@ importers:
         specifier: 3.8.2
         version: 3.8.2
       destroyable:
-        specifier: 0.12.70
-        version: 0.12.70
+        specifier: 0.12.71
+        version: 0.12.71
       express:
         specifier: 4.17.2
         version: 4.17.2
@@ -875,8 +875,8 @@ packages:
   destroy@1.0.4:
     resolution: {integrity: sha512-3NdhDuEXnfun/z7x9GOElY49LoqVHoGScmOKwmxhsS8N5Y+Z8KyPPDnaSzqWgYt/ji4mqwfTS34Htrk0zPIXVg==}
 
-  destroyable@0.12.70:
-    resolution: {integrity: sha512-G7AnYzGAfrojZQCUXJZQCY6LN7hyRmK+CRX4XmJU4x5gXhR4jRrwQUYmPn/qV4bwa5XOSyyhbLlmiHIhORnn+Q==}
+  destroyable@0.12.71:
+    resolution: {integrity: sha512-NgoYOOcb6ky6sH7ifxhSZNU7iQaK1qWlaSrIn+saiJtZXTLpdU+t8W/ECHw1r5gzPYuaP8A5lJNvalQBh6P/8g==}
 
   detect-newline@3.1.0:
     resolution: {integrity: sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==}
@@ -3181,7 +3181,7 @@ snapshots:
 
   destroy@1.0.4: {}
 
-  destroyable@0.12.70:
+  destroyable@0.12.71:
     dependencies:
       rxjs: 6.6.3
       type-fest: 2.5.2
